@@ -1,0 +1,90 @@
+/* Contenedor de los elementos que activan el popover */
+
+.popover__container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Menú que contiene las opciones del popovers */
+
+.popover {
+  position: absolute;
+  top: 24px;
+  right: 0px;
+  z-index: 1;
+
+  /*  */
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-2px);
+
+  transition: 0.4s;
+}
+
+.popover::before {
+  content: '';
+
+  position: absolute;
+  top: -4px;
+  right: 6px;
+  z-index: -1;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 3px;
+
+  background-color: var(--bg-4);
+
+  transform: rotate(45deg);
+}
+
+.popover__options {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 160px;
+  min-height: 100px;
+
+  border-radius: 4px;
+
+  overflow: hidden;
+
+  background-color: var(--bg-4);
+}
+
+.open {
+  transform: translateY(2px);
+  opacity: 1;
+  visibility: visible;
+}
+
+::slotted(*) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 2.5em;
+
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 300;
+  text-align: center;
+
+  padding: 12px !important;
+
+  border-radius: 0;
+
+  color: var(--tx-1);
+  background-color: var(--bg-4) !important;
+
+  transition: all 0.4s ease;
+}
+
+::slotted(*:hover) {
+  filter: brightness(1.2);
+  cursor: pointer;
+
+  transition: all 0.4s ease;
+}

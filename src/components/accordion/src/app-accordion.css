@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+
+  /* TabGroup */
+  --tab-group-border-radius-value: var(--border-radius-value);
+  --tab-group-border-value: var(--border-value) solid
+  var(--border-color-2);
+
+  /* Tab */
+  --tab-background-color: var(--background-color-4);
+  --tab-border-value: var(--border-value) solid
+  var(--border-color-2);
+
+  /* Label */
+  --label-background-color: var(--background-color-4);
+  --label-text-color-checked: var(--main-color-4);
+  --label-text-color:var(--text-color-emphasis-mid);
+  --label-padding-value: var(--padding-value);
+
+  /* TabContent */
+
+  --tab-content-background-color:var(--background-color-3);
+  --tab-content-text-color:var(--text-color-emphasis-mid);
+  --tab-content-padding-value: var(--padding-value);
+}
+
+.tab-group {
+  display: inline-flex;
+  flex-direction: column;
+
+  border: var(--tab-group-border-value);
+  border-radius: var(--tab-group-border-radius-value);
+  
+  overflow: hidden;
+}
+
+.tab {
+  display: inline-flex;
+  flex-direction: column;
+
+  position: relative;
+  width: 100%;
+
+  background-color: var(--tab-background-color);
+}
+
+.tab .input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -999;
+}
+
+.tab .label {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--label-background-color);
+  color: var(--label-text-color);
+
+  padding: var(--label-padding-value);
+}
+.tab:not(:last-of-type) {
+  border-bottom:var(--tab-border-value);
+}
+
+.tab input:focus + label,
+.tab label:hover {
+  filter: brightness(1.25) contrast(90%);
+  cursor: pointer;
+}
+
+.tab-content {
+  display: inline-block;
+
+  max-height: 0;
+
+  overflow: hidden;
+
+  padding: 0 var(--tab-content-padding-value);
+  
+  overflow-y: scroll;
+  scrollbar-width: none;
+  
+  color: var(--tab-content-text-color);
+  background-color: var(--tab-content-background-color);
+
+  transition: all 0.2s ease;
+}
+
+.tab .input:checked ~ .tab-content {
+  max-height: 200px;
+  padding: var(--tab-content-padding-value);
+  transition: all 0.2s .30s ease-in;
+}
+.tab .input:checked ~ .label {
+  color: var(--label-text-color-checked);
+  filter: brightness(1.25) contrast(90%);
+}
+
+.tab-content h1,
+.tab-content h2,
+.tab-content h3,
+.tab-content h4,
+.tab-content h5 {
+  font-size: 20px;
+  margin: 0 0 4px;
+}

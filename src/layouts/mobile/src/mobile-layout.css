@@ -1,0 +1,126 @@
+* {
+  /* Super Container */
+  --super-container-background-color: var(--background-color-1);
+
+  /* Header */
+  --header-background-color: var(--background-color-2);
+  --header-border-color: none;
+  --header-font-color: var(--text-color-emphasis-mid);
+
+  /* Main */
+  --main-background-color: var(--background-color-1);
+  --main-border-color: none;
+  --main-font-color: var(--text-color-emphasis-mid);
+
+  /* Nav Menu */
+  --nav-menu-background-color: var(--background-color-2);
+  --nav-menu-border-color: none;
+  --nav-menu-font-color: var(--text-color-emphasis-low);
+}
+
+.super-container * {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+.super-container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  background-color: var(--super-container-background-color);
+}
+
+.header {
+  width: 100%;
+  height: auto;
+
+  padding: 1rem;
+
+  color: var(--header-font-color);
+  background-color: var(--header-background-color);
+  /* border-bottom: solid 0.5px var(--header-border-color); */
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  flex: 1 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 1rem;
+  padding-bottom: 96px;
+
+  overflow-x: auto;
+
+  color: var(--main-font-color);
+  border: 0.5px solid var(--main-border-color);
+  background-color: var(--main-background-color);
+}
+
+.nav-menu {
+  width: 100%;
+  height: 80px;
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  padding: 1rem;
+
+  color: var(--nav-menu-font-color);
+  background-color: var(--nav-menu-background-color);
+  /* border-top: 0.5px solid var(--nav-menu-border-color); */
+}
+
+/** Template */
+
+.nav-menu .btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.btn-container button {
+  width: 48px;
+  height: 100%;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 18px;
+
+  color: var(--main-color);
+}
+
+/* d */
+
+.menu-container {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-container h1 {
+  font-size: 20px;
+  color: var(--main-color-2);
+}
+
+.menu-container button {
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+}

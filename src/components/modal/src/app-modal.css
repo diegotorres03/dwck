@@ -1,0 +1,221 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+
+  /* ModalWrap */
+  --modal-wrap-border-value: var(--border-value) solid
+  var(--border-color-2);
+  --modal-wrap-border-radius-value: var(--border-radius-value);
+
+  /* ModalHeader */
+  --modal-header-padding-value: var(--padding-value);
+  --modal-header-text-color: var(--text-color-emphasis-mid);
+  --modal-header-background-color: var(--background-color-4);
+  --modal-header-border-value:var(--border-value) solid
+  var(--border-color-2);
+
+  /* Close */
+  --close-background-color: var(--background-color-5);
+  --close-padding-value: .4rem;
+  --close-text-color: var(--text-color-emphasis-mid);
+  --close-text-color-hover: var(--text-color-emphasis-high);
+
+  /* MainContent */
+  --main-content-padding-value: var(--padding-value);
+  --main-content-text-color: var(--text-color-emphasis-mid);
+  --main-content-background-color: var(--background-color-3);
+
+  /* Footer */
+
+  --footer-background-color:var(--background-color-3);
+  --footer-padding-value: 0 var(--padding-value) var(--padding-value);
+  --footer-gap-value: var(--gap-value);
+
+  /* DeclineButton */
+  --decline-btn-border-radius-value: .2rem;
+  --decline-btn-background-color: var(--background-color-4);
+  --decline-btn-text-color: var(--text-color-emphasis-mid);
+
+  /* DeclineButton */
+  --accept-btn-border-radius-value: .2rem;
+  --accept-btn-background-color: var(--main-color-4);
+  --accept-btn-text-color: var(--text-color-inverted);
+
+  /* Buttons */
+  --button-padding-value:calc(var(--padding-value)/2) var(--padding-value);
+
+}
+
+/* CSS */
+
+input {
+  position: absolute;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100vh;
+
+  opacity: 0;
+
+  transform: scale(0.5);
+
+  transition: all 0.75s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.modal-wrap {
+  display: flex;
+  flex-direction: column;
+
+  /* width: 60%; */
+
+  max-width: 400px;
+
+  border: var(--modal-wrap-border-value);
+  border-radius: var(--modal-wrap-border-radius-value);
+
+  overflow: hidden;
+
+  filter: drop-shadow(0 1rem 4rem hsl(var(--theme-tone), 50%, 80%, 0.40));
+}
+
+#checker {
+  top: -1000px;
+}
+
+#checker:checked ~ .modal-overlay {
+  animation: 1s 1 normal appear;
+  animation-delay: 0.4s;
+  animation-fill-mode: forwards;
+
+  opacity: 1;
+  transform: scale(1);
+  z-index: 800;
+}
+
+@keyframes appear {
+  from {
+    background: transparent;
+  }
+
+  to {
+    background: hsl(var(--theme-tone), 5%, 12%, .9);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: var(--modal-header-padding-value);
+
+  font-size: 16px !important;
+
+  border-bottom: var(--modal-header-border-value);
+  color: var(--modal-header-text-color);
+  background-color: var(--modal-header-background-color);
+}
+
+/* Inyecta css directamente al elemento "[slot="title"]" 
+que esté dentro del componente que lleve esta hoja de css */
+
+::slotted([slot="title"]){
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+.close {
+  position: relative;
+
+  width: 20px;
+  height: 20px;
+  padding-bottom: 1px;
+
+  border-radius: 4px;
+
+  color: var(--close-text-color);
+}
+.close span {
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  min-height: 100%;
+}
+
+.close:hover {
+  color: var(--close-text-color-hover);
+  cursor: pointer;
+}
+
+.close:active {
+  filter: brightness(.85);
+}
+
+.main-content {
+  width: 100%;
+  padding: var(--main-content-padding-value);
+
+  background-color: var(--main-content-background-color);
+  color: var(--main-content-text-color);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--footer-gap-value);
+  width: 100%;
+  padding: var(--footer-padding-value);
+  background-color: var(--footer-background-color);
+}
+
+.accept-btn {
+  display: inline-block;
+  width: 100%;
+  
+  padding: var(--button-padding-value);
+  border: none;
+  border-radius: var(--accept-btn-border-radius-value);
+
+  color: var(--accept-btn-text-color);
+  background-color: var(--accept-btn-background-color);
+}
+.decline-btn {
+  display: inline-block;
+  width: 100%;
+  
+  padding: var(--button-padding-value);
+  border: none;
+  border-radius: var(--decline-btn-border-radius-value);
+
+  color: var(--decline-btn-text-color);
+  background-color: var(--decline-btn-background-color);
+}
+
+.accept-btn, .decline-btn {
+  display: block;
+  transition: all 0.2s ease;
+
+  cursor: pointer;
+}
+.accept-btn:hover, .decline-btn:hover {
+  filter: brightness(1.25) contrast(90%);
+}
+.accept-btn:active , .decline-btn:active {
+  filter: brightness(0.95);
+  transform: scale(0.95);
+}
