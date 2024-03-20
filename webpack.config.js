@@ -21,7 +21,9 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       // template: 'index.html',
-      template: `index.${process.env.DWCK_APP_NAME}.html`,
+      template: process.env.DWCK_APP_NAME ?
+        `index.${process.env.DWCK_APP_NAME}.html` :
+        'index.html',
     }),
   ],
   module: {
