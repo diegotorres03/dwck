@@ -25,6 +25,7 @@
     "dexie": "^3.2.4",
     "localforage": "^1.10.0",
     "maplibre-gl": "^3.4.1",
+    "mermaid": "^10.9.0",
     "vis-network": "^9.1.6",
     "xstate": "^4.38.2"
   },

@@ -10,3 +10,4 @@ export * from './cards';
 export * from './drag-drop'
 export * from './pop-over-menu'
 export * from './geo-map'
+export * from './mermaid-viewer'
