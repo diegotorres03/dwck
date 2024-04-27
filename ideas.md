@@ -26,7 +26,7 @@
 
 <button id="done-btn">done</button>
 
-<state-machine id="my-machine">
+<state-machine id="my-machine" data-context-var="1" initial="#start">
     <machine-state id="start">
         <machine-transition target="#next">
             <app-modal>
@@ -43,3 +43,6 @@
 
 
 ```
+
+
+
