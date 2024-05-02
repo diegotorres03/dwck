@@ -45,6 +45,7 @@
 
 .landing-header__logo {
   max-width: 100%;
+  max-height: 2rem;
   height: auto;
 }
 
@@ -84,12 +85,18 @@
 
 .landing-header__nav-list-item {
   list-style: none;
-
+  color: var(--text-color-emphasis-high);
   width: max-content;
 }
 
+
 .landing-header__nav-list-item [cta] {
   background-color: var(--main-color-4);
+}
+
+.landing-header__nav-list-item a {
+  font-weight: 400;
+  color: inherit;
 }
 
 /* Botón que desplega el menú cuando se usa desde el celular */
@@ -114,6 +121,7 @@
 /* Media Queries */
 
 @media only screen and (max-width: 768px) {
+
   /* Clase para ocultar el nav-list */
   .hidden {
     display: none;
@@ -231,6 +239,7 @@
   .landing-header__visual {
     gap: 0.4rem;
   }
+
   .landing-header__logo {
     width: 2.2rem;
     height: auto;

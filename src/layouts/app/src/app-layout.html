@@ -1,16 +1,11 @@
 <div class="al-container">
-
-  <header class="al-header">
-
-    <slot name="header">Header</slot>
-    <button id="hidder-btn">↔️</button>
-
-  </header>
-  <div class="al-split">
-
-    <div data-left-content-hide class="al-split__left">
-
-      <!-- <section class="left__header">
+	<header class="al-header">
+		<slot name="header">Header</slot>
+		<button id="hidder-btn">↔️</button>
+	</header>
+	<div class="al-split">
+		<div data-left-content-hide class="al-split__left">
+			<!-- <section class="left__header">
 
         <slot name="left-title">Left header</slot>
 
@@ -24,52 +19,39 @@
         </div>
 
       </section> -->
-      <div class="left__menu">
-
-        <div class="left__menu-header">
-
-          <slot name="left-title">Left header</slot>
-
-        </div>
-        <div class="left__menu-content">
-
-          <slot name="left-content">Left menu</slot>
-
-        </div>
-
-      </div>
-      <div class="resizer"></div>
-
-    </div>
-    <div class="al-split__right">
-
-      <section class="top__menu">
-
-        <!-- <slot name="right-header"> -->
-        <!-- REVIEW @marco:
+			<div class="left__menu">
+				<div class="left__menu-header">
+					<slot name="left-title">Left header</slot>
+				</div>
+				<div class="left__menu-content">
+					<slot name="left-content">Left menu</slot>
+				</div>
+			</div>
+			<div class="resizer"></div>
+		</div>
+		<div class="al-split__right">
+			<section class="top__menu">
+				<!-- <slot name="right-header"> -->
+				<!-- REVIEW @marco:
           parce, me gusta mas la nomenclaruta top aca, q pensas?
           por ejemplo, top-menu, top-nav o solo top
 
 
           R👌
         -->
-        <slot name="top-menu">
+				<slot name="top-menu">
+					<span class="right-header__link-box">Right header</span>
+					<span class="right-header__link-box">tab-1</span>
+					<span class="right-header__link-box">tab-2</span>
+					<span class="right-header__link-box">tab-3</span>
+				</slot>
+			</section>
+			<div class="right__display">
+				<slot name="main">
+					<h1>Main</h1>
+					<p>To call this element, use the slot <b>main</b>.</p>
 
-          <!-- <span class="right-header__link-box">Right header</span>
-          <span class="right-header__link-box">tab-1</span>
-          <span class="right-header__link-box">tab-2</span>
-          <span class="right-header__link-box">tab-3</span> -->
-
-        </slot>
-
-      </section>
-      <div class="right__display">
-
-        <slot name="main">
-          <h1>Main</h1>
-          <p>To call this element, use the slot <b>main</b>.</p>
-
-          <pre>
+					<pre>
             <code>
               &lt;app-layout&gt;
 
@@ -78,20 +60,12 @@
               &lt;/app-layout&gt;
             </code>
           </pre>
+				</slot>
+			</div>
+		</div>
+	</div>
 
-        </slot>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <footer class="al-footer">
-
-    <slot name="footer">Footer</slot>
-
-  </footer>
-
-
+	<footer class="al-footer">
+		<slot name="footer">Footer</slot>
+	</footer>
 </div>

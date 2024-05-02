@@ -12,20 +12,21 @@
   min-width: 100%;
   height: 100vh;
 
-  color: var(--tx-1);
+  color: var(--text-color-emphasis-high);
 }
 
 .al-header {
   display: flex;
   align-items: center;
+  gap: 0.8rem;
 
   width: 100%;
   min-height: 5%;
   padding: 8px;
 
-  color: var(--tx-3);
-  background-color: var(--bg-2);
-  border-bottom: 0.5px solid var(--bg-3);
+  color: var(--text-color-emphasis-high-i);
+  background-color: var(--background-color-1);
+  /* border-bottom: 0.5px solid var(--background-color-2); */
 }
 
 #hidder-btn {
@@ -34,7 +35,7 @@
 
   color: var(--tx-i);
   border: 1px solid var(--tx-i);
-  background-color: rgba(0, 0, 0, 0.161);
+  background-color: var(--background-color-6);
 }
 
 #hidder-btn:hover {
@@ -72,8 +73,10 @@
 
   user-select: none;
 
-  background-color: var(--bg-1);
-  border-right: 0.5px solid var(--bg-3);
+  background-color: var(--background-color-2);
+  color: var(--text-color-emphasis-high-i);
+
+  /* border-right: 0.5px solid var(--background-color-2); */
 }
 
 .left__menu-header {
@@ -84,14 +87,15 @@
   width: 100%;
   height: auto;
 
-  padding: 12px;
+  padding: var(--padding-value);
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
 
-  border-bottom: 0.5px solid var(--bg-3);
-  background-color: var(--bg-1);
+  /*[] OJO */
+  /* display: none; */
+
 }
 
 .left__menu-content {
@@ -113,13 +117,14 @@
 }
 
 .resizer:hover {
-  border-color: var(--mc-3);
+  border-color: var(--main-color-1);
   cursor: col-resize;
 
   transition: border-color 0.2s ease;
 }
+
 .resizer:active {
-  border-color: var(--mc-4);
+  border-color: var(--main-color-4);
   cursor: col-resize;
 
   transition: border-color 0.2s ease;
@@ -147,17 +152,18 @@
   min-height: 6%;
   padding: 8px;
 
-  background-color: var(--bg-1);
-  border-bottom: 0.5px solid var(--bg-3);
+  background-color: var(--background-color-7);
+  border-bottom: 0.5px solid var(--background-color-6);
 }
 
 .right-header__link-box {
   padding: 0px;
-  color: var(--tx-2);
-  background-color: var(--bg-4);
+  color: var(--text-color-emphasis-mid);
+  background-color: var(--background-color-6);
   font-size: 14px;
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 2px 6px;
+  text-transform: lowercase;
 }
 
 .right__display {
@@ -168,7 +174,7 @@
 
   height: 100%;
 
-  background-color: var(--bg-1);
+  background-color: var(--background-color-7);
 
   overflow-y: auto;
 }
@@ -181,9 +187,9 @@
   height: 5%;
   padding: 8px;
 
-  color: var(--tx-3);
-  border-top: 0.5px solid var(--bg-3);
-  background-color: var(--bg-2);
+  color: var(--text-color-emphasis-mid-i);
+  /* border-top: 0.5px solid var(--background-color-1); */
+  background-color: var(--background-color-1);
 }
 
 /* ctrl + alt + } */

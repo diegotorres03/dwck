@@ -79,10 +79,12 @@ button[cancel] {
 [clickable] {
   transition: all 0.2s ease;
 }
+
 [clickable]:hover {
   filter: brightness(1.15) contrast(90%);
   color: var(--main-color-4);
 }
+
 [clickable]:active {
   filter: brightness(0.95);
   transform: scale(0.95);
