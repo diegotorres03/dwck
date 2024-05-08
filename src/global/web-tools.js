@@ -59,18 +59,24 @@ function mapComponentEvents(component) {
     'onmouseover',
   ]
   // log(component)
-  EVENT_NAMES.map((eventName) => {
-    Array.from(component.shadowRoot.querySelectorAll(`[${eventName}]`)).forEach(
-      (handled) => {
-        const handlerName = handled.getAttribute(eventName)
-        handled.addEventListener(eventName.replace('on', ''), (event) => {
-          component[handlerName](event)
-          updateVars(component)
-        })
-        handled.removeAttribute(eventName)
-      },
-    )
-  })
+  try {
+
+    EVENT_NAMES.map((eventName) => {
+      Array.from(component.shadowRoot.querySelectorAll(`[${eventName}]`)).forEach(
+        (handled) => {
+          const handlerName = handled.getAttribute(eventName)
+          handled.addEventListener(eventName.replace('on', ''), (event) => {
+            component[handlerName](event)
+            updateVars(component)
+          })
+          handled.removeAttribute(eventName)
+        },
+      )
+    })
+  } catch (err) {
+    console.log('el error es aca!')
+    console.error(err)
+  }
 }
 
 function updateVars(component) {
@@ -143,13 +149,22 @@ function registerTriggers(element, callback) {
     // trigger.removeEventListener()
   })
 
-  return function unregister() {
+
+  function unregister() {
     triggers.map((trigger) => {
       if (!triggerEvent) triggerEvent = trigger.DEFAULT_EVENT_NAME || 'click'
       console.log('triggerEvent', triggerEvent, trigger)
       trigger.removeEventListener(triggerEvent, callback)
     })
   }
+
+  // window.addEventListener('refresh-triggers', event => {
+  //   console.log('refreshing triggers')
+  //   window.removeEventListener('refresh-trigger', )
+  // })
+
+
+  return unregister
 }
 
 function select(selector, scope = document) {
@@ -173,6 +188,34 @@ function getRandomItem(array) {
 }
 
 
+
+/**
+ * take an element and an event, and match the event keys to the 
+ * sub elements with a name attribute that match with a key on the event detail
+ *
+ * @param {HTMLElement} element
+ * @param {CustomEvent} event
+ */
+function initializeValues(element, event) {
+  const keysToUpdate = Object.keys(event.detail)
+  console.log('initializeValues', event.detail, element)
+  // initializing the values
+  keysToUpdate.forEach(key => {
+    console.log(key)
+    const items = [...element.querySelectorAll(`[name="${key}"]`)]
+    console.log(items)
+    items.forEach(item => {
+      let field = item.getAttribute('data-field')
+      const value = event.detail[key]
+      if (field) return item.setAttribute(field, value)
+      item.textContent = value
+    })
+  })
+
+}
+
+
+
 module.exports = {
   html,
   mapComponentEvents,
@@ -185,4 +228,5 @@ module.exports = {
   selectAll,
   getRandomInt,
   getRandomItem,
+  initializeValues,
 }

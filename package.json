@@ -16,6 +16,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.245.0",
     "ace-builds": "^1.17.0",
+    "ace-code": "^1.33.1",
     "aws-amplify": "^5.0.9",
     "aws-crt": "^1.15.5",
     "chart.js": "^4.2.0",
@@ -23,9 +24,15 @@
     "cytoscape-cxtmenu": "^3.5.0",
     "cytoscape-klay": "^3.1.4",
     "dexie": "^3.2.4",
+    "dragula": "^3.7.3",
+    "highlight.js": "^11.9.0",
     "localforage": "^1.10.0",
     "maplibre-gl": "^3.4.1",
+    "marked": "^12.0.2",
     "mermaid": "^10.9.0",
+    "quill": "^2.0.0",
+    "showdown": "^2.1.0",
+    "turndown": "^7.1.3",
     "vis-network": "^9.1.6",
     "xstate": "^4.38.2"
   },

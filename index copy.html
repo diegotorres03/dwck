@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+  <!-- <script src="./dist/dWCk.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.bubble.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.snow.css" rel="stylesheet"> -->
+
+  
+</head>
+
+<body>
+  <style>
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .around {
+      justify-content: space-around;
+    }
+
+    .between {
+      justify-content: space-between;
+    }
+  </style>
+
+
+  <!-- <button id="done-btn">done</button>
+    <app-modal trigger="#start" on=""></app-modal>
+    <state-machine id="my-machine" data-counter="0" initial="#start">
+        <machine-state id="start">
+            <button>asdasd</button>
+            <machine-transition target="#next">
+            </machine-transition>
+            <machine-transition trigger="#done-btn" on="click" target="#done"></machine-transition>
+        </machine-state>
+    
+        <machine-state id="next" data-variable="this will be passed every time when entering this state"></machine-state>
+    
+        <machine-state id="done" type="final" ></machine-state>
+    </state-machine> -->
+
+    
+  <app-layout>
+
+    <header slot="header" class="flex-row between" style="width: 100%;">
+      <b > Title</b>
+      <a href="#tasks">Tasks</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#notes">Notes</a>
+    </header>
+    
+    <nav slot="top-menu">hi</nav>
+
+    <nav slot="left-title" style="overflow-y: auto;">
+      <select name="" id="">
+        <option value="customer1">customer 1</option>
+        <option value="customer2">customer 2</option>
+        <option value="customer3">customer 3</option>
+      </select>
+      
+    </nav>
+
+
+    <nav slot="left-content">
+      <ol>
+        <li>
+          <b>Folder 1</b>
+          <ol>
+            <li><b>sub 1</b><ol>
+              <li>image 1.1.jpg</li>
+            </ol></li>
+            <li>image 1.jpg</li>
+          </ol>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- <data-store id="kanban-store">
+      <data-set id="tasks"></data-set>
+    </data-store> -->
+
+    <app-router slot="main">
+      <app-route>
+        <main >
+          <H1>this is the main thing</H1>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto beatae sunt, dicta veniam, saepe fugiat rerum deserunt deleniti possimus libero, quo aut quidem provident expedita ut! Voluptates natus quisquam excepturi!</p>
+        </main>
+      </app-route>
+      <app-route hash="tasks">
+        <h2>Tasks</h2>
+      </app-route>
+      <app-route hash="dashboard">
+        <h2>Dashboard</h2>
+      </app-route>
+      <app-route hash="notes">
+        <h2>Notes</h2>
+      </app-route>
+
+
+    </app-router>
+
+
+
+    <!-- <kanban-board slot="main" name="Training Plan" style="padding: 20px;">
+        <plain-card slot="backlog" style="max-width: 200px;">
+          <h2 slot="title">task name</h2>
+          <article id="edit-test" slot="main" contenteditable="false">
+            <p id="edit-test"><b>Lorem</b>, <a href="http://asd">ipsum dolor</a> sit amet consectetur adipisicing elit. In nam debitis assumenda magni cum
+            provident dicta eum maiores incidunt alias modi ratione facilis voluptate fuga, eaque possimus
+            libero corrupti expedita.
+            </p>
+            <hr>
+            <h4>reasd</h4>
+
+            <ul>
+              <li><input type="checkbox" name="cb1" id="">uno</li>
+              <li>dos</li>
+              <li><input type="checkbox" name="cb2" id="">tres</li>
+            </ul>
+
+          </article>
+
+            
+        </plain-card>
+        <plain-card slot="todo">
+          <h4 slot="title">adsad</h4>
+          <article slot="main">
+            <ace-editor></ace-editor>
+          </article>
+        </plain-card>
+    </kanban-board> -->
+
+  
+  </app-layout>
+
+
+<!-- <app-modal trigger="#edit" on="click"> -->
+  <app-modal id="code-modal">
+    <!-- <ace-editor slot="main"></ace-editor> -->
+  </app-modal>
+
+  <script>
+    const editorModal = document.querySelector('#code-modal')
+    
+    document.addEventListener('dblclick', event => {
+      console.log(event.target.innerHTML)
+      console.log(event.target)
+      const containerElement = event.target.children.length > 0 ? event.target : event.target.parentElement
+      const codeEditor = document.createElement('ace-editor')
+      codeEditor.setAttribute('slot', 'main')
+      // codeEditor.value = containerElement.innerHTML
+      // codeEditor.textContent = containerElement.innerHTML
+      
+      console.log('eso va pal editor', codeEditor.value)
+      codeEditor.innerHTML = containerElement.innerHTML
+      // codeEditor.innerHTML = `# Sample MD
+      // - this is a test
+      // - to see how it renders
+      
+      
+      // ## todo
+      // - [ ] test stuff
+      // - [ ] and check them
+      // `
+      console.log(containerElement)
+      codeEditor.setAttribute('language', 'html')
+      editorModal.innerHTML = `<h2 slot="title">{containerElement}</h2>`
+      editorModal.appendChild(codeEditor)
+      editorModal.setAttribute('open', true)
+      
+      editorModal.addEventListener('accepted', acceptedEvent => {
+        console.log('saving', codeEditor.value)
+        console.log(containerElement)
+        containerElement.innerHTML = codeEditor.value
+        codeEditor.value = ''
+      })
+
+    })
+  </script>
+
+
+        <script>
+          const testEl = document
+            .querySelector('#edit-test')
+
+          // testEl.addEventListener('dblclick', ev => {
+          //   console.log('doubleclick', ev.target)
+          //   const isEditable = ev.target.getAttribute('contenteditable') === 'true'
+          //   if (isEditable) return ev.target.setAttribute('contenteditable', false)
+
+
+          //   ev.target.setAttribute('contenteditable', true)
+          //   ev.target.focus()
+          //   const end = ev.target.innerHTML.length
+          //   ev.target.innerHTML = `### Task Name <br>
+          //   - [ ] subtask 1 <br>
+          //   - [ ] subtask 2 <br>`
+          //   // ev.target.setSelectionRange(end, end)
+            
+          // })
+
+          // testEl
+          //   .addEventListener('input', ev => {
+          //     console.log(ev)
+          //     console.log(ev.eventPhase)
+          //     console.log(ev.explicitOriginalTarget) // 
+          //     console.log(ev.target.innerHTML) //
+          //     // const newContent = `papas con chocolate`
+          //     // console.log(newContent)
+          //     // ev.target.innerHTML = newContent
+          //   })  
+        </script>
+
+</body>
+
+</html>

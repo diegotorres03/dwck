@@ -3,6 +3,7 @@ import {
   mapComponentEvents,
   updateVars,
   registerTriggers,
+  initializeValues,
 } from '../../../global/web-tools'
 
 
@@ -30,13 +31,17 @@ export default class UIDataRepeatComponent extends HTMLElement {
 
   connectedCallback() {
 
-    
-    mapComponentEvents(this)
-    updateVars(this)
+
+    // mapComponentEvents(this)
+    // updateVars(this)
     this.#mapChildren()
     registerTriggers(this, (event) => {
       console.log(event)
-      if (this.#childrenMap.has(event.detail.__id)) {
+      if (event.detail._action === 'del') {
+
+        return this.#removeItem(event.detail.id)
+      }
+      if (this.#childrenMap.has(event.detail.id || event.detail.__id)) { // slowly deprecate the __id
         return this.#updateItem(event)
       }
       this.#appendItem(event)
@@ -44,9 +49,10 @@ export default class UIDataRepeatComponent extends HTMLElement {
   }
 
   #mapChildren() {
-    this.#template
+    // this.#template
     this.#childrenMap = new Map()
     const children = Array.from(this.children)
+    console.log('allChildren', children)
 
 
     this.#children = children.filter(child => {
@@ -65,25 +71,59 @@ export default class UIDataRepeatComponent extends HTMLElement {
    * @returns {HTMLTemplateElement}
    */
   #cloneTemplate() {
+    if (!this.#template) {
+      console.log(this.querySelector('template'))
+      // return console.warn('no template foud')
+      this.#template = this.querySelector('template')
+    }
     return this.#template.content.cloneNode(true)
+  }
+
+  #removeItem(id) {
+    const itemId = `${id}`
+    console.log('removing item', itemId)
+
+    const target = this.#getTarget()
+    console.log(target)
+    const item = target
+      .querySelector(`#${itemId}`)
+    console.log('item to remove', item)
+    item.remove()
+
   }
 
   #updateItem() {
     console.log('updating')
   }
 
+  #getTarget() {
+    let target
+
+    if (this.hasAttribute('target')) {
+
+      // Here, add a target attribute, if is set, do the append there
+      const selector = this.getAttribute('target')
+      return target = this.shadowRoot.querySelector(selector) ||
+        document.querySelector(selector)
+
+    }
+    return this
+
+  }
+
   #appendItem(event) {
-    if(!this.id) this.setAttribute('id',``+ Date.now())
+    if (!this.id) this.setAttribute('id', `` + Date.now())
     console.log('adding', event)
-    const dataSync = document.createElement('ui-data-sync')
-    const dataSyncId = `${this.id}_${event.detail.__id}` || Date.now() + ''
-    dataSync.setAttribute('id', dataSyncId)
-    dataSync.setAttribute('trigger', `#${this.id}`)
-    dataSync.setAttribute('event', dataSyncId)
+
+
 
     const copy = this.#cloneTemplate()
     const editBtn = copy.querySelector('button[name="edit"]')
     const deleteBtn = copy.querySelector('button[name="delete"]')
+    let contentToAppend = copy
+
+
+    initializeValues(contentToAppend, event)
 
     if (editBtn) {
       Object.keys(event.detail).forEach(key => {
@@ -94,17 +134,41 @@ export default class UIDataRepeatComponent extends HTMLElement {
         new CustomEvent(`edit`, { bubbles: false, composed: true, detail: editBtn.dataset })
       ))
     }
+
     if (deleteBtn) {
       deleteBtn.setAttribute('data-__id', event.detail.__id)
       deleteBtn.addEventListener('click', ev => this.dispatchEvent(
         new CustomEvent(`delete`, { bubbles: false, composed: true, detail: deleteBtn.dataset })
       ))
     }
-    dataSync.appendChild(copy)
-    this.appendChild(dataSync)
-    console.log(dataSync, copy)
-    this.#emit(event, dataSyncId)
-    console.log(dataSync.innerHTML)
+
+
+    // [ ] Autosync is adding the ui-data-sync, but is using the same event source for all of them, so when a new on is created, all of them will change value
+
+    console.log('autosync', this.hasAttribute('autosync'))
+    if (this.hasAttribute('autosync')) {
+
+      const dataSync = document.createElement('ui-data-sync')
+      const dataSyncId = `${this.id}_${event.detail.id || Date.now()}`
+      dataSync.setAttribute('id', dataSyncId)
+      dataSync.setAttribute('trigger', `#${this.id}`)
+      dataSync.setAttribute('event', dataSyncId)
+      dataSync.appendChild(copy)
+      contentToAppend = dataSync
+      this.#emit(event, dataSyncId)
+    }
+
+
+    this.#getTarget().appendChild(contentToAppend)
+
+
+    // notify all other components to refresh triggers
+    const refreshTriggerEvent = new CustomEvent('refresh-triggers', {
+      bubbles: false, composed: false,
+    })
+    window.dispatchEvent(refreshTriggerEvent)
+
+
   }
 
   #emit(event, eventName = 'data') {
@@ -113,6 +177,8 @@ export default class UIDataRepeatComponent extends HTMLElement {
       bubbles: false, composed: true,
       detail: { ...event.detail },
     }))
+
+
   }
 
   disconnectedCallback() { }

@@ -4,6 +4,7 @@ export * from './accordion';
 export * from './plain-card';
 export * from './deck-reader';
 export * from './code-editor';
+export * from './ace-editor';
 export * from './graph';
 export * from './chart';
 export * from './cards';
@@ -11,3 +12,4 @@ export * from './drag-drop'
 export * from './pop-over-menu'
 export * from './geo-map'
 export * from './mermaid-viewer'
+export * from './kanban-board'

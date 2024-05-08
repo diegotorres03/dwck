@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ACE in Action</title>
+  <script src="https://unpkg.com/ace-builds/src-noconflict/ace.js"></script>
+  <script src="https://unpkg.com/ace-builds/src-noconflict/mode-javascript.js"></script>
+  <script src="https://unpkg.com/ace-builds/src-noconflict/ext-language_tools.js"></script>
+  
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.31.1/ace.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.31.1/ext-language_tools.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.31.1/"></script> -->
+  <script src="https://cloud9ide.github.io/emmet-core/emmet.js"></script>
+
+  <style type="text/css" media="screen">
+    #editor {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="editor"></div>
+
+  <!-- <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
+  <script>
+    let editorId
+    var editor = ace.edit("editor", {
+      theme: "ace/theme/monokai",
+      // theme: "ace/theme/dracula",
+      autoScrollEditorIntoView: true,
+      useWorkers: true,
+      enableBasicAutocompletion: true, // the editor completes the statement when you hit Ctrl + Space
+      enableLiveAutocompletion: true, // the editor completes the statement while you are typing
+      enableAutoIndent: true,
+      enableSnippets: true,
+      dragEnabled: true,
+    });
+    // editor.setTheme("ace/theme/monokai");
+
+    // editor.session.setMode("ace/mode/markdown");
+    editor.session.setMode("ace/mode/javascript");
+
+    editor.session.on('change', event => {
+      // console.log(event)
+      const value = editor.session.getValue()
+      // console.log('val', value)
+      window.top.postMessage({
+        type: 'ace-editor-changed', detail: {
+          value, id: editorId
+        }
+      }, '*')
+      // const changedEvent = new CustomEvent('ace-editor-changed', {
+      //   composed: true, bubbles: true,
+      //   detail: value
+      // })
+      // console.log(changedEvent)
+
+      // window.parent.dispatchEvent(changedEvent)
+      // this.dispatchEvent(changedEvent)
+    })
+    // var snippetText = [
+    //   "snippet web-component",
+    //   "    console.log($1);",
+    //   "    $2"
+    // ].join('\n');
+
+    // Access the Ace snippet manager and register a new snippet
+    ace.config.loadModule('ace/ext/language_tools', function (languageTools) {
+      const snippetManager = ace.require("ace/snippets").snippetManager;
+      snippetManager.register({
+        log: {
+          prefix: 'log',
+          body: 'console.log($1)'
+        }
+      }, "javascript"); // Replace 'javascript' with the appropriate mode if necessary
+    });
+
+
+
+    // var langTools = ace.require("ace/ext/language_tools");
+    // langTools.addCompleter({
+    //   getCompletions: function (editor, session, pos, prefix, callback) {
+    //     // This function will parse the JSDoc in the editor content
+    //     // You will need to implement the logic to parse JSDoc and return completions
+    //     // This is a non-trivial task and would require parsing the editor text to extract JSDoc comments and their associated functions/variables
+
+    //     var token = session.getTokenAt(pos.row, pos.column);
+    //     if (!token) {
+    //       callback(null, []);
+    //       return;
+    //     }
+
+    //     // Here you would determine the list of completions based on JSDoc
+    //     // For demonstration, I'm returning a static list of completions
+    //     var completions = [
+    //       {
+    //         caption: "add(a, b)",
+    //         value: "add",
+    //         meta: "function",
+    //         docHTML: "<b>Calculates the sum of two numbers.</b><br><br><u>Parameters:</u><br><li><b>a:</b> The first number.</li><li><b>b:</b> The second number.</li><br><u>Returns:</u><br>The sum of the two numbers."
+    //       }
+    //       // ... more completions
+    //     ];
+
+    //     callback(null, completions);
+    //   }
+    // });
+
+
+    window.addEventListener('message', event => {
+      console.log(event)
+      const { type, value, id } = event.data
+      if (id) editorId = id
+      if (type === 'lang') {
+        // alert(value)
+        editor.session.setMode(`ace/mode/${value}`)
+        if (value === 'html') editor.setOption("enableEmmet", true);
+        else editor.setOption("enableEmmet", false);
+      }
+
+      if (type === 'content') editor.setValue(value)
+
+
+    })
+
+
+  </script>
+
+
+
+</body>
+
+</html>

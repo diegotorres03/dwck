@@ -3,6 +3,8 @@ import {
   mapComponentEvents,
   updateVars,
   registerTriggers,
+  sleep,
+  
 } from '../../../global/web-tools';
 
 export default class RouterComponent extends HTMLElement {
@@ -36,16 +38,22 @@ export default class RouterComponent extends HTMLElement {
     );
   }
 
-  #updateRoutes() {
+  async #updateRoutes() {
+    await Promise.resolve()
     const routes = Array.from(this.querySelectorAll('app-route'));
     // .filter(child => child.getAttribute('path') || child.getAttribute('hash'))
     const routeSet = new Set();
     routes.forEach((route) => routeSet.add(route));
+    console.log(routeSet)
+    console.log(routes)
 
     // if we hash is empty, look for the default route, the one without hash
     if (window.location.hash === '') {
-      const homeRoute = routes.find((route) => !route.hasAttribute('hash'));
+      const homeRoute = routes.find((route) => 
+        !route.hasAttribute('hash') || route.getAttribute('hash') === '')
+
       routes.forEach((route) => route.classList.add('hidden'));
+      if(!homeRoute) return console.error('homeRoute not present')
       homeRoute.classList.remove('hidden');
       homeRoute.activated();
       // alert('home')
@@ -81,12 +89,13 @@ export default class RouterComponent extends HTMLElement {
     routeSet.forEach((route) => route.activated());
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     // registerTriggers(this, (event) => console.log(event))
-
-    this.#updateRoutes();
+    await sleep(50)
+    this.#updateRoutes()
 
     window.addEventListener('hashchange', (ev) => {
+      console.info('hashchange')
       this.#updateRoutes();
       // const searchParms = new URLSearchParams(window.location.search)
       // console.log(searchParms.has('test'))

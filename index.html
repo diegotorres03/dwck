@@ -1,35 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
-    <!-- <script src="./dist/dWCk.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <script src="../node_modules/dwck-lib/dWCk.js"></script> -->
+  <!-- <script src='../node_modules/dragula/dist/dragula.js'></script> -->
+  <!-- <link rel="stylesheet" href="../node_modules/dragula/dist/dragula.css"> -->
+
+  <title>EasyArchery Dashboard</title>
 </head>
+
 <body>
 
+  <app-layout>
+    <style>
+      nav,
+      app-route {
+        padding: 20px;
+      }
 
-    <button id="done-btn">done</button>
+      nav a {
+        color: var(--text-color-emphasis-high);
+        text-decoration: underline;
+      }
 
-    <app-modal trigger="#start" on=""></app-modal>
+      summary {
+        margin: 10px;
+      }
 
-    <state-machine id="my-machine" data-counter="0" initial="#start">
-        <machine-state id="start">
-            <button>asdasd</button>
-            <machine-transition target="#next">
-                <!-- <app-modal></app-modal> -->
-            </machine-transition>
-            <machine-transition trigger="#done-btn" on="click" target="#done"></machine-transition>
-        </machine-state>
-    
-        <machine-state id="next" data-variable="this will be passed every time when entering this state"></machine-state>
-    
-        <machine-state id="done" type="final" ></machine-state>
-    </state-machine>
-    
+      app-route {
+        padding: 20px;
+      }
 
-    
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .flex-column {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .space-around {
+        justify-content: space-around;
+      }
+
+      .space-between {
+        justify-content: space-between;
+      }
+
+      /* .hidden {
+        display: none;
+      } */
+      app-router {
+        width: 100%;
+      }
+    </style>
+
+    <select slot="left-title" name="team-name" id="team-name-select">
+      <option-group title="Club">
+        <option value="NSAC">NSAC - North Side Archery Club</option>
+        <option value="LPAC">LPAC - Lincoln Park Archery Club</option>
+      </option-group>
+    </select>
+
+    <nav slot="left-content">
+      <details open>
+        <summary><b>Archers:</b></summary>
+        <ul>
+          <li>
+            <details>
+              <summary><a href="#">Diego Torres</a></summary>
+              <a href="#tasks">Tasks</a><br>
+              <a href="#results">Resuls</a><br>
+              <a href="#notes">Notes</a><br>
+            </details>
+          </li>
+        </ul>
+      </details>
+
+
+      <hr>
+    </nav>
+
+
+    <app-router slot="main">
+
+      <app-route>
+
+        <section class="flex-row">
+          <data-chart id="data-chart" type="line" style="width: 65%;">
+
+            <data-set name="cat_1" label="yearly stuff 1">
+              <data-point other="szs" year="2010" count="110" />
+              <data-point year="2011" count="120" />
+              <data-point year="2012" count="115" />
+              <data-point year="2013" count="125" />
+              <data-point year="2014" count="122" />
+              <data-point year="2015" count="130" />
+              <data-point year="2016" count="128" />
+              <data-point year="2017" count="128" />
+              <data-point year="2018" count="115" />
+              <data-point year="2019" count="123" />
+              <data-point year="2020" count="128" />
+              <data-point year="2021" count="128" />
+              <data-point year="2022" count="128" />
+            </data-set>
+
+            <data-set name="cat_2" label="yearly stuff 2">
+              <data-point other="szs" year="2010" count="10" />
+              <data-point year="2011" count="20" />
+              <data-point year="2012" count="15" />
+              <data-point year="2013" count="25" />
+              <data-point year="2014" count="22" />
+              <data-point year="2015" count="30" />
+              <data-point year="2016" count="28" />
+              <data-point year="2017" count="28" />
+              <data-point year="2018" count="15" />
+              <data-point year="2019" count="23" />
+              <data-point year="2020" count="28" />
+              <data-point year="2021" count="28" />
+              <data-point year="2022" count="28" />
+            </data-set>
+
+            <data-set name="cat_3" label="third category">
+              <data-point other="szs" year="2010" count="57" />
+              <data-point year="2011" count="62" />
+              <data-point year="2012" count="68" />
+              <data-point year="2013" count="69" />
+              <data-point year="2014" count="71" />
+              <data-point year="2015" count="75" />
+              <data-point year="2016" count="79" />
+              <data-point year="2017" count="89" />
+              <data-point year="2018" count="101" />
+              <data-point year="2019" count="120" />
+              <data-point year="2020" count="140" />
+              <data-point year="2021" count="145" />
+              <data-point year="2022" count="160" />
+            </data-set>
+
+          </data-chart>
+
+          <data-chart id="data-chart" type="radar" style="width: 30%;">
+
+            <data-set name="cat_1" label="yearly stuff 1">
+              <data-point round="1" count="9" />
+              <data-point round="2" count="8.7" />
+              <data-point round="3" count="9.2" />
+              <data-point round="4" count="9.3" />
+              <data-point round="5" count="9.1" />
+              <data-point round="6" count="8.9" />
+            </data-set>
+          </data-chart>
+        </section>
+
+      </app-route>
+
+
+      <app-route hash="tasks">
+
+        <style>
+          section {
+            padding: 20px;
+          }
+
+          plain-card {
+            display: block;
+            max-width: 200px;
+          }
+        </style>
+
+        <h1>Tasks</h1>
+        <button id="add-task-btn">Add Task</button>
+        <button id="list-task-btn">list Task</button>
+        <button id="clear-tasks-btn">Clear Tasks</button>
+
+        <app-modal trigger="#add-task-btn" on="click" id="new-task-modal" >
+          <h3 slot="title">Add Task</h3>
+          <section slot="main">
+            <b>Title:</b> <input type="text" name="title" id="new-task-title">
+            <br>
+            <textarea name="content" id="new-task-content" cols="30" rows="10"></textarea>
+          </section>
+        </app-modal>
+
+        <event-source id="on-load" trigger="window" on="load"></event-source>
+
+        <data-store id="testdb">
+          <data-set id="tasks" trigger="#new-task-modal" on="accepted">
+            <data-query id="list-tasks" type="list" trigger="#list-task-btn" on="click"></data-query>
+            <data-query id="clear-tasks" type="clear" trigger="#clear-tasks-btn" on="click"></data-query>
+            <data-query id="delete-task" type="delete" trigger="#delete-task-modal" on="accepted"></data-query>
+          </data-set>
+        </data-store>
+
+
+        <!-- <data-store id="archery-stats" version="1">
+          <data-set id="tasks" trigger="#new-task-modal" on="accepted"></data-set>
+        </data-store> -->
+
+        <!-- <ui-data-repeat id="new-task-repeat" target="#todo" trigger="#add-task-btn" on="click"> -->
+        <!-- <ui-data-repeat id="new-task-repeat" target="#todo" trigger="#new-task-modal" on="accepted"> -->
+        <event-group id="task-events">
+          <event-source id="a" trigger="#tasks" on="sync"></event-source>
+          <event-source id="b" trigger="#tasks" on="update"></event-source>
+        </event-group>
+
+        <app-modal id="delete-task-modal" trigger="button[data-role='delete-task']" on="click" id="update-task-modal">
+          <h3 slot="title">Delete Task <b name="id"></b></h3>
+          <section slot="main">
+            <h2>Do you want to delete task ID: <span name="id"></span></h2>
+            <input type="hidden" name="id" data-field="value" />
+
+           </section>
+        </app-modal>
+
+
+        <ui-data-repeat id="new-task-repeat" target="#todo" trigger="#tasks" on="updated">
+
+          <template>
+            <!-- <button name="title"></button> -->
+            <plain-card name="id" data-field="id">
+              <h4 slot="title"><span name="title">task title</span> <small name="id"></small> <button data-role="delete-task" name="id" data-field="data-id">delete</button></h4>
+              <p slot="main" name="content">task content</p>
+            </plain-card>
+          </template>
+
+        </ui-data-repeat>
+
+        <main class="flex-row space-around">
+
+          <section id="todo">
+            <h3>To do</h3>
+          </section>
+
+          <section id="doing">
+            <h3>Doing</h3>
+            <!-- <plain-card title="other stuff">
+              <div slot="main">
+                this is other task
+              </div>
+            </plain-card> -->
+          </section>
+
+          <section id="done">
+            <h3>Done</h3>
+            <!-- <plain-card>
+
+              <h4 slot="title">This is a task to do</h4>
+
+              <p slot="main">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium.</p>
+            </plain-card> -->
+          </section>
+        </main>
+        <hr>
+
+
+        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/$VERSION/dragula.min.js'></script> -->
+
+
+      </app-route>
+
+
+      <app-route hash="notes">
+        <h1>Notes</h1>
+        <label for="ice-cream-choice">Choose a flavor:</label>
+        <input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice" />
+
+        <datalist id="ice-cream-flavors">
+          <option value="Chocolate"></option>
+          <option value="Coconut"></option>
+          <option value="Mint"></option>
+          <option value="Strawberry"></option>
+          <option value="Vanilla"></option>
+        </datalist>
+
+      </app-route>
+
+    </app-router>
+
+
+  </app-layout>
+
+  <app-modal id="task-done-modal">
+    <h4 slot="title">Task finished</h4>
+    <section slot="main">
+      <p>Thanks for finishing this task</p>
+    </section>
+  </app-modal>
+
+  <script>
+
+    async function setupKanban() {
+      const todo = document.querySelector('#todo')
+      const doing = document.querySelector('#doing')
+      const done = document.querySelector('#done')
+
+      console.log('kanban', todo, doing, done, dragula)
+      console.log(dragula)
+      if (!dragula) return console.warn('dragula not present')
+      dragula([todo, doing, done])
+        .on('drag', function (el) {
+          console.log('drag', el)
+        }).on('drop', function (el) {
+          const colId = el.parentElement.id
+          if (colId === 'done') {
+            const modal = document.querySelector('#task-done-modal')
+            if (!modal) return
+            modal.setAttribute('open', 'true')
+          }
+          console.log('drop', el)
+        }).on('over', function (el, container) {
+          console.log('over', el)
+        }).on('out', function (el, container) {
+          console.log('out', el)
+        });
+
+    }
+    setupKanban()
+  </script>
+
 </body>
-</html>
 
+</html>

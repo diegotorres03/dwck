@@ -1,0 +1,43 @@
+
+<section>
+  <style>
+    main {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  </style>
+
+
+  <h1>({name})</h1>
+
+  <main >
+    <section>
+      <h3>Backlog</h3>
+      <slot name="backlog"></slot>
+    </section>
+
+
+    <section>
+      <h3>Todo</h3>
+      <slot name="todo"></slot>
+    </section>
+
+
+    <section>
+      <h3>Doing</h3>
+      <slot name="doing"></slot>
+    </section>
+
+
+    <section>
+      <h3>Done</h3>
+      <slot name="done"></slot>
+    </section>
+  </main>
+
+
+
+</section>
+

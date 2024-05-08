@@ -14,13 +14,15 @@ import DataQueryComponent from './data-query'
 
 // [ ] use MutationObserver to detect DOM changes and update accordingly
 
+const { list, get, del, clear, put } = DataQueryComponent.EVENT_TYPES
 export default class DataSetComponent extends HTMLElement {
   get DEFAULT_EVENT_NAME() {
     return 'updated'
   }
 
   get #dataPoints() {
-    return Array.from(this.querySelectorAll('data-point'))
+    return [...this.shadowRoot.querySelectorAll('data-point')]
+    // return [...this.querySelectorAll('data-point')]
   }
 
   constructor() {
@@ -28,11 +30,11 @@ export default class DataSetComponent extends HTMLElement {
     const template = html`<slot></slot>`
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template)
-    
+
   }
 
-  #loadFromDatastore(){
-    console.log('#loadFromDatastore()')
+  #requestLoadFromDatastore() {
+    console.log('#requestLoadFromDatastore()')
     this.dispatchEvent(new CustomEvent('sync', {
       bubbles: true, composed: true,
       detail: { key: this.id, page: 1, size: 20 },
@@ -40,12 +42,12 @@ export default class DataSetComponent extends HTMLElement {
   }
 
   async connectedCallback() {
-    mapComponentEvents(this)
-    updateVars(this)
+    // mapComponentEvents(this)
+    // updateVars(this)
     registerTriggers(this, (event) => this.addDataPoint(event))
-    
-    await sleep(1)
-    this.#loadFromDatastore()
+
+    await sleep(20)
+    this.#requestLoadFromDatastore()
 
     this.#registerQueries()
 
@@ -58,24 +60,24 @@ export default class DataSetComponent extends HTMLElement {
       const eventName = query.getAttribute('type')
       query.addEventListener(eventName, event => {
         console.log('performing query', event)
-        if(eventName === DataQueryComponent.EVENT_TYPES.put) {
+        if (eventName === DataQueryComponent.EVENT_TYPES.put) {
           // this.setItem()
-        } else if(eventName === DataQueryComponent.EVENT_TYPES.delete) {
-          const id = event.detail.__id
+        } else if (eventName === DataQueryComponent.EVENT_TYPES.del) {
+          const id = event.detail.id
           this.removeItem(id)
-        } else if(eventName === DataQueryComponent.EVENT_TYPES.clear) {
-          const id = event.detail.__id
-          this.clear(id)
-        // } else if() {
-        // } else if() {
+        } else if (eventName === DataQueryComponent.EVENT_TYPES.clear) {
+          // const id = event.detail.id
+          this.clear()
+          // } else if() {
+          // } else if() {
 
         }
         // here emit to data-store or whoever is the parent the query results so data-store can process the change'
         const newEvent = new CustomEvent(eventName, {
           bubbles: true, composed: true,
-          detail: { ...event.detail  },
+          detail: { ...event.detail },
         })
-    
+
         // if(event.type === 'syncItem') return
         this.dispatchEvent(newEvent)
       })
@@ -89,8 +91,11 @@ export default class DataSetComponent extends HTMLElement {
   }
 
   clear() {
-    Array.from(this.shadowRoot.querySelectorAll('data-point'))
-      .forEach(dataPoint => dataPoint && dataPoint.remove())
+    console.log(this.querySelectorAll('data-point'))
+    console.log(this.shadowRoot.querySelectorAll('data-point'))
+    const items = Array.from(this.shadowRoot.querySelectorAll('data-point'))
+    console.log('items to clear', items)
+    items.forEach(dataPoint => dataPoint && dataPoint.remove())
   }
 
   /**
@@ -120,14 +125,23 @@ export default class DataSetComponent extends HTMLElement {
 
   /**
    * remove an item from IndexedDB by a given key (this key will be prefixed with the store name)
-   * @param {string} key 
+   * @param {string} id 
    * @returns {*}
    */
-  removeItem(key) {
-    const item = this.#dataPoints.find(item => item.id === key)
-    if(!item) return console.warn('item not found', key)
+  removeItem(id) {
+
+    console.log('removing item carajo', this.#dataPoints)
+    const item = this.#dataPoints.find(item => item.id === id )
+
+    if (!item) return console.warn('item not found', id)
     console.log(item)
-    // item.remove()
+    item.remove()
+    this.dispatchEvent(new CustomEvent(del, {
+      detail: { id }
+    }))
+    this.dispatchUpdatedEvent({ id, _action: 'del' })
+    // this.dispatchUpdatedEvent
+    // this.#requestLoadFromDatastore()
 
   }
 
@@ -144,9 +158,9 @@ export default class DataSetComponent extends HTMLElement {
    * @memberof DataSetComponent
    */
   addDataPoint(event) {
+    console.log('adding point', event)
 
-    if(!event.detail) return console.warn('event detail not present')
-
+    if (!event.detail) return console.warn('event detail not present')
 
     const isBtn = event.target && event.target.tagName.toLowerCase() === 'button'
     let data = isBtn ? { ...event.target.dataset } : event.detail
@@ -155,25 +169,34 @@ export default class DataSetComponent extends HTMLElement {
       .map(key => `data-${key}="${data[key]}"`)
       .join(' ')
 
-    const id = `data-point-${Date.now()}`
-    const template = html`<data-point id="${id}" ${
-      this.hasAttribute('visible') ? 'visible': ''
-    } ${dataAttributes} />`
-    
+    console.log('dataAttributes', dataAttributes)
 
+    const id = data.id || `${this.id}-${Date.now()}`
+    const template = html`<data-point id="${id}" ${this.hasAttribute('visible') ? 'visible' : ''
+      } ${dataAttributes} />`
+
+    console.log('template', template)
     this.shadowRoot.prepend(template)
     // this.shadowRoot.appendChild(template)
 
-    if(!data) return console.warn('no data')
+    if (!data) return console.warn('no data')
+    this.dispatchUpdatedEvent({ ...data, id, _action: 'add' })
 
+  }
+
+
+  dispatchUpdatedEvent(detail) {
+    console.log('dispatchUpdatedEvent', detail)
     const newEvent = new CustomEvent(this.DEFAULT_EVENT_NAME, {
       bubbles: true, composed: true,
-      detail: {...data, __id: id, },
+      detail,
     })
 
-    if(event.type === 'syncItem') return
-    this.dispatchEvent(newEvent)
+    console.log(newEvent)
 
+    // if (event.type === 'syncItem') return
+    console.log('dispatching event', newEvent)
+    this.dispatchEvent(newEvent)
   }
 
   disconnectedCallback() { }

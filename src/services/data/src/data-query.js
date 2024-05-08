@@ -18,7 +18,8 @@ export default class DataQueryComponent extends HTMLElement {
     list: 'list',
     get: 'get',
     put: 'put',
-    delete: 'delete',
+    delete: 'delete', // deprecate this, it can be destructured since delete is a reserved word
+    del: 'delete', // alias to delete
     clear: 'clear',
   }
 
@@ -47,52 +48,20 @@ export default class DataQueryComponent extends HTMLElement {
     const size = this.getAttribute('size') || 100
     const page = this.getAttribute('page') || 1
     const order = this.getAttribute('order') || 'desc'
+    console.log('on data query', event.detail)
 
-    this.emit({type, key, size, page, order})
-
-
-    // if (type === 'list') {
-    //   const items = await this.getItem(key)
-
-    //   if(!items) return
-  
-    //   items.forEach((item, index) => {
-    //     if (index < size * (page - 1)) return
-    //     if (index >= size * page) return
-
-    //     console.log(item)
-    //     this.emit(item, type)
-    //   })
-
-    // } else if(type === 'get') {
-    //   const item = await this.getItem(key)
-    //   console.log('item', item)
-    //   this.emit(item, type)
-
-    // } else if(type === 'put') {
-    //   if(!event.detail.__id) return console.warn('__id is not present')
-    //   this.putItem(key, event.detail)
-    //   this.emit({...event.detail, type})
-
-
-    // } else if(type === 'delete') {
-    //   if(!event.detail.__id) return console.warn('__id is not present')
-    //   this.deleteItem(key, event.detail.__id)
-    //   this.emit({__id: event.detail.__id}, type)
-
-    // } else if(type === 'clear') {
-    //   this.clearStore(key)
-    //   this.emit({}, type)
-    // }
-
-
+    const id = event.detail.id
+    console.log(type, key, size, page, order, id)
+    this.emit({ type, key, size, page, order, id })
   }
 
   emit(data) {
     const queryType = data.type || 'list'
     console.info(`on ${this.id} emiting ${queryType}`)
     this.dispatchEvent(new CustomEvent(queryType, {
-      bubbles: true, composed: true,
+      // bubbles false, so only one event will reach the data store
+      // this means this data query HAS TO BE an immediate child of data-set
+      bubbles: false, composed: true,
       detail: data,
     }))
   }
@@ -117,20 +86,20 @@ export default class DataQueryComponent extends HTMLElement {
   async putItem(key, data) {
     const items = await this.getItem(key)
     const index = items.findIndex(item => item.__id === __id)
-    if(index ==- -1) return console.warn(`item with __id=${__id} was not found`)
+    if (index == - -1) return console.warn(`item with __id=${__id} was not found`)
 
     items[index] = data
-    await this.setItem(key, items)    
+    await this.setItem(key, items)
   }
 
 
   async deleteItem(key, __id) {
     const items = await this.getItem(key)
     const index = items.findIndex(item => item.__id === __id)
-    if(index ==- -1) return console.warn(`item with __id=${__id} was not found`)
+    if (index == - -1) return console.warn(`item with __id=${__id} was not found`)
 
     items.splice(index, 1)
-    await this.setItem(key, items)    
+    await this.setItem(key, items)
   }
 
 

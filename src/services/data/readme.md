@@ -61,3 +61,20 @@ dataSet.addDataPoint(dataEvent)
 ## DataStoreComponent
 The `data-store` element will be used to persis data on local IndexedDB.
 This tag can interact with child `data-set` tags to automatically persist their data, and on reload, it will recover this data to the `data-set`. It will also add all the events it gets trough the `trigger` and `trigger-event` attributes.
+
+
+---
+
+# Thinking board
+
+```mermaid
+graph LR
+  dataStore -- parent --> dataSet
+  dataSet -- parent --> dataPoint
+  dataSet -- parent --> dataQuery
+  dataPoint -- emit --> dataSet
+  dataSet -- emit --> dataStore
+  dataQuery -- emit --> dataSet
+  dataQuery -- filter --> dataPoint
+```
+

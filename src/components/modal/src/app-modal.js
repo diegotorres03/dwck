@@ -4,6 +4,7 @@ import {
   sleep,
   updateVars,
   registerTriggers,
+  initializeValues,
 } from '../../../global/web-tools'
 
 import ModalHtml from './app-modal.html'
@@ -89,7 +90,15 @@ class ModalComponent extends HTMLElement {
   connectedCallback() {
     mapComponentEvents(this);
     updateVars(this);
-    const unregisterTriggers = registerTriggers(this, (event) => this.show(event))
+    let unregisterTriggers = registerTriggers(this, (event) => this.show(event))
+
+    // [ ] this should be done inside the reggisterTriggers
+    // or somewhere where all components have this functionallity 
+    window.addEventListener('refresh-triggers', event => {
+      console.log('refreshing triggers', unregisterTriggers)
+      unregisterTriggers && unregisterTriggers()
+      unregisterTriggers = registerTriggers(this, (event) => this.show(event))
+    })
     // setTimeout(unregisterTriggers, 10_000) 
 
   }
@@ -104,14 +113,14 @@ class ModalComponent extends HTMLElement {
     const inputFields = [...this.querySelectorAll('[name]')]
 
     // [ ] add hability to use data-key and also get text content
-    const datasetFields = [... this.querySelectorAll('[data-key]')]
+    const inputData = {...this.dataset}
 
-    // console.log(inputFields)
-
-    const inputData = {}
+    // const inputData = {}
     inputFields.forEach(field => {
-      inputData[field.name] = field.value
+      if(!field.name) return
+      inputData[field.name] = field.value || field.textContent
     })
+    
 
     /**
      * 
@@ -123,7 +132,7 @@ class ModalComponent extends HTMLElement {
       detail: { ...inputData, ...this.dataset }
     })
 
-    // console.log(newEvent)
+    console.log(newEvent)
 
     this.shadowRoot.dispatchEvent(newEvent)
 
@@ -154,11 +163,24 @@ class ModalComponent extends HTMLElement {
    * @memberof ModalComponent
    */
   show(event = {}) {
-    // console.log('on modal show', event)
+    console.log('on modal show', event)
     this.setAttribute('open', '')
-    if (!event.detail) return
-    Object.keys(event.detail).forEach(key =>
-      this.setAttribute(`data-${key}`, event.detail[key]))
+    const data = { ...event.detail, ...event.target.dataset }
+    console.log('modal data', data)
+    if (!data) return
+    Object.keys(data).forEach(key =>
+      this.setAttribute(`data-${key}`, data[key]))
+
+    Array.from(this.querySelectorAll('[slot]'))
+      .forEach(slot =>
+        initializeValues(slot, new CustomEvent('updata-modal-content', {
+          bubbles: false, composed: false, detail: data,
+        })))
+
+
+    // replace content
+
+
 
   }
 
