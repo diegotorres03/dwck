@@ -150,3 +150,52 @@ This is a 1:1 representation of a xstate state.
     </app-modal>
 
 ```
+
+
+
+## Con la nueva version suave
+
+```html
+
+
+  <button id="start-machine">start</button>
+  <hr>
+  <button data-test="jaja" id="red-btn">red</button>
+  <button data-test="jaja" id="green-btn">green</button>
+
+  <script>
+    document.querySelector('#green').addEventListener('active', ev => alert('aca esta'))
+  </script>
+
+  <!-- <flip-card trigger="#green" on="active" disabled></flip-card> -->
+
+
+  <state-machine id="test-machine" initial="start" data-counter="10" trigger="#start-machine" on="click">
+    <machine-state id="start">
+      <machine-transition trigger="#green-btn" on="click" target="green"></machine-transition>
+      <machine-transition trigger="#red-btn" on="click" target="red"></machine-transition>
+    </machine-state>
+
+
+    <machine-state id="green">
+      <!-- <machine-transition trigger="#red-btn" on="click" target="red"></machine-transition> -->
+
+      <!-- transitions that don't have a trigger, are ment to be immediate transitions -->
+      <machine-transition target="red" wait="4s"></machine-transition>
+      <app-modal>
+        <h2 slot="title">green</h2>
+      </app-modal>
+    </machine-state>
+
+
+    <machine-state id="red">
+      <machine-transition trigger="#green-btn" on="click" target="green"></machine-transition>
+      <app-modal>
+        <h2 slot="title">red</h2>
+      </app-modal>
+    </machine-state>
+
+  </state-machine>
+
+
+```

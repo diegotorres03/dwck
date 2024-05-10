@@ -5,6 +5,7 @@ import {
   updateVars,
   registerTriggers,
   initializeValues,
+  onDomReady,
 } from '../../../global/web-tools'
 
 import ModalHtml from './app-modal.html'
@@ -86,12 +87,9 @@ class ModalComponent extends HTMLElement {
 
   }
 
+  #init(){
 
-  connectedCallback() {
-    mapComponentEvents(this);
-    updateVars(this);
     let unregisterTriggers = registerTriggers(this, (event) => this.show(event))
-
     // [ ] this should be done inside the reggisterTriggers
     // or somewhere where all components have this functionallity 
     window.addEventListener('refresh-triggers', event => {
@@ -100,6 +98,13 @@ class ModalComponent extends HTMLElement {
       unregisterTriggers = registerTriggers(this, (event) => this.show(event))
     })
     // setTimeout(unregisterTriggers, 10_000) 
+
+  }
+
+  connectedCallback() {
+    mapComponentEvents(this);
+    updateVars(this);
+    onDomReady(() => this.#init())
 
   }
 

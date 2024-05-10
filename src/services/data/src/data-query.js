@@ -18,6 +18,7 @@ export default class DataQueryComponent extends HTMLElement {
     list: 'list',
     get: 'get',
     put: 'put',
+    update: 'update',
     delete: 'delete', // deprecate this, it can be destructured since delete is a reserved word
     del: 'delete', // alias to delete
     clear: 'clear',
@@ -48,11 +49,9 @@ export default class DataQueryComponent extends HTMLElement {
     const size = this.getAttribute('size') || 100
     const page = this.getAttribute('page') || 1
     const order = this.getAttribute('order') || 'desc'
-    console.log('on data query', event.detail)
 
     const id = event.detail.id
-    console.log(type, key, size, page, order, id)
-    this.emit({ type, key, size, page, order, id })
+    this.emit({ type, key, size, page, order, id, data: { ...event.detail } })
   }
 
   emit(data) {
@@ -66,41 +65,41 @@ export default class DataQueryComponent extends HTMLElement {
     }))
   }
 
-  setItem(key, value) {
-    return localforage.setItem(`${this.#parent.id}_${key}`, value)
-  }
+  // setItem(key, value) {
+  //   return localforage.setItem(`${this.#parent.id}_${key}`, value)
+  // }
 
-  getItem(key) {
-    const dbKey = `${this.#parent.id}_${key}`
-    return localforage.getItem(dbKey)
-  }
+  // getItem(key) {
+  //   const dbKey = `${this.#parent.id}_${key}`
+  //   return localforage.getItem(dbKey)
+  // }
 
-  hasItem(key) {
-    return !!this.getItem(`${this.#parent.id}_${key}`)
-  }
+  // hasItem(key) {
+  //   return !!this.getItem(`${this.#parent.id}_${key}`)
+  // }
 
-  clearStore(key) {
-    return localforage.removeItem(`${this.#parent.id}_${key}`)
-  }
+  // clearStore(key) {
+  //   return localforage.removeItem(`${this.#parent.id}_${key}`)
+  // }
 
-  async putItem(key, data) {
-    const items = await this.getItem(key)
-    const index = items.findIndex(item => item.__id === __id)
-    if (index == - -1) return console.warn(`item with __id=${__id} was not found`)
+  // async putItem(key, data) {
+  //   const items = await this.getItem(key)
+  //   const index = items.findIndex(item => item.__id === __id)
+  //   if (index == - -1) return console.warn(`item with __id=${__id} was not found`)
 
-    items[index] = data
-    await this.setItem(key, items)
-  }
+  //   items[index] = data
+  //   await this.setItem(key, items)
+  // }
 
 
-  async deleteItem(key, __id) {
-    const items = await this.getItem(key)
-    const index = items.findIndex(item => item.__id === __id)
-    if (index == - -1) return console.warn(`item with __id=${__id} was not found`)
+  // async deleteItem(key, __id) {
+  //   const items = await this.getItem(key)
+  //   const index = items.findIndex(item => item.__id === __id)
+  //   if (index == - -1) return console.warn(`item with __id=${__id} was not found`)
 
-    items.splice(index, 1)
-    await this.setItem(key, items)
-  }
+  //   items.splice(index, 1)
+  //   await this.setItem(key, items)
+  // }
 
 
   /**

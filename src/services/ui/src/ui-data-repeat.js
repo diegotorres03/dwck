@@ -37,11 +37,24 @@ export default class UIDataRepeatComponent extends HTMLElement {
     this.#mapChildren()
     registerTriggers(this, (event) => {
       console.log(event)
-      if (event.detail._action === 'del') {
+      // [ ] check filters first
+      const filterName = this.getAttribute('filter')
+      const filterFn = window[filterName]
 
+
+      if (typeof filterFn === 'function') {
+        console.log('filterFn', filterFn)
+        const pass = filterFn(event, { ...this.dataset })
+        if (!pass) return
+      }
+
+
+      /// /////
+      if (event.detail._action === 'del') {
+        this.#childrenMap.delete(event.detail.id)
         return this.#removeItem(event.detail.id)
       }
-      if (this.#childrenMap.has(event.detail.id || event.detail.__id)) { // slowly deprecate the __id
+      if (this.#childrenMap.has(event.detail.id)) { // slowly deprecate the __id
         return this.#updateItem(event)
       }
       this.#appendItem(event)
@@ -54,6 +67,13 @@ export default class UIDataRepeatComponent extends HTMLElement {
     const children = Array.from(this.children)
     console.log('allChildren', children)
 
+    if (this.hasAttribute('template')) {
+      const templateId = this.getAttribute('template')
+      const template = document.querySelector('#' + templateId)
+      console.log('template', template)
+      this.#template = template
+      return
+    }
 
     this.#children = children.filter(child => {
       if (child.tagName.toLowerCase() === 'template') {
@@ -158,8 +178,17 @@ export default class UIDataRepeatComponent extends HTMLElement {
       this.#emit(event, dataSyncId)
     }
 
+    const newElementId = [...contentToAppend.children].pop().id
+    // console.log('contentToAppend', [...contentToAppend.children].pop())
 
-    this.#getTarget().appendChild(contentToAppend)
+    const target = this.#getTarget()
+    const existingItem = target.querySelector(`#${newElementId}`)
+    if(existingItem) {
+      // contentToAppend
+      existingItem.remove()
+      // target.parentElement.replaceChild(existingItem, contentToAppend)
+    }
+    target.appendChild(contentToAppend)
 
 
     // notify all other components to refresh triggers

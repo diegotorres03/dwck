@@ -7,5 +7,7 @@ export * from './components'
 export * from './layouts'
 export * from './services'
 
+import 'dragula'
+
 
 // import FlipCard from './components/flip-card';

@@ -132,19 +132,14 @@ function registerTriggers(element, callback) {
   const documentTriggers = Array.from(document.querySelectorAll(selector))
   const internalTriggers = Array.from(element.parentNode.querySelectorAll(selector))
 
-  console.log('element: ', element)
-  console.log('element: ', element.parentNode.querySelectorAll(selector))
-
   const triggers = [...documentTriggers, ...internalTriggers]
-  console.log('triggers', triggers)
-  console.log('internalTriggers', internalTriggers)
 
   if (!triggers) return
   let triggerEvent = element.getAttribute('on') || element.getAttribute('event')
 
   triggers.map((trigger) => {
     if (!triggerEvent) triggerEvent = trigger.DEFAULT_EVENT_NAME || 'click'
-    console.log('triggerEvent', triggerEvent, trigger)
+    // console.log('triggerEvent', triggerEvent, trigger)
     trigger.addEventListener(triggerEvent, callback)
     // trigger.removeEventListener()
   })
@@ -198,12 +193,11 @@ function getRandomItem(array) {
  */
 function initializeValues(element, event) {
   const keysToUpdate = Object.keys(event.detail)
-  console.log('initializeValues', event.detail, element)
+  console.log('initializing', event, element)
+  console.log('initializing', keysToUpdate)
   // initializing the values
   keysToUpdate.forEach(key => {
-    console.log(key)
     const items = [...element.querySelectorAll(`[name="${key}"]`)]
-    console.log(items)
     items.forEach(item => {
       let field = item.getAttribute('data-field')
       const value = event.detail[key]
@@ -211,9 +205,31 @@ function initializeValues(element, event) {
       item.textContent = value
     })
   })
+  
+  // add all to data- properties
+  keysToUpdate.forEach(key => {
+    try {
+      const mainElement = [...element.children].pop()
+      const value = event.detail[key]
+      const dataKey = `data-${key}`
+      console.log('initializing ', dataKey, value)
+      mainElement.setAttribute(dataKey, value)
+    } catch{}
+  })
 
 }
 
+
+/**
+ * Call initFn if the dom is currently ready, or subscribe itself to the Dom ready event and then call the initFn
+ *
+ * @param {Function} initFn
+ */
+function onDomReady(initFn) {
+  if (document.readyState === "complete") initFn()
+  else document
+    .addEventListener("DOMContentLoaded", () => initFn())
+}
 
 
 module.exports = {
@@ -229,4 +245,5 @@ module.exports = {
   getRandomInt,
   getRandomItem,
   initializeValues,
+  onDomReady,
 }

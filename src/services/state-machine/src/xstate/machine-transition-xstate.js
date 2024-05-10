@@ -3,7 +3,7 @@ import {
   mapComponentEvents,
   updateVars,
   registerTriggers,
-} from '../../../global/web-tools'
+} from '../../../../global/web-tools'
 
 
 /**

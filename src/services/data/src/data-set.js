@@ -4,6 +4,7 @@ import {
   updateVars,
   registerTriggers,
   sleep,
+  onDomReady,
 } from '../../../global/web-tools'
 
 import DataQueryComponent from './data-query'
@@ -12,7 +13,7 @@ import DataQueryComponent from './data-query'
 //import componentHtml from './flip-card.html'
 //import componentStyle from './flip-card.css'
 
-// [ ] use MutationObserver to detect DOM changes and update accordingly
+// [ ] use MutationObserver to detect DOM changes and put accordingly
 
 const { list, get, del, clear, put } = DataQueryComponent.EVENT_TYPES
 export default class DataSetComponent extends HTMLElement {
@@ -34,43 +35,42 @@ export default class DataSetComponent extends HTMLElement {
   }
 
   #requestLoadFromDatastore() {
-    console.log('#requestLoadFromDatastore()')
     this.dispatchEvent(new CustomEvent('sync', {
       bubbles: true, composed: true,
-      detail: { key: this.id, page: 1, size: 20 },
+      detail: { id: this.id, page: 1, size: 20 },
     }))
+  }
+
+  #init() {
+    setTimeout(() => {
+      this.#requestLoadFromDatastore()
+
+    }, 0);
+
+    this.#registerQueries()
+
   }
 
   async connectedCallback() {
     // mapComponentEvents(this)
     // updateVars(this)
     registerTriggers(this, (event) => this.addDataPoint(event))
-
-    await sleep(20)
-    this.#requestLoadFromDatastore()
-
-    this.#registerQueries()
-
+    onDomReady(() => this.#init())
   }
 
   #registerQueries() {
     const dataQueries = Array.from(this.querySelectorAll('data-query'))
     dataQueries.forEach(query => {
-      console.log('data-query', query)
       const eventName = query.getAttribute('type')
       query.addEventListener(eventName, event => {
-        console.log('performing query', event)
         if (eventName === DataQueryComponent.EVENT_TYPES.put) {
-          // this.setItem()
+          this.updateItem(event)
         } else if (eventName === DataQueryComponent.EVENT_TYPES.del) {
           const id = event.detail.id
           this.removeItem(id)
         } else if (eventName === DataQueryComponent.EVENT_TYPES.clear) {
           // const id = event.detail.id
           this.clear()
-          // } else if() {
-          // } else if() {
-
         }
         // here emit to data-store or whoever is the parent the query results so data-store can process the change'
         const newEvent = new CustomEvent(eventName, {
@@ -91,10 +91,7 @@ export default class DataSetComponent extends HTMLElement {
   }
 
   clear() {
-    console.log(this.querySelectorAll('data-point'))
-    console.log(this.shadowRoot.querySelectorAll('data-point'))
     const items = Array.from(this.shadowRoot.querySelectorAll('data-point'))
-    console.log('items to clear', items)
     items.forEach(dataPoint => dataPoint && dataPoint.remove())
   }
 
@@ -130,21 +127,45 @@ export default class DataSetComponent extends HTMLElement {
    */
   removeItem(id) {
 
-    console.log('removing item carajo', this.#dataPoints)
-    const item = this.#dataPoints.find(item => item.id === id )
+    const item = this.#dataPoints.find(item => {
+      return item.id === id
+    })
 
     if (!item) return console.warn('item not found', id)
-    console.log(item)
     item.remove()
     this.dispatchEvent(new CustomEvent(del, {
       detail: { id }
     }))
     this.dispatchUpdatedEvent({ id, _action: 'del' })
-    // this.dispatchUpdatedEvent
-    // this.#requestLoadFromDatastore()
 
   }
 
+
+  updateItem(event) {
+    const { id, data } = event.detail
+    console.group('updateItem')
+    console.log('updateItem', event)
+    console.groupEnd('updateItem')
+    const item = this.#dataPoints.find(item => {
+      return item.id === id
+    })
+
+    const itemData = { ...item.dataset, _action: 'put', ...data }
+    console.log(itemData)
+    // Object.keys(data).forEach(key => {
+    //   // if(data[key] === undefined) return
+    //   item[key] = data[key]
+    // })
+
+
+    // this.dispatchEvent(new CustomEvent(put, {
+    //   detail: { itemData }
+    // }))
+
+    this.dispatchUpdatedEvent(itemData)
+    // this.dispatchUpdatedEvent({ ...data, id, _action: 'put' })
+
+  }
 
   /**
    * append a <data-point> tag, it will take values from event.detail 
@@ -158,7 +179,6 @@ export default class DataSetComponent extends HTMLElement {
    * @memberof DataSetComponent
    */
   addDataPoint(event) {
-    console.log('adding point', event)
 
     if (!event.detail) return console.warn('event detail not present')
 
@@ -169,13 +189,11 @@ export default class DataSetComponent extends HTMLElement {
       .map(key => `data-${key}="${data[key]}"`)
       .join(' ')
 
-    console.log('dataAttributes', dataAttributes)
 
+    const isVisible = this.hasAttribute('visible') ? 'visible' : ''
     const id = data.id || `${this.id}-${Date.now()}`
-    const template = html`<data-point id="${id}" ${this.hasAttribute('visible') ? 'visible' : ''
-      } ${dataAttributes} />`
+    const template = html`<data-point id="${id}" ${isVisible} ${dataAttributes} />`
 
-    console.log('template', template)
     this.shadowRoot.prepend(template)
     // this.shadowRoot.appendChild(template)
 
@@ -186,16 +204,13 @@ export default class DataSetComponent extends HTMLElement {
 
 
   dispatchUpdatedEvent(detail) {
-    console.log('dispatchUpdatedEvent', detail)
     const newEvent = new CustomEvent(this.DEFAULT_EVENT_NAME, {
       bubbles: true, composed: true,
       detail,
     })
 
-    console.log(newEvent)
 
     // if (event.type === 'syncItem') return
-    console.log('dispatching event', newEvent)
     this.dispatchEvent(newEvent)
   }
 

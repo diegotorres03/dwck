@@ -3,10 +3,12 @@ import {
   mapComponentEvents,
   updateVars,
   registerTriggers,
+  sleep,
+  onDomReady,
 } from '../../../global/web-tools'
+import { MachineStateComponent } from './machine-state'
 
-import { createMachine, interpret } from 'xstate'
-import MachineStateComponent from './machine-state-xstate'
+// import MachineStateComponent from './xstate/machine-state-xstate'
 
 //import componentHtml from './flip-card.html'
 //import componentStyle from './flip-card.css'
@@ -30,52 +32,88 @@ export default class StateMachineComponent extends HTMLElement {
   }
 
 
-  #instance
-
-  #context = {}
-
-  #state
-
-  /**
-   * get all the <machine-state> children 
-   *
-   * @memberof StateMachineComponent
-   * @returns {MachineStateComponent}
-   */
-  get #childStates() {
-    const childStates = [...this.querySelectorAll('machine-state')]
-    return childStates || []
+  get states() {
+    return [...this.querySelectorAll('machine-state')]
   }
 
+  /** @param {MachineStateComponent} */
+  #currentState
 
   constructor() {
     super()
-    const template = html`
-      ${this.hasAttribute('visible') ? `<nav></nav>` : ''}
-      <!-- <button id="open-modal-btn">open</button> -->
-      <!-- <app-modal trigger="#open-modal-btn" on="click">
-        <h1 slot="title">siii</h1>
-      </app-modal> -->
-    `
+    const template = html`<slot></slot>`
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template)
 
     const triggers = [...this.shadowRoot.querySelectorAll('[trigger]')]
-    console.log('triggers', triggers)
-
-    const machineDef = [...this.children]
-    const initialStateId = this.getAttribute('initial')
-    const initialState = this.querySelector(initialStateId)
-    console.log('machineDef', machineDef)
-    console.log('context', this.dataset)
-    console.log('initial state', initialState)
-    this.#context = this.dataset
-    this.#state = initialState    
-
-    
 
   }
 
+  #init() {
+    this.#currentState = this.querySelector('machine-state[active]')
+    const initialState = this.querySelector(`machine-state#${this.getAttribute('initial')}`)
+    if (!this.#currentState) this.#currentState = initialState
+
+    this.addEventListener('activate-state', async event => {
+      if (!this.#currentState) return console.warn('initialize the machine first')
+      if (this.#currentState.id !== event.target.getAttribute('state')) return
+
+      const targetSelector = event.target.getAttribute('target')
+      const target = this.querySelector(`#${targetSelector}`)
+      this.#activateState(target)
+    })
+
+  }
+
+  connectedCallback() {
+    onDomReady(() => this.#init())
+    registerTriggers(this, event => {
+      // validate event ?? 
+      this.#activateState(this.#currentState)
+    })
+
+  }
+
+  #deactivateAllStates() {
+    this.states.forEach(state => {
+      state.removeAttribute('active')
+
+      const event = new CustomEvent('unactive', {
+        bubbles: true, composed: true,
+        detail: { tbd: true }
+      })
+      state.dispatchEvent(event)
+    })
+  }
+
+
+  /**
+   *
+   *
+   * @param {HTMLElement} state
+   * @memberof StateMachineComponent
+   */
+  #activateState(state) {
+    this.#deactivateAllStates()
+
+    const event = new CustomEvent('active', {
+      bubbles: true, composed: true,
+      detail: { tbd: true }
+    })
+    state.dispatchEvent(event)
+
+    const transitionEvent = new CustomEvent(state.id, {
+      bubbles: true, composed: true,
+      detail: { ...this.dataset, ...state.dataset }
+    })
+
+    this.dispatchEvent(transitionEvent)
+
+    setTimeout(() => {
+      state.setAttribute('active', '')
+      this.#currentState = state
+    }, 0)
+  }
 
   disconnectedCallback() { }
 

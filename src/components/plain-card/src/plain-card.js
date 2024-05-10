@@ -3,6 +3,7 @@ import {
   mapComponentEvents,
   updateVars,
   registerTriggers,
+  onDomReady,
 } from '../../../global/web-tools'
 
 import plainCardHtml from './plain-card.html'
@@ -14,6 +15,8 @@ import TurndownService from 'turndown'
 import { marked } from 'marked'
 import Quill from 'quill'
 import hljs from 'highlight.js'
+
+// import "quill/dist/quill.core.css"
 
 const mdHeadingsToHtml = text => {
   console.log(text)
@@ -110,30 +113,29 @@ export default class PlainCardComponent extends HTMLElement {
     this.isEditable = false
   }
 
-  connectedCallback() {
-    mapComponentEvents(this)
-    updateVars(this)
-    registerTriggers(this, (event) => console.log(event))
+  #init() {
 
     this.querySelector('[slot="title"]')?.setAttribute('contenteditable', true)
-
     if(!this.hasAttribute('editable')) return
     
     const content = this.querySelector('[slot="main"]')
     if(!content) return
     // const content = this.querySelector('#content')
+    // const toolbarOptions = ['bold', 'italic', 'underline', 'strike']
     console.log(content)
     const editor = new Quill(content, {
       theme: 'bubble',
+      // theme: 'snow',
       modules: {
         syntax: { hljs },
+        // toolbar: toolbarOptions,
         toolbar: [
           ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
           ['blockquote', 'code-block'],
           ['link', 'image', 'video',], // 'formula'],
 
-          [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-          [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+          // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+          // [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
           // [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
           // [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
           // [{ 'direction': 'rtl' }],                         // text direction
@@ -145,7 +147,7 @@ export default class PlainCardComponent extends HTMLElement {
           // [{ 'font': [] }],
           // [{ 'align': [] }],
 
-          // ['clean']                                         // remove formatting button
+          ['clean']                                         // remove formatting button
         ]
 
 
@@ -154,6 +156,13 @@ export default class PlainCardComponent extends HTMLElement {
     })
     console.log('editor', editor)
 
+  }
+
+  connectedCallback() {
+    mapComponentEvents(this)
+    updateVars(this)
+    registerTriggers(this, (event) => console.log(event))
+    onDomReady(() => this.#init())
   }
 
   disconnectedCallback() { }

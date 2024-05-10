@@ -4,9 +4,10 @@ import {
   updateVars,
   registerTriggers,
   sleep,
+  onDomReady,
 } from '../../../global/web-tools'
 
-// import { setItem, getItem, removeItem } from 'localforage'
+// import { updateItem, getItem, removeItem } from 'localforage'
 import { Dexie } from 'dexie'
 
 import localforage from 'localforage'
@@ -64,11 +65,9 @@ export default class DataStore extends HTMLElement {
     const template = html`<slot></slot>`
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template)
-    // console.log(`${this.id}_key`)
-    // setItem('test', { test: true, success: true })
+    // updateItem('test', { test: true, success: true })
 
     const dbName = this.id || 'default'
-    console.log('dbName', dbName)
     this.#db = new Dexie(dbName)
 
     this.#dataSets = Array.from(this.querySelectorAll('data-set'))
@@ -78,7 +77,6 @@ export default class DataStore extends HTMLElement {
   #dbInit() {
     // const version = Number(this.getAttribute('version')) || 1
     // const dbName = this.id || 'default'
-    // console.log('dbName', dbName)
     // const db = new Dexie(dbName)
     // db.
     const stores = {}
@@ -86,49 +84,37 @@ export default class DataStore extends HTMLElement {
 
     Array.from(this.querySelectorAll('data-set')).forEach(dataset => {
       const indexes = [...dataset.querySelectorAll('data-index')]
-      console.log('dataset', dataset)
       const indexDefinitions = indexes.map(index =>
         `${index.hasAttribute('autoincrement') ? '++' : ''}${index.getAttribute('key')}`)
-      console.log('indexDefinitions', indexes, indexDefinitions)
       stores[dataset.id] = indexDefinitions.length > 0 ?
         indexDefinitions.join(', ') :
         'id'
     })
 
-    console.log('stores', stores, version)
     console.table(stores)
     const versionDeployment = this.#db.version(version).stores(stores)
-    console.log('versionDeployment', versionDeployment)
 
     // this.#db.tables.forEach(table => {
     //   console.log('table', table)
     // })
-
-
-
-
   }
 
-  async connectedCallback() {
-    // mapComponentEvents(this)
-    // updateVars(this)
-    registerTriggers(this, (event) => this.#processEvent(event))
 
+  #init() {
+
+    console.info('data-store internal init')
     const version = Number(this.getAttribute('version'))
-    await sleep(1)
     this.#dbInit()
 
     const listenToSync = async event => {
-      const key = event.detail.key
-      console.log('sync data-store', key)
+      const key = event.detail.id
       // const items = await this.getItem(key)
       const items = await this.listItems(key, event.detail)
-      const dataSet = this.querySelector(`#${event.detail.key}`)
+      const dataSet = this.querySelector(`#${event.detail.id}`)
 
       const getEvent = (item) => new CustomEvent('syncItem', { detail: item })
 
 
-      console.log(items)
       if (Array.isArray(items)) {
         items.forEach(item => {
           const newEvent = getEvent(item)
@@ -147,16 +133,13 @@ export default class DataStore extends HTMLElement {
     // Here i'm registering to the sync event, this is originated by the data-set when is initially loaded
     // the idea being, that if a dataset is inside a data store, the data store is the responsable to access indeedDB
     // so it when the sync event is detected, data store will load the items and communicat this back to the data-set
+
     this.addEventListener('sync', listenToSync)
 
     // this.#dataSets = Array.from(this.querySelectorAll('data-set'))
 
-    console.log('this.#dataSets', this.#dataSets)
-
-
     this.#dataSets.forEach(dataSet => {
       const { list, get, del, clear, put } = DataQueryComponent.EVENT_TYPES
-      console.log('data-set id=', dataSet.id)
       dataSet.addEventListener(put, event => this.#processCrudEvent(event, put))
       dataSet.addEventListener(list, event => this.#processCrudEvent(event, list))
       dataSet.addEventListener(get, event => this.#processCrudEvent(event, get))
@@ -169,14 +152,22 @@ export default class DataStore extends HTMLElement {
 
   }
 
+
+
+  async connectedCallback() {
+    // mapComponentEvents(this)
+    // updateVars(this)
+    registerTriggers(this, (event) => this.#processEvent(event))
+    onDomReady(() => this.#init())
+
+  }
+
   async #processEvent(event) {
-    console.log(event)
     const isBtn = event.target.tagName.toLowerCase() === 'button'
     let data = isBtn ? { ...event.target.dataset } : event.detail
     const tableName = event.target.id
 
 
-    console.log('processEvent', tableName, event)
 
     // const userData = {
     //   id: data.id,
@@ -189,7 +180,6 @@ export default class DataStore extends HTMLElement {
 
     if (this.hasAttribute('append') || event.target.hasAttribute('append')) {
       const res = await table.where('id').between(1, 10).toArray()
-      console.log(res)
       data.id = res.length + 1
 
       return table.add(data)
@@ -201,7 +191,7 @@ export default class DataStore extends HTMLElement {
   }
 
   async #processCrudEvent(event, queryType) {
-    const { list, get, del, clear, put } = DataQueryComponent.EVENT_TYPES
+    const { list, get, del, clear, put, update } = DataQueryComponent.EVENT_TYPES
     console.table(event)
     const table = event.target.id
     console.table('table', table)
@@ -211,33 +201,29 @@ export default class DataStore extends HTMLElement {
     } else if (queryType === clear) {
       await this.clear(table)
     } else if (queryType === del) {
-      console.log('deleting', event.detail)
       const id = event.detail.id
-      // console.log(event.target)
-      // console.log(event.target.removeItem)
       // event.target.removeItem(id)
       this.removeItem(table, id)
         .then(res => console.log('deleted', res))
         .catch(err => console.error(err))
-
+    } else if (queryType === update) {
+      console.log('on data-set', event)
+      const id = event.detail.id
+      // this.#db.table(table).where('id').equals(id)
     }
 
   }
 
   /**
    * Save an object on IndexedDB under a given key (this key will be prefixed with the store name)
-   * @param {string} key data store key to be used
-   * @param {*} value value to be stored on this data store key
+   * @param {table} id data store key to be used
+   * @param {string} id data store key to be used
+   * @param {*} data value to be stored on this data store key
    * @returns {*} 
    */
-  setItem(key, value) {
-    // return localforage.setItem(`${this.id}_${key}`, value)
-    // if(!this.#db) return console.warn('db not initialized')
-    // this.#db.table(tableName).add({
-    //   id: 'diego',
-    //   name: 'Diego Torres',
-    //   age: 30,
-    // })
+  async updateItem(table, id, data) {
+    const existingItem = await this.getItem(table, id)
+    console.log('existingItem', existingItem)
 
   }
 
@@ -260,15 +246,15 @@ export default class DataStore extends HTMLElement {
 
   /**
    * Get an item from IndexedDB by a given key (this key will be prefixed with the store name)
-   * @param {string} key 
+   * @param {string} id 
    * @returns {*}
    */
-  getItem(key) {
-    // return localforage.getItem(`${this.id}_${key}`)
+  getItem(table, id) {
+    return this.#db.table(table).get({ id })
   }
 
-  hasItem(key) {
-    // return !!this.getItem(`${this.id}_${key}`)
+  hasItem(id) {
+    // return !!this.getItem(`${this.id}_${id}`)
   }
 
   /**

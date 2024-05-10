@@ -3,7 +3,7 @@ import {
   mapComponentEvents,
   updateVars,
   registerTriggers,
-} from '../../../global/web-tools'
+} from '../../../../global/web-tools'
 
 import { createMachine, interpret } from 'xstate'
 import MachineStateComponent from './machine-state-xstate'
