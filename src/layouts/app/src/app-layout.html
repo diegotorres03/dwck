@@ -1,16 +1,11 @@
 <div class="al-container">
-
-  <header class="al-header">
-
-    <slot name="header">Header</slot>
-    <button id="hidder-btn">↔️</button>
-
-  </header>
-  <div class="al-split">
-
-    <div data-left-content-hide class="al-split__left">
-
-      <!-- <section class="left__header">
+	<header class="al-header">
+		<slot name="header">Header</slot>
+		<button id="hidder-btn">↔️</button>
+	</header>
+	<div class="al-split">
+		<div data-left-content-hide class="al-split__left">
+			<!-- <section class="left__header">
 
         <slot name="left-title">Left header</slot>
 
@@ -78,20 +73,12 @@
               &lt;/app-layout&gt;
             </code>
           </pre>
+				</slot>
+			</div>
+		</div>
+	</div>
 
-        </slot>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <footer class="al-footer">
-
-    <slot name="footer">Footer</slot>
-
-  </footer>
-
-
+	<footer class="al-footer">
+		<slot name="footer">Footer</slot>
+	</footer>
 </div>

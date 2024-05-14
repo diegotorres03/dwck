@@ -1,17 +1,31 @@
 :root {
   /*$ DARK THEME COLORS */
   /* Tone of the theme */
-  --theme-tone: 212;
+  --theme-tone: 50;
 
   /* Background Colors */
-  --background-color-1: hsl(var(--theme-tone), 5%, 12%);
-  --background-color-2: hsl(var(--theme-tone), 5%, 16%);
-  --background-color-3: hsl(var(--theme-tone), 5%, 22%);
-  --background-color-4: hsl(var(--theme-tone), 5%, 30%);
-  --background-color-5: hsl(var(--theme-tone), 5%, 38%);
+  --background-color-1: hsl(var(--theme-tone), 0%, 16%);
+  --background-color-2: hsl(var(--theme-tone), 0%, 20%);
+  --background-color-3: hsl(var(--theme-tone), 0%, 22%);
+  --background-color-4: hsl(var(--theme-tone), 0%, 24%);
+  --background-color-5: hsl(var(--theme-tone), 0%, 24%);
+  --background-color-6: hsl(var(--theme-tone), 0%, 24%);
+  --background-color-7: hsl(var(--theme-tone), 0%, 28%);
+  --background-color-8: hsl(var(--theme-tone), 0%, 34%);
+
+  /* COLORES DE FONDO */
+  /* --background-color-1: hsl(var(--theme-tone), 0%, 24%);
+  --background-color-2: hsl(var(--theme-tone), 0%, 36%);
+  --background-color-3: hsl(var(--theme-tone), 0%, 48%);
+  --background-color-4: hsl(var(--theme-tone), 0%, 60%);
+  --background-color-5: hsl(var(--theme-tone), 0%, 72%);
+  --background-color-6: hsl(var(--theme-tone), 0%, 84%);
+  --background-color-7: hsl(var(--theme-tone), 0%, 96%);
+  --background-color-8: hsl(var(--theme-tone), 0%, 98%); */
 
   /* Main Colors */
-  --main-color: hsl(var(--theme-tone), 50%, 50%); /*$ Color principal neutro */
+  --main-color: hsl(var(--theme-tone), 50%, 50%);
+  /*$ Color principal neutro */
 
   --main-color-1: hsl(var(--theme-tone), 30%, 20%);
   --main-color-2: hsl(var(--theme-tone), 35%, 30%);
@@ -23,38 +37,33 @@
 
   /* Color gradients */
 
-  --main-gradient-1: linear-gradient(
-    45deg,
-    var(--main-color-1) 0%,
-    var(--main-color-3) 100%
-  );
-  --main-gradient-2: linear-gradient(
-    45deg,
-    var(--main-color-2) 0%,
-    var(--main-color-4) 100%
-  );
+  --main-gradient-1: linear-gradient(45deg,
+      var(--main-color-1) 0%,
+      var(--main-color-3) 100%);
+  --main-gradient-2: linear-gradient(45deg,
+      var(--main-color-2) 0%,
+      var(--main-color-4) 100%);
 
-  --main-gradient-3: linear-gradient(
-    25deg,
-    var(--main-color-3) 0%,
-    var(--main-color-5) 100%
-  );
+  --main-gradient-3: linear-gradient(25deg,
+      var(--main-color-3) 0%,
+      var(--main-color-5) 100%);
 
-  --main-gradient-4: linear-gradient(
-    45deg,
-    var(--main-color-5) 0%,
-    var(--main-color-7) 100%
-  );
+  --main-gradient-4: linear-gradient(45deg,
+      var(--main-color-5) 0%,
+      var(--main-color-7) 100%);
 
   /* [] Discutir un buen nombre para el color invertido */
   --main-color-inverted: hsl(calc(var(--theme-tone) + 180), 50%, 60%);
 
-  /* Text Colors */
-  --text-color-emphasis-high: hsla(0, 0%, 100%, 1);
-  --text-color-emphasis-mid: hsla(0, 0%, 100%, 0.5);
-  --text-color-emphasis-low: hsla(0, 0%, 100%, 0.3);
-  /* [] Discutir un buen nombre para el color invertido */
-  --text-color-inverted: hsla(0, 0%, 23%, 1);
+  /* COLORES DE TEXTO */
+  --text-color-emphasis-high: hsla(0, 0%, 98%, 0.9);
+  --text-color-emphasis-mid: hsla(0, 0%, 98%, 0.6);
+  --text-color-emphasis-low: hsla(0, 0%, 98%, 0.4);
+
+  /* COLORES DE TEXTO INVERTIDO */
+  --text-color-emphasis-high-i: hsla(0, 0%, 98%, 0.9);
+  --text-color-emphasis-mid-i: hsla(0, 0%, 98%, 0.6);
+  --text-color-emphasis-low-i: hsla(0, 0%, 98%, 0.4);
 
   /* Border Colors (Example) */
   --border-color-1: hsl(var(--theme-tone), 5%, 30%);
