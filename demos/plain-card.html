@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plain-Card test</title>
+  <script type="module" src="../lib/plain-card/plain-card.js"></script>
+  <script type="module" src="../lib/web-component/web-component.js"></script>
+
+</head>
+
+<body>
+
+  <template id="plain-card-template">
+    <section>
+      <h1>hi from plain-card</h1>
+      <header><slot name="title">title</slot></header>
+      <main><slot name="main">main</slot></main>
+      <slot>
+      </slot>
+    </section>
+  </template>
+
+
+  <script>
+    setTimeout(() => {
+      
+      document.body.appendChild(document.createElement('plain-card'))
+    }, 2000);
+  </script>
+
+  <plain-card title="initial">
+    <h1>hi</h1>
+  </plain-card>
+
+
+  <!--  creating a web component from html -->
+  <!-- <web-component tag="confirm-button">
+    <template>
+      <button>({name})</button>
+      <app-modal trigger="button" on="click">
+        <h2 slot="title">do you accept?</h2>
+        <main slot="main">
+          <slot>Do you accept this action?</slot>
+        </main>
+      </app-modal>
+    </template>
+    <script>
+      function myFunction() {
+        console.log('inside my function')
+      }
+    </script>
+  </web-component> -->
+
+
+  <!-- <confirm-button></confirm-button> -->
+
+</body>
+
+</html>
