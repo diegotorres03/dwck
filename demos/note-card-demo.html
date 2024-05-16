@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plain-Card test</title>
+  <script type="module" src="../lib/note-card/note-card.js"></script>
+  <!-- <script type="module" src="../lib/web-component/web-component.js"></script> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+  <template id="note-card-template">
+    <div class="card-container">
+      <div class="card-title">
+        <slot name="title">Title DOM</slot>
+      </div>
+
+      <div class="card-content">
+        <slot name="main">Main</slot>
+      </div>
+    </div>
+  </template>
+
+  <style id="note-card-styles">
+    .card-container {
+      border: 1px solid green;
+    }
+  </style>
+
+
+  <button>process</button>
+
+  <note-card name="initial" editable trigger="button" on="click">
+    <!-- <h1 slot="header">hi</h1> -->
+    <main >
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus exercitationem id, repellat ea optio
+        blanditiis, autem sapiente cupiditate ad quisquam laborum. Iure, illo suscipit odio tenetur eius magnam adipisci
+        maxime?</p>
+    </main>
+  </note-card>
+<!-- 
+  <script>
+    const note = document.querySelector('note-card')
+    note.addEventListener('test', event => console.log(event))
+    note.addEventListener('text-change', event => console.log(event))
+    note.addEventListener('selection-change', event => console.log(event))
+    note.addEventListener('editor-change', event => console.log(event))
+  </script> -->
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State Machine Demo</title>
+</head>
+<body>
+  
+
+<button id="start-btn">start</button>
+
+<state-machine trigger="#start" on="click" id="test-machine" initial="start" data-counter="10" trigger="#start-machine" on="click">
+  <machine-state id="start">
+    <state-transition trigger="#green-btn" on="click" target="green"></state-transition>
+    <state-transition trigger="#red-btn" on="click" target="red"></state-transition>
+  </machine-state>
+
+
+  <machine-state id="green">
+    <!-- <state-transition trigger="#red-btn" on="click" target="red"></state-transition> -->
+
+    <!-- transitions that don't have a trigger, are ment to be immediate transitions -->
+    <state-transition target="red" wait="4s"></state-transition>
+    <app-modal>
+      <h2 slot="title">green</h2>
+    </app-modal>
+  </machine-state>
+
+
+  <machine-state id="red">
+    <state-transition trigger="#green-btn" on="click" target="green"></state-transition>
+    <app-modal>
+      <h2 slot="title">red</h2>
+    </app-modal>
+  </machine-state>
+
+</state-machine>
+
+
+
+
+<!-- 
+    <state-machine id="my-machine" data-counter="0" initial="#start">
+        <machine-state id="start">
+            <button>asdasd</button>
+            <state-transition target="#next">
+            </state-transition>
+            <state-transition trigger="#done-btn" on="click" target="#done"></state-transition>
+        </machine-state>
+    
+        <machine-state id="next" data-variable="this will be passed every time when entering this state"></machine-state>
+    
+        <machine-state id="done" type="final" ></machine-state>
+    </state-machine> -->
+
+
+
+
+</body>
+</html>

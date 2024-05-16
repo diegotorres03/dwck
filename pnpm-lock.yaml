@@ -44,6 +44,9 @@ dependencies:
   localforage:
     specifier: ^1.10.0
     version: 1.10.0
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
   maplibre-gl:
     specifier: ^3.4.1
     version: 3.6.2
@@ -53,9 +56,15 @@ dependencies:
   mermaid:
     specifier: ^10.9.0
     version: 10.9.0
+  parchment:
+    specifier: ^3.0.0
+    version: 3.0.0
   quill:
     specifier: ^2.0.0
     version: 2.0.0
+  quill-delta:
+    specifier: ^5.1.0
+    version: 5.1.0
   showdown:
     specifier: ^2.1.0
     version: 2.1.0

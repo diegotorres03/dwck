@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="../lib/note-card/note-card.js"></script>
+  <script type="module" src="../lib/web-component/web-component.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <template>
+    <div class="card-container">
+      <div class="card-title">
+        <slot name="title" >Title URL</slot>
+      </div>
+
+      <div class="card-content" >
+        <slot name="main">Main</slot>
+      </div>
+    </div>
+  </template>
+
+  <script type="module">
+
+  </script>
+
+</body>
+
+</html>
