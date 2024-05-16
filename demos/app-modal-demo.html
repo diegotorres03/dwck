@@ -6,14 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Modal</title>
   <script type="module" src="../lib/app-modal/app-modal.js"></script>
-  <link rel="stylesheet" href="../lib/themes/light-theme.css">
+  <script type="module" src="../lib/header-card/header-card.js"></script>
+
+
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
+  
   <!-- <script type="module" src="../lib/flip-card/flip-card.js"></script> -->
   <!-- <script type="module" src="../lib/app-router/app-router.js"></script> -->
-  <script type="module" src="../lib/app-layout/app-layout.js"></script>
+  <!-- <script type="module" src="../lib/app-layout/app-layout.js"></script> -->
 </head>
 
-<body>
+<body >
 
   <!-- <nav>
     a
@@ -22,36 +26,50 @@
   <app-router>
 
   </app-router> -->
+  
+  <header-card></header-card>
 
-  <app-layout>
+  <!-- <app-layout  >
 
     <header>este es el header</header>
 
     <nav>
       
+
+
       <summary>
-        asd
+        <a href="#">Home</a>
         <details>asdasd</details>
       </summary>
 
 
       <summary>
-        asd
+        <a href="#services">Services</a>
         <details>asdasd</details>
       </summary>
       
     </nav>
 
     <main>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nostrum nemo distinctio accusantium exercitationem,
-      modi, natus repellendus at dolore ducimus vitae sunt ratione esse porro! Veniam labore aliquam quidem consequatur.
+
+      <app-router>
+
+
+        <app-route>
+          home
+        </app-route>
+        <app-route hash="services">
+          <h1>services</h1>
+        </app-route>
+
+      </app-router>
     </main>
 
     <footer>
       asd
     </footer>
 
-  </app-layout>
+  </app-layout> -->
 
   <!-- 
   <button>asd</button>
