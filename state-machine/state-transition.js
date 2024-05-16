@@ -1,4 +1,4 @@
-import { DWCKComponent } from '../dwck-component.js'
+import { DWCKComponent } from '../lib/dwck-component.js'
 
 
 class MachineTransition extends DWCKComponent {
@@ -8,7 +8,7 @@ class MachineTransition extends DWCKComponent {
   }
 
   async activate(event) {
-    const { sleep } = await import('../web-tools.js')
+    const { sleep } = await import('../lib/web-tools.js')
 
     /**
      *
@@ -43,7 +43,7 @@ class MachineTransition extends DWCKComponent {
   }
 
   async connectedCallback() {
-    const { registerTriggers } = await import('../web-tools.js')
+    const { registerTriggers } = await import('../lib/web-tools.js')
     registerTriggers(this, (event) => this.activate(event))
 
 

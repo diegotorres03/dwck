@@ -1,4 +1,4 @@
-import { DWCKComponent } from '../dwck-component.js'
+import { DWCKComponent } from '../lib/dwck-component.js'
 // import {
 //   html,
 //   mapComponentEvents,
@@ -63,7 +63,7 @@ export class MachineStateComponent extends DWCKComponent {
   }
 
   async connectedCallback() {
-    const { registerTriggers } = await import('../web-tools.js')
+    const { registerTriggers } = await import('../lib/web-tools.js')
     //  mapComponentEvents(this)
     //  updateVars(this)
     registerTriggers(this, (event) => this.#internalActivation(event))

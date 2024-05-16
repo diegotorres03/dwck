@@ -1,4 +1,4 @@
-import { DWCKComponent } from '../dwck-component.js'
+import { DWCKComponent } from '../lib/dwck-component.js'
 
 
 import { MachineStateComponent } from './machine-state.js'
@@ -59,7 +59,7 @@ export default class StateMachineComponent extends DWCKComponent {
   }
 
   async connectedCallback() {
-    const { onDomReady, registerTriggers } = await import('../web-tools.js')
+    const { onDomReady, registerTriggers } = await import('../lib/web-tools.js')
     onDomReady(() => this.#init())
     registerTriggers(this, event =>
       this.#activateState(this.#currentState))
