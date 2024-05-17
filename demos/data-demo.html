@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/dexie/dist/dexie.js"></script>
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+
+  <!-- <script type="module" >
+    import('../lib/data-store/data-store.js')
+    import('../lib/ui-data/ui-data-repeat.js')
+    import('../lib/app-modal/app-modal.js')
+  </script> -->
+
+</head>
+
+<body>
+
+
+  <button id="clear">clear</button>
+  <!-- <button id="btn-2" data-value="2">2</button>
+  <button id="btn-3" data-value="3">3</button> -->
+
+  <data-store id="main-store">
+
+    <data-set id="test-set" trigger="#new-user" on="accepted" visible>
+      <data-query type="clear" trigger="#clear" on="click"></data-query>
+
+    </data-set>
+  </data-store>
+
+  <!-- <ui-data-repeat trigger="#test-set" on="data"> -->
+
+  <button id="modal">modal</button>
+
+  <app-modal id="new-user" trigger="#modal" on="click">
+    <section>
+      <b>username</b>
+      <input type="text" name="username" id="username">
+    </section>
+  </app-modal>
+
+  <ui-data-repeat target="#list" trigger="#test-set" on="updated">
+    <template>
+      <div>
+        <b >username </b> <span name="username"></span>
+      </div>
+    </template>
+
+  </ui-data-repeat>
+  
+
+  <section id="list">
+    <p>asd</p>
+  </section>
+
+
+
+  <script type="module" src="../lib/data-store/data-store.js"></script>
+  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+</body>
+
+</html>
