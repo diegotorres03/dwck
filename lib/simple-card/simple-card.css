@@ -2,7 +2,8 @@
   --simple-card-background-color: var(--background-color-7);
   --simple-card-font-color: var(--text-color-emphasis-mid);
   --simple-card-border-color: var(--border-color-2);
-  --simple-card-border-radius-value: ;
+  --simple-card-border-radius-value: .4rem;
+  --simple-card-padding-value: .4rem;
 }
 
 .simple-card {
@@ -11,7 +12,7 @@
   flex-direction: column;
   gap: 1rem;
 
-  padding: var(--padding-value);
+  padding: var(--simple-card-padding-value);
   border-radius: var(--simple-card-border-radius-value);
 
   color: var(--simple-card-font-color);
