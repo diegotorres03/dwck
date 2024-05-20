@@ -4,13 +4,23 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Converting Components</title>
+		<style>
+			html,
+			body {
+				min-height: 100vh;
+			}
+
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+		</style>
 	</head>
 	<body>
-		<simple-card>
-			<p slot="main">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-				Mollitia, dolore!
-			</p>
-		</simple-card>
+		<div class="preview">
+			<simple-card></simple-card>
+		</div>
 	</body>
 </html>
