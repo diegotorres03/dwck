@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js'></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css">
+  
+  <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.bubble.css" rel="stylesheet"> -->
+
+  
+  <title>EasyArchery Dashboard</title>
+  <style>
+    nav,
+    app-route {
+      padding: 20px;
+    }
+
+    nav a {
+      color: var(--text-color-emphasis-high);
+      text-decoration: underline;
+    }
+
+    summary {
+      margin: 10px;
+    }
+
+    app-route {
+      padding: 20px;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .space-around {
+      justify-content: space-around;
+    }
+
+    .space-between {
+      justify-content: space-between;
+    }
+
+    /* .hidden {
+      display: none;
+    } */
+    app-router {
+      width: 100%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <style>
+    kanban-board {
+      width: 100%;
+    }
+    kanban-column {
+      width: 33%;
+      background-color: bisque;
+      padding: 20px;
+      margin: 20px;
+    }
+    plain-card {
+      margin: 20px;
+    }
+  </style>
+
+  <app-modal id="finish-task-modal" trigger="#diego-torres-tasks" on="done">
+    <h3 slot="title">Congrats</h3>
+    <p slot="main">Thank for your hard work!</p>
+    <small slot="main">here, have a cookie!</small>
+  </app-modal>
+
+  <button id="add-task-btn">add Task</button>
+
+  <app-modal trigger="#add-task-btn" on="click" id="new-task-modal" >
+    <h3 slot="title">Add Task</h3>
+    <section slot="main">
+      <b>Title:</b> <input type="text" name="title" id="new-task-title">
+      <br>
+      <textarea name="content" id="new-task-content" cols="30" rows="10"></textarea>
+    </section>
+  </app-modal>
+
+  <!-- <app-modal id="start-task-modal" trigger="#diego-torres-tasks" on="doing">
+    <h3 slot="title">Ready to start</h3>
+    <p slot="main">Please accept this tas#diego-torres-tasksk !</p>
+    <small slot="main">here, have a cookie!</small>
+  </app-modal> -->
+
+  <data-store id="kanban-store" version="2">
+
+    <data-set id="tasks" trigger="#new-task-modal" on="accepted">
+      <data-query id="remove-task-query" type="delete"></data-query>
+
+      <data-query id="update-task-query" type="put" trigger="#diego-torres-tasks" on="drop"></data-query>
+    </data-set>
+
+  </data-store>
+
+  <plain-card editable>
+    <section slot="main">
+      text
+    </section>
+  </plain-card>
+
+  <template id="new-task-template">
+    <!-- <button name="title"></button> -->
+    <plain-card name="id" data-field="id" editable>
+      <h4 slot="title"><span name="title">task title</span> <small name="id"></small> <button data-role="delete-task" name="id" data-field="data-id">delete</button></h4>
+      <p slot="main" name="content">task content</p>
+    </plain-card>
+  </template>
+
+  <script>
+    // task is an HTMLElement, like a plain-card
+    function isNewTask(event, dataset) {
+      console.log('filter event', event, dataset)
+      const noStore = !event.detail.column
+      const storeValue = event.detail.column
+
+      const isNew = noStore || storeValue === dataset.column
+      console.log('filter', isNew, storeValue, dataset.column)
+      return isNew 
+    }
+
+    function filterColumn(event, dataset) {
+      const storeValue = event.detail.column
+      return storeValue === dataset.column
+    }
+
+  </script>
+
+  <ui-data-repeat id="new-task-repeat" data-column="todo" target="#todo" trigger="#tasks" on="updated" template="new-task-template" filter="isNewTask"></ui-data-repeat>
+
+  <ui-data-repeat id="new-task-repeat" data-column="doing" target="#doing" trigger="#tasks" on="updated" template="new-task-template" filter="filterColumn"></ui-data-repeat>
+
+  <ui-data-repeat id="new-task-repeat" data-column="done" target="#done" trigger="#tasks" on="updated" template="new-task-template"  filter="filterColumn"></ui-data-repeat>
+
+  <kanban-board id="diego-torres-tasks" class="flex-row space-around" >
+    <kanban-column id="todo">
+      <!-- <plain-card></plain-card>
+      <plain-card></plain-card>
+      <plain-card></plain-card> -->
+    </kanban-column>
+    <kanban-column id="doing"></kanban-column>
+    <kanban-column id="done"></kanban-column>
+  </kanban-board>
+
+
+
+  <script>
+    function run() {
+      const kanban = document.querySelector('kanban-board')
+      
+      // console.log('123123', kanban)
+      // kanban.addEventListener('todo', ev => console.log('todo', ev))
+      kanban.addEventListener('doing', ev => {
+        console.log('doing', ev)
+      })
+      // kanban.addEventListener('done', ev => console.log('done', ev))
+
+    }
+    run()
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+* {
+  --simple-card-background-color: var(--background-color-7);
+  --simple-card-font-color: var(--text-color-emphasis-mid);
+  --simple-card-border-color: var(--border-color-2);
+  --simple-card-border-radius-value: .4rem;
+  --simple-card-padding-value: .4rem;
+}
+
+.simple-card {
+  /* [] Buscar la manera de alternar inline-flex con flex, a traves de un atributo */
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: var(--simple-card-padding-value);
+  border-radius: var(--simple-card-border-radius-value);
+
+  color: var(--simple-card-font-color);
+  background-color: var(--simple-card-background-color);
+  border: 0.2px solid var(--simple-card-border-color);
+}
