@@ -7,7 +7,10 @@
   <title>Document</title>
   <script src="../node_modules/dexie/dist/dexie.js"></script>
   <link rel="stylesheet" href="../lib/themes/dark-theme.css">
-
+  <!-- <script type="module" src="https://cdnjs.com/libraries/Chart.js"></script> -->
+  <!-- <script src="../node_modules/chart.js/dist/chart.js"></script> -->
+  <!-- <script src="../node_modules/chart.js/auto/auto.js"></script> -->
+<script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
   <!-- <script type="module" >
     import('../lib/data-store/data-store.js')
     import('../lib/ui-data/ui-data-repeat.js')
@@ -18,10 +21,9 @@
 
 <body>
 
-
+  <hr>
+ 
   <button id="clear">clear</button>
-  <!-- <button id="btn-2" data-value="2">2</button>
-  <button id="btn-3" data-value="3">3</button> -->
 
   <data-store id="main-store">
 
@@ -30,8 +32,6 @@
 
     </data-set>
   </data-store>
-
-  <!-- <ui-data-repeat trigger="#test-set" on="data"> -->
 
   <button id="modal">modal</button>
 
@@ -42,24 +42,34 @@
     </section>
   </app-modal>
 
-  <ui-data-repeat target="#list" trigger="#test-set" on="updated">
+
+  <script>
+    function isDiego(event) {
+      const {username} = event.detail
+      return username.toLowerCase().includes('diego')
+    }
+  </script>
+
+  <ui-data-repeat target="#list" trigger="#test-set" on="updated" filter="isDiego">
     <template>
       <div>
-        <b >username </b> <span name="username"></span>
+        <b>username </b> <span name="username"></span>
       </div>
     </template>
-
   </ui-data-repeat>
-  
 
   <section id="list">
     <p>asd</p>
   </section>
 
+  <data-chart></data-chart>
 
 
+  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
   <script type="module" src="../lib/data-store/data-store.js"></script>
   <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+  <script type="module" src="../lib/data-chart/data-chart.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
   <script type="module" src="../lib/app-modal/app-modal.js"></script>
 </body>
 

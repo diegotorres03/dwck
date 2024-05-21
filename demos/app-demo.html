@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Demo</title>
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+  <script type="module" src="../lib/app-layout/app-layout.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/app-router/app-router.js"></script>
+  <script type="module" src="../lib/note-card/note-card.js"></script>
+  <script type="module" src="../lib/ace-editor/ace-editor.js"></script>
+
+
+  <!-- for notecard -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet">
+
+
+
+
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  
+<app-layout>
+
+
+  <header>hi</header>
+
+  <nav>
+    <a href="#">Home</a>
+    <br>
+    <a href="#other">Other</a>
+    <br>
+    <a href="#other/sub1">Other/sub1</a>
+    <a href="#other/sub2">Other/sub2</a>
+    <br>
+    <app-router>
+      <app-route><b>on home</b></app-route>
+      <app-route hash="other"><b>on other</b></app-route>
+    </app-router>
+  </nav>
+
+  <main>
+    <app-router>
+
+      <app-route trigger="#sure-modal" on="accepted">
+        <h1>home</h1>
+        <note-card editable>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui blanditiis quasi mollitia quam provident inventore repellendus hic alias natus laboriosam molestiae possimus dolores explicabo veniam expedita obcaecati sapiente, sequi modi.</p>
+        </note-card>
+      </app-route>
+
+      <app-route hash="other">
+        <h1>other</h1>
+        <var>asdasd</var>
+        <button id="home-btn">back to home</button>
+        <app-modal id="sure-modal" trigger="#home-btn" on="click">
+          <h1>Are you sure??</h1>
+        </app-modal>
+      </app-route>
+
+      <app-route hash="other/sub1">
+        <h1>other/sub1</h1>
+        <ace-editor></ace-editor>
+      </app-route>
+
+      <app-route hash="other/sub2">
+        <h1>other/sub2</h1>
+      </app-route>
+
+    </app-router>
+  </main>
+
+
+</app-layout>
+
+
+<script>
+  function tournamentStarted(event) {
+    // 
+  }
+</script>
+
+</body>
+</html>

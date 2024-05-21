@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P2P Bot</title>
+  <script type="module" src="../lib/app-layout/app-layout.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/app-router/app-router.js"></script>
+  <script type="module" src="../lib/header-card/header-card.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/ui-data/ui-data-sync.js"></script>
+
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+
+  <!-- esta toca q este definida por fuera -->
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- <ui-data-repeat >
+
+    <template>
+      <header-card>
+        <h4 slot="header">otra cosa</h4>
+        
+        <section>
+          <b>Publisher:</b><span name="publisher">Carras</span><br>
+          <b>Amout:</b><span>$1'000.000</span>
+          <b>Tasa:</b><span>$3'800.000</span>
+          <b>medio de pago:</b><span>Nequi, Bancolombia</span>
+        </section>
+        
+      </header-card>
+    </template>
+    
+  </ui-data-repeat> -->
+
+  <button id="refresh-open-orders">refresh</button>
+
+  <http-request trigger="#refresh-open-orders" on="click" url="http://localhost:3000/open-orders" target="#open-order-list"></http-request>
+
+  <app-layout>
+
+    <header>
+      <h3>SmartClick P2P Bot</h3>
+    </header>
+
+    <nav>
+      <a href="#">Dashboard</a><br>
+      <a href="#open-orders">Open Orders</a><br>
+      <a href="#history">History</a><br>
+    </nav>
+
+    <main>
+
+      <app-router>
+
+        <app-route>
+          estas es la ruta por defecto
+          Dashboard
+        </app-route>
+
+        <app-route hash="open-orders">
+          <h2>open orders</h2>
+
+          <ui-data-sync trigger="#risk-profile-form" on="change">
+            <h4 name="value"></h4>
+          </ui-data-sync>
+
+    <!--  <form id="risk-profile-form">
+            <input value="low" type="radio" name="risk-profile" id="risk-profile-low">
+            <label for="risk-profile-low">low</label>
+            <input value="mid" type="radio" name="risk-profile" id="risk-profile-mid">
+            <label for="risk-profile-mid">mid</label>
+            <input value="high" type="radio" name="risk-profile" id="risk-profile-high">
+            <label for="risk-profile-high">high</label>
+          </form> -->
+
+
+
+          <hr>
+          <section id="open-order-list"></section>
+  
+        </app-route>
+
+        <app-route hash="history">
+          history
+        </app-route>
+
+      </app-router>
+
+    </main>
+
+    <footer>
+      <a href="mailto:info@SmartClick.com">info@SmartClick.com</a>
+    </footer>
+
+  </app-layout>
+
+
+
+</body>
+
+</html>

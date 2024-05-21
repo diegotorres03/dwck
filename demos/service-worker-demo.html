@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Worker</title>
+  <script type="module" src="../lib/service-worker/service-worker.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+</head>
+<body>
+
+  <service-worker>
+    <service-worker-cache path="../lib/dwck-component.js"></service-worker-cache>
+    <service-worker-cache path="../lib/web-tools.js"></service-worker-cache>
+  </service-worker>
+  
+  <http-request url="http://localhost:3000/items.html" trigger="button" on="click"></http-request>
+  <button>req</button>
+
+
+
+
+</body>
+</html>

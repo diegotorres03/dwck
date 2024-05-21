@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/note-card/note-card.js"></script>
+  <script type="module" src="../lib/flip-card/flip-card.js"></script>
+  <script type="module" src="../lib/header-card/header-card.js"></script>
+  <script type="module" src="../lib/event-stream/event-stream.js"></script>
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+  <style>
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  
+
+  <button id="get" >get</button>
+  <button id="post" >post</button>
+  <button id="put" >put</button>
+  <button id="delete" >delete</button>
+
+  <app-modal id="new-item-modal" trigger="#post" on="click">
+    <section>
+      <input placeholder="id" type="text" name="id" >
+      <br>
+      <input placeholder="name" type="text" name="name" >
+    </section>
+  </app-modal>
+
+  <event-group id="request-get">
+    <event-source trigger="#get" on="click"></event-source>
+    <event-source trigger="#create-card-request" on="response"></event-source>
+    <event-source trigger="window" on="load" wait="1s"></event-source>
+  </event-group>
+
+  <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html" target="#responses" ></http-request>
+
+
+  <http-request id="create-card-request" method="post" trigger="#new-item-modal" on="accepted" url="http://localhost:3000/items.html" content-type="json"  >
+    <!-- <custom-item id="this is new" name="new item"></custom-item> -->
+  </http-request>
+
+
+
+  <!-- <app-modal trigger="#create-card-request" on="response"></app-modal> -->
+  
+  <section id="responses" class="flex-row" ></section>
+  
+  <script>
+    document.querySelector('button')
+      .addEventListener('click', event => {
+        fetch(url, {
+          method: 'post'
+        })
+      })
+  </script>
+
+
+</body>
+</html>

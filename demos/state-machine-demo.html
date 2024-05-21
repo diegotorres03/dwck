@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>State Machine Demo</title>
+  <script type="module" src="../lib/state-machine/state-machine.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
 </head>
+
 <body>
+
+
+  <button id="start-btn">start</button>
+  <button id="green-btn">green</button>
+  <!-- <button id="red-btn">red</button> -->
+
+
+  <state-machine trigger="#start-btn" on="click" id="test-machine" initial="start" final="done" data-counter="10"
+    trigger="#start-machine" on="click">
+
+    <machine-state id="start">
+      <state-transition target="green" wait="1s"></state-transition>
+    </machine-state>
+
+
+    <machine-state id="green">
+
+      <state-transition target="red" wait="1s"></state-transition>
+    </machine-state>
+
+
+    <machine-state id="red" wait="2s">
+
+      <state-transition trigger="#re-start-modal" on="accepted" target="green" filter="isOdd"></state-transition>
+      <state-transition trigger="#re-start-modal" on="accepted" target="done" not filter="isOdd"></state-transition>
+      <!-- <state-transition trigger="#re-start-modal" on="accepted" target="green"></state-transition> -->
+      <state-transition trigger="#re-start-modal" on="declined" target="done"></state-transition>
+
+      <app-modal id="re-start-modal">
+        <h2 slot="title">red</h2>
+        <div>some value <input type="number" name="value"></div>
+      </app-modal>
+    </machine-state>
+
+    <machine-state id="done" final>
+    </machine-state>
+
+  </state-machine>
+
+  <script>
+    function isOdd({ value }) {
+      const odd = Number(value) % 2 === 1
+      console.log('isOdd',odd)
+      return odd
+    }
+  </script>
+
+
+  <app-modal trigger="state-machine" on="done">
+    <h2 slot="title">red</h2>
+    <p>Thanks for using this machine</p>
+  </app-modal>
+
+
   
-
-<button id="start-btn">start</button>
-
-<state-machine trigger="#start" on="click" id="test-machine" initial="start" data-counter="10" trigger="#start-machine" on="click">
-  <machine-state id="start">
-    <state-transition trigger="#green-btn" on="click" target="green"></state-transition>
-    <state-transition trigger="#red-btn" on="click" target="red"></state-transition>
-  </machine-state>
-
-
-  <machine-state id="green">
-    <!-- <state-transition trigger="#red-btn" on="click" target="red"></state-transition> -->
-
-    <!-- transitions that don't have a trigger, are ment to be immediate transitions -->
-    <state-transition target="red" wait="4s"></state-transition>
-    <app-modal>
-      <h2 slot="title">green</h2>
-    </app-modal>
-  </machine-state>
-
-
-  <machine-state id="red">
-    <state-transition trigger="#green-btn" on="click" target="green"></state-transition>
-    <app-modal>
-      <h2 slot="title">red</h2>
-    </app-modal>
-  </machine-state>
-
-</state-machine>
-
-
-
-
-<!-- 
     <state-machine id="my-machine" data-counter="0" initial="#start">
+
         <machine-state id="start">
             <button>asdasd</button>
             <state-transition target="#next">
@@ -52,10 +78,12 @@
         <machine-state id="next" data-variable="this will be passed every time when entering this state"></machine-state>
     
         <machine-state id="done" type="final" ></machine-state>
-    </state-machine> -->
+        
+    </state-machine>
 
 
 
 
 </body>
+
 </html>

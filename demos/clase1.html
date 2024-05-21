@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+</head>
+<body>
+  
+  <button id="touch-me">touch me</button>
+
+  <app-modal id="modal1" trigger="#touch-me" on="click">
+    
+  </app-modal>
+
+
+  <app-modal trigger="#modal1" on="accepted">
+
+    <h4 slot="title">este es el titulo</h4>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, facilis velit dolore nostrum recusandae fugit error vel vitae, culpa quis repudiandae est corrupti distinctio ducimus rerum! Cupiditate animi deserunt eveniet?</p>
+
+  </app-modal>
+
+
+
+  <!-- <script>
+    document.querySelector('#touch-me')
+      .addEventListener('cick', event => {
+        document.querySelector('app-modal').setAttribute('open', '')
+      });
+  </script> -->
+
+</body>
+</html>
