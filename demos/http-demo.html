@@ -9,6 +9,7 @@
   <script type="module" src="../lib/note-card/note-card.js"></script>
   <script type="module" src="../lib/flip-card/flip-card.js"></script>
   <script type="module" src="../lib/header-card/header-card.js"></script>
+  <script type="module" src="../lib/simple-card/simple-card.js"></script>
   <script type="module" src="../lib/event-stream/event-stream.js"></script>
   <link rel="stylesheet" href="../lib/themes/dark-theme.css">
   <style>
@@ -41,7 +42,11 @@
     <event-source trigger="window" on="load" wait="1s"></event-source>
   </event-group>
 
+
+  
   <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html" target="#responses" ></http-request>
+
+  <!-- <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html" target="#responses" ></http-request> -->
 
 
   <http-request id="create-card-request" method="post" trigger="#new-item-modal" on="accepted" url="http://localhost:3000/items.html" content-type="json"  >

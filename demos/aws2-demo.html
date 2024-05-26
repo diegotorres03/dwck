@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/data-sync/data-sync.js"></script>
+  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+  <script type="module" src="../lib/app-router/app-router.js"></script>
+  <link rel="stylesheet" href="../lib/themes/light-theme.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button id="login-btn">login</button>
+
+
+  <app-modal id="login-modal" trigger="#login-btn" on="click">
+    <section>
+      <input type="text" name="userId">
+      <br>
+      <input type="text" name="id">
+    </section>
+  </app-modal>
+
+  <data-sync id="controller-receiver" user-id="alejo" trigger="#login-modal" on="accepted"
+    url="wss://mh8nrjiabg.execute-api.us-east-2.amazonaws.com/DemoWSApi_dev_stage/"></data-sync>
+
+
+    <script>
+      document.querySelector('data-sync')
+        .addEventListener('sync', ev => {
+          console.log('sync', ev)
+          const hash = event.detail.hash
+          document.querySelector(`[hash="${hash}"]`)?.activate()
+        })
+    </script>
+
+
+  <app-router>
+    <app-route>
+      <h1>Home</h1>
+    </app-route>
+
+    <app-route hash="page1">
+      <h1>page1</h1>
+    </app-route>
+
+    <app-route hash="page2">
+      <h1>page2</h1>
+    </app-route>
+
+    <app-route hash="page3">
+      <h1>page3</h1>
+    </app-route>
+
+  </app-router>
+
+
+
+
+
+</body>
+
+</html>

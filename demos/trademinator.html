@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trademinator</title>
+  <script type="module" src="../lib/app-layout/app-layout.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/app-router/app-router.js"></script>
+
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    app-rotue,
+    app-rotuer {
+      width: 100%;
+    }
+    header-card {
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <app-layout>
+
+    <header class="flex-row">
+      <h3>Trademinator</h3>
+    </header>
+
+    <nav>
+      <a href="#">dashboard</a>
+      <br>
+      <a href="#runnung-bots">runnung-bots</a>
+      <br>
+      <a href="#profile">profile</a>
+      <hr>
+      <app-router>
+
+        <app-route>
+          <h2>Dashboard</h2>
+          <hr>
+          aca puedo poner un pie chart con la distribucion de mi cuenta
+        </app-route>
+        <app-route hash="runnung-bots">
+          <h2>running bots</h2>
+        </app-route>
+
+        <app-route hash="profile">
+          <h2>profile</h2>
+        </app-route>
+
+
+      </app-router>
+    </nav>
+
+
+    <main>
+      <app-router>
+        <app-route>
+          <h2>Dashboard</h2>
+          <hr>
+          aca puedo poner un pie chart con la distribucion de mi cuenta
+        </app-route>
+        <app-route hash="runnung-bots">
+          <h2>running bots</h2>
+          <hr>
+
+          <section id="running-orders-container" class="flex-row">
+
+            <header-card>
+              <section>
+                <b>Amount:</b> 1<br>
+                <b>Coin:</b> LTC<br>
+                <b>Direction:</b> buy<br>
+              </section>
+            </header-card>
+
+            <header-card>
+              <!-- <header slot="header">Buying 1LTC</header> -->
+              <section>
+                <b>Amount:</b> 1<br>
+                <b>Coin:</b> LTC<br>
+                <b>Direction:</b> buy<br>
+              </section>
+              <footer>
+                <button>cancel</button>
+              </footer>
+            </header-card>
+            
+
+            <header-card>
+              <section>
+                <b>Amount:</b> 1<br>
+                <b>Coin:</b> LTC<br>
+                <b>Direction:</b> buy<br>
+              </section>
+            </header-card>
+            
+
+          </section>
+        </app-route>
+
+        <app-route hash="profile">
+          <h2>profile</h2>
+        </app-route>
+
+      </app-router>
+    </main>
+
+
+    <footer></footer>
+
+  </app-layout>
+
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="../../../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../../../lib/app-layout/app-layout.js"></script>
+  <script type="module" src="../../../lib/app-router/app-router.js"></script>
+  <script type="module" src="../../../lib/data-sync/data-sync.js"></script>
+  <script type="module" src="../../../lib/event-stream/event-stream.js"></script>
+  <!-- <script type="module" src="../../../lib/"></script> -->
+  <!-- <script type="module" src="../../../lib/"></script> -->
+  <link rel="stylesheet" href="../../../lib/themes/dark-theme.css">
+  <title>Document</title>
+  <style>
+    app-router {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- instead of userId should be topic or channel -->
+  <data-sync id="timer-controller" trigger="#confirmation-modal" on="accepted" user-id="diego"
+    url="wss://mh8nrjiabg.execute-api.us-east-2.amazonaws.com/DemoWSApi_dev_stage/">
+  </data-sync>
+
+
+  <app-modal id="confirmation-modal" trigger="#start-btn" on="click" >
+    <input type="text" name="message">
+  </app-modal>
+  <!-- not working, TODO check event components internally -->
+  <!-- <event-group id="btn-evens">
+    <event-source trigger="#start-btn" on="click"></event-source>
+    <event-source trigger="#stop-btn" on="click"></event-source>
+  </event-group> -->
+
+
+  <app-layout>
+    <header>EasyArchery Timer Controller</header>
+
+    <main>
+      <button id="start-btn">start</button>
+      <button>stop</button>
+      <button>restart</button>
+      <hr>
+      <iframe src="./timer.html" frameborder="0" width="100%"></iframe>
+    </main>
+
+  </app-layout>
+
+
+
+</body>
+
+</html>

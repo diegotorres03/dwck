@@ -7,6 +7,7 @@
   <title>State Machine Demo</title>
   <script type="module" src="../lib/state-machine/state-machine.js"></script>
   <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/app-router/app-router.js"></script>
   <link rel="stylesheet" href="../lib/themes/dark-theme.css">
 </head>
 
@@ -25,12 +26,9 @@
       <state-transition target="green" wait="1s"></state-transition>
     </machine-state>
 
-
     <machine-state id="green">
-
       <state-transition target="red" wait="1s"></state-transition>
     </machine-state>
-
 
     <machine-state id="red" wait="2s">
 
@@ -39,16 +37,39 @@
       <!-- <state-transition trigger="#re-start-modal" on="accepted" target="green"></state-transition> -->
       <state-transition trigger="#re-start-modal" on="declined" target="done"></state-transition>
 
-      <app-modal id="re-start-modal">
-        <h2 slot="title">red</h2>
-        <div>some value <input type="number" name="value"></div>
-      </app-modal>
     </machine-state>
 
     <machine-state id="done" final>
     </machine-state>
 
   </state-machine>
+
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+
+  <app-modal trigger="#test-machine" on="red" id="re-start-modal">
+    <h2 slot="title">red</h2>
+    <div>some value <input type="number" name="value"></div>
+  </app-modal>
+
+  <app-router>
+    <app-route>
+      start
+    </app-route>
+    
+    <app-route trigger="#test-machine" on="green"  hash="green">
+      green
+    </app-route>
+    
+    <app-route trigger="#test-machine" on="red" hash="red">
+      red
+    </app-route>
+
+  </app-router>
+
 
   <script>
     function isOdd({ value }) {
@@ -58,7 +79,7 @@
     }
   </script>
 
-
+<!-- 
   <app-modal trigger="state-machine" on="done">
     <h2 slot="title">red</h2>
     <p>Thanks for using this machine</p>
@@ -80,7 +101,7 @@
         <machine-state id="done" type="final" ></machine-state>
         
     </state-machine>
-
+ -->
 
 
 

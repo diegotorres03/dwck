@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/data-sync/data-sync.js"></script>
+  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+  <script type="module" src="../lib/event-stream/event-stream.js"></script>
+  <link rel="stylesheet" href="../lib/themes/light-theme.css">
+</head>
+
+<body>
+
+  <button id="login-btn">login</button>
+<!-- 
+  <button id="ask-btn">Ask</button>
+
+  <app-modal id="ask-modal" trigger="#ask-btn" on="click">
+    <label for="prompt">Prompt:</label>
+    <br>
+    <textarea name="prompt" id="prompt"></textarea>
+  </app-modal> -->
+
+
+  <button data-hash="home">home</button>
+  <button data-hash="page1">page1</button>
+  <button data-hash="page2">page2</button>
+  <button data-hash="page3">page3</button>
+  <button data-hash="page4">page4</button>
+
+  <app-modal id="login-modal" trigger="#login-btn" on="click">
+    <section>
+      <input type="text" name="userId">
+      <br>
+      <input type="text" name="id">
+    </section>
+  </app-modal>
+
+
+
+  <event-group id="sync-events">
+    <event-source trigger="#login-modal" on="accepted"></event-source>
+    <event-source trigger="[data-hash]" on="click"></event-source>
+  </event-group>
+  
+
+  <!-- instead of userId should be topic or channel -->
+  <data-sync id="main-controller" user-id="diego" trigger="#sync-events" on="data" data-user-id="diego" data-recipient-id="alejo"
+    url="wss://mh8nrjiabg.execute-api.us-east-2.amazonaws.com/DemoWSApi_dev_stage/"></data-sync>
+
+
+
+
+
+  <http-request trigger="#ask-modal" on="accepted" method="post"
+    url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" id="ask-llm-request">
+  </http-request>
+
+
+  <ui-data-repeat trigger="#ask-llm-request" on="response" target="#response">
+    <template>
+      <p name="response"></p>
+    </template>
+  </ui-data-repeat>
+
+
+
+  <section id="response"></section>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="../../../lib/data-chart/data-chart.js"></script>
+  <script type="module" src="../../../lib/data-sync/data-sync.js"></script>
+   <script type="module" src="../../../lib/app-modal/app-modal.js"></script>
+  <link rel="stylesheet" href="../../../lib/themes/light-theme.css">
+
+  
+   <!-- 
+    <script type="module" src="../../../lib/"></script>
+   -->
+</head>
+<body>
+
+  <data-sync id="timer-view" user-id="diego" url="wss://mh8nrjiabg.execute-api.us-east-2.amazonaws.com/DemoWSApi_dev_stage/"></data-sync>
+
+<app-modal trigger="#timer-view" on="sync">
+  <h2>OMFG!!!! is working </h2>
+</app-modal>
+
+  
+<h1>status</h1>
+
+
+</body>
+</html>
