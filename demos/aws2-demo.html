@@ -46,19 +46,20 @@
 
 
   <app-router>
-    <app-route>
+
+    <app-route trigger="#controller-receiver" on="home">
       <h1>Home</h1>
     </app-route>
 
-    <app-route hash="page1">
+    <app-route hash="page1" trigger="#controller-receiver" on="page1">
       <h1>page1</h1>
     </app-route>
 
-    <app-route hash="page2">
+    <app-route hash="page2" trigger="#controller-receiver" on="page2">
       <h1>page2</h1>
     </app-route>
 
-    <app-route hash="page3">
+    <app-route hash="page3" trigger="#controller-receiver" on="page3">
       <h1>page3</h1>
     </app-route>
 
