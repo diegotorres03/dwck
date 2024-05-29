@@ -1,5 +1,5 @@
 * {
-  --simple-card-background-color: var(--background-color-7);
+  --simple-card-background-color: red;
   --simple-card-font-color: var(--text-color-emphasis-mid);
   --simple-card-border-color: var(--border-color-2);
   --simple-card-border-radius-value: .4rem;
@@ -16,6 +16,7 @@
   border-radius: var(--simple-card-border-radius-value);
 
   color: var(--simple-card-font-color);
-  background-color: var(--simple-card-background-color);
+  background-color: red;
+
   border: 0.2px solid var(--simple-card-border-color);
 }
