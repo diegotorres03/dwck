@@ -9,33 +9,37 @@
 			defer
 			src="./lib/simple-card/simple-card.js"
 		></script>
-		<script
-			type="module"
-			defer
-			src="./lib/header-card/header-card.js"
-		></script>
+		<link rel="stylesheet" href="./lib/style-tools.css" />
+		<link rel="stylesheet" href="./lib/themes/light-theme.css" />
 		<style>
-			html,
-			body {
-				min-height: 100vh;
-			}
-
 			body {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 			}
+
+			simple-card {
+				min-width: 250px;
+				/* width: 300px; */
+			}
 		</style>
 	</head>
 	<body>
-		<div class="preview">
-			<simple-card>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Quam expedita fugit ullam!
-				</p>
-			</simple-card>
-		</div>
+		<simple-card>
+			<h3>Titulo por defecto</h3>
+			<p>
+				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum
+				ipsam consectetur in explicabo, alias veritatis. Quaerat vitae
+				ad ipsum magni? Doloribus cum aliquid doloremque?
+			</p>
+		</simple-card>
+		<simple-card>
+			<h3>Titulo por defecto</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque
+				animi reiciendis blanditiis.
+			</p>
+		</simple-card>
 	</body>
 </html>
