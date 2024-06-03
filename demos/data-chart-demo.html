@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="../lib/data-chart/data-chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
+  <title>Data Chart Demo</title>
+</head>
+<body>
+  
+
+  <data-chart id="from-table" from="#sample-table" x="Year" y="Sales" type="bar"></data-chart>
+
+  <table id="sample-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Sales</th>
+        <th>Revenue</th>
+        <th>Customers</th>
+      </tr>
+    </thead>
+    <tbody title="first table">
+      <tr>
+        <td>2018</td>
+        <td>12,000</td>
+        <td>$600,000</td>
+        <td>2,000</td>
+      </tr>
+      <tr>
+        <td>2019</td>
+        <td>10,000</td>
+        <td>$500,000</td>
+        <td>2,500</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td>18,000</td>
+        <td>$900,000</td>
+        <td>3,000</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>15,000</td>
+        <td>$750,000</td>
+        <td>4,000</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>22,000</td>
+        <td>$1,100,000</td>
+        <td>5,000</td>
+      </tr>
+    </tbody>
+
+    <tbody id="asd" title="second table">
+      <tr>
+        <td>2018</td>
+        <td>10,000</td>
+        <td>$500,000</td>
+        <td>2,000</td>
+      </tr>
+      <tr>
+        <td>2019</td>
+        <td>12,000</td>
+        <td>$600,000</td>
+        <td>2,500</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td>15,000</td>
+        <td>$750,000</td>
+        <td>3,000</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>18,000</td>
+        <td>$900,000</td>
+        <td>4,000</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>22,000</td>
+        <td>$1,100,000</td>
+        <td>5,000</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <data-chart id="data-chart" type="line" style="width: 65%;">
+
+    <data-set name="cat_1" label="yearly stuff 1">
+      <data-point other="szs" year="2010" count="110" />
+      <data-point year="2011" count="120" />
+      <data-point year="2012" count="115" />
+      <data-point year="2013" count="125" />
+      <data-point year="2014" count="122" />
+      <data-point year="2015" count="130" />
+      <data-point year="2016" count="128" />
+      <data-point year="2017" count="128" />
+      <data-point year="2018" count="115" />
+      <data-point year="2019" count="123" />
+      <data-point year="2020" count="128" />
+      <data-point year="2021" count="128" />
+      <data-point year="2022" count="128" />
+    </data-set>
+
+    <data-set name="cat_2" label="yearly stuff 2">
+      <data-point other="szs" year="2010" count="10" />
+      <data-point year="2011" count="20" />
+      <data-point year="2012" count="15" />
+      <data-point year="2013" count="25" />
+      <data-point year="2014" count="22" />
+      <data-point year="2015" count="30" />
+      <data-point year="2016" count="28" />
+      <data-point year="2017" count="28" />
+      <data-point year="2018" count="15" />
+      <data-point year="2019" count="23" />
+      <data-point year="2020" count="28" />
+      <data-point year="2021" count="28" />
+      <data-point year="2022" count="28" />
+    </data-set>
+
+    <data-set name="cat_3" label="third category">
+      <data-point other="szs" year="2010" count="57" />
+      <data-point year="2011" count="62" />
+      <data-point year="2012" count="68" />
+      <data-point year="2013" count="69" />
+      <data-point year="2014" count="71" />
+      <data-point year="2015" count="75" />
+      <data-point year="2016" count="79" />
+      <data-point year="2017" count="89" />
+      <data-point year="2018" count="101" />
+      <data-point year="2019" count="120" />
+      <data-point year="2020" count="140" />
+      <data-point year="2021" count="145" />
+      <data-point year="2022" count="160" />
+    </data-set>
+
+  </data-chart>
+
+
+</body>
+</html>
