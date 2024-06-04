@@ -1,20 +1,17 @@
 * {
+  /* Estilos por defecto */
   --simple-card-background-color: transparent;
   --simple-card-title-font-color: var(--text-color-emphasis-high);
   --simple-card-font-color: var(--text-color-emphasis-mid);
   --simple-card-border-color: var(--background-color-6);
   --simple-card-border-radius-value: .4rem;
   --simple-card-padding-value: 1rem;
-
-  box-sizing: border-box;
 }
 
 .simple-card {
   display: flex;
   flex-direction: column;
   gap: .4rem;
-
-  /* min-width: 250px; */
 
   padding: var(--simple-card-padding-value);
 
@@ -35,6 +32,8 @@
 
   overflow: hidden;
 }
+
+/* Slotted Elements */
 
 ::slotted(h3),
 ::slotted(h2),
