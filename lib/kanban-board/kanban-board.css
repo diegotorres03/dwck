@@ -6,12 +6,9 @@
 .kanban-board {
     display: flex;
     flex-direction: column;
-
     width: 800px;
-
     padding: 1rem;
     border-radius: .4rem;
-
     border: 0.2px solid var(--background-color-6);
     background-color: var(--background-color-7);
 }
@@ -20,10 +17,8 @@
     font-size: 1.6rem;
     font-weight: 500;
     color: var(--text-color-emphasis-mid);
-
     padding-bottom: 1rem;
     line-height: .8;
-
 }
 
 .kanban-board__title span {}
@@ -32,15 +27,12 @@
     width: 640px;
     min-height: 480px;
     display: flex;
-
     gap: 1rem;
 }
 
-
-
 /* 
 ::slotted(kanban-column:last-of-type) {
-    width: 100%;
+   width: 100%;
 } */
 
 ::slotted(kanban-column) {
