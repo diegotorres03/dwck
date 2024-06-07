@@ -60,7 +60,28 @@
 
 </head>
 
-<body>
+		<!-- Modal -->
+		<script type="module" src="../lib/app-modal/app-modal.js"></script>
+		<!-- Kanban Board -->
+		<script
+			type="module"
+			src="../lib/kanban-board/kanban-board.js"
+		></script>
+		<!-- Header Card -->
+		<script type="module" src="../lib/header-card/header-card.js"></script>
+		<script type="module" src="../lib/simple-card/simple-card.js"></script>
+		<!-- Data Sync -->
+		<script type="module" src="../lib/ui-data/ui-data-sync.js"></script>
+		<!-- Http Request -->
+		<script
+			type="module"
+			src="../lib/http-request/http-request.js"
+		></script>
+		<!-- Event Stream -->
+		<script
+			type="module"
+			src="../lib/event-stream/event-stream.js"
+		></script>
 
   <style>
     kanban-board {
@@ -83,21 +104,48 @@
     <input type="text" name="username" id="">
   </app-modal>
 
-  <!-- <app-modal trigger="#main-todo" on="done"></app-modal> -->
-  <app-modal trigger="#main-todo" on="done"></app-modal>
+		<!-- Dragula -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css"
+		/>
 
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
 
-  <event-group id="request-get">
-    <event-source trigger="#get" on="click"></event-source>
-    <event-source trigger="#create-card-request" on="response"></event-source>
-    <event-source trigger="window" on="load" wait="1s"></event-source>
-  </event-group>
+				gap: 1rem;
+			}
+		</style>
+	</head>
 
   <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html"
     target="#todo"></http-request>
 
+		<!-- <app-modal trigger="#main-todo" on="done"></app-modal> -->
+		<app-modal trigger="#main-todo" on="done"></app-modal>
 
-  <!-- <style>
+		<event-group id="request-get">
+			<event-source trigger="#get" on="click"></event-source>
+			<event-source
+				trigger="#create-card-request"
+				on="response"
+			></event-source>
+			<event-source trigger="window" on="load" wait="1s"></event-source>
+		</event-group>
+
+		<http-request
+			trigger="#request-get"
+			on="data"
+			url="http://localhost:3000/items.html"
+			content-type="html"
+			target="#todo"
+		></http-request>
+
+		<!-- <style>
     kanban-board {
       display: flex;
       flex-direction: row;

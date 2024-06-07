@@ -1,21 +1,49 @@
 * {
-  --simple-card-background-color: var(--background-color-7);
+  /* Estilos por defecto */
+  --simple-card-background-color: transparent;
+  --simple-card-title-font-color: var(--text-color-emphasis-high);
   --simple-card-font-color: var(--text-color-emphasis-mid);
-  --simple-card-border-color: var(--border-color-2);
+  --simple-card-border-color: var(--background-color-6);
   --simple-card-border-radius-value: .4rem;
-  --simple-card-padding-value: .4rem;
+  --simple-card-padding-value: 1rem;
 }
 
 .simple-card {
-  /* [] Buscar la manera de alternar inline-flex con flex, a traves de un atributo */
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .4rem;
 
   padding: var(--simple-card-padding-value);
-  border-radius: var(--simple-card-border-radius-value);
 
-  color: var(--simple-card-font-color);
+  word-wrap: break-word;
+
   background-color: var(--simple-card-background-color);
-  border: 0.2px solid var(--simple-card-border-color);
+}
+
+/* Etiqueta externa */
+:host {
+  display: block;
+
+  min-width: 250px;
+  max-width: 50%;
+
+  border-radius: .4rem;
+  border: 0.2px solid var(--background-color-6);
+
+  overflow: hidden;
+}
+
+/* Slotted Elements */
+
+::slotted(h3),
+::slotted(h2),
+::slotted(h4),
+::slotted(h5) {
+  font-size: 1.2rem;
+  color: var(--simple-card-title-font-color);
+}
+
+::slotted(p) {
+  font-size: .95rem;
+  color: var(--simple-card-font-color);
 }

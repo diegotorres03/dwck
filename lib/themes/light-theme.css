@@ -41,9 +41,9 @@
   --main-color-inverted: hsl(calc(var(--theme-tone) + 180), 50%, 40%);
 
   /* COLORES DE TEXTO */
-  --text-color-emphasis-high: hsla(0, 0%, 0%, 0.9);
-  --text-color-emphasis-mid: hsla(0, 0%, 0%, 0.6);
-  --text-color-emphasis-low: hsla(0, 0%, 0%, 0.4);
+  --text-color-emphasis-high: hsla(0, 0%, 14%, 0.9);
+  --text-color-emphasis-mid: hsla(0, 0%, 14%, 0.6);
+  --text-color-emphasis-low: hsla(0, 0%, 14%, 0.4);
 
   /* COLORES DE TEXTO INVERTIDO */
   --text-color-emphasis-high-i: hsla(0, 0%, 98%, 0.9);

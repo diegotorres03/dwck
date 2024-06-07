@@ -1,0 +1,42 @@
+ ::slotted(*) {
+     border: 1px solid var(--background-color-6);
+     background-color: hsl(var(--theme-tone), 0%, 97.4%);
+     padding: .8rem !important;
+     border-radius: .3rem;
+
+     font-size: .98rem;
+ }
+
+ .kanban-column {
+     box-sizing: border-box;
+
+     display: flex;
+     flex-direction: column;
+
+     height: 100%;
+
+     border-radius: .4rem;
+     border: 0.2px solid var(--background-color-6);
+
+     background-color: var(--background-color-8);
+
+     overflow: hidden;
+ }
+
+ .kanban-column__title {
+     font-weight: 600;
+     color: var(--text-color-emphasis-high);
+
+     margin: 0;
+
+     padding: .8rem 1rem;
+     border-bottom: 0.2px solid var(--background-color-6);
+ }
+
+ .kanban-column__container {
+     display: flex;
+     flex-direction: column;
+     gap: .4rem;
+
+     padding: 1rem;
+ }
