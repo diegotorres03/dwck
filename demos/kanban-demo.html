@@ -1,101 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kanban</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Kanban</title>
 
-  <!-- Modal -->
-  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+		<!-- Modal -->
+		<script type="module" src="../lib/app-modal/app-modal.js"></script>
 
-  <!-- Kanban Board -->
-  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+		<!-- Kanban Board -->
+		<script
+			type="module"
+			src="../lib/kanban-board/kanban-board.js"
+		></script>
 
-  <!-- Header Card -->
-  <script type="module" src="../lib/header-card/header-card.js"></script>
-  <script type="module" src="../lib/simple-card/simple-card.js"></script>
+		<!-- Header Card -->
+		<script type="module" src="../lib/header-card/header-card.js"></script>
+		<script type="module" src="../lib/simple-card/simple-card.js"></script>
 
+		<!-- Data Sync -->
+		<script type="module" src="../lib/ui-data/ui-data-sync.js"></script>
 
-  <!-- Data Sync -->
-  <script type="module" src="../lib/ui-data/ui-data-sync.js"></script>
+		<!-- Http Request -->
+		<script
+			type="module"
+			src="../lib/http-request/http-request.js"
+		></script>
 
-  <!-- Http Request -->
-  <script type="module" src="../lib/http-request/http-request.js"></script>
+		<!-- Event Stream -->
+		<script
+			type="module"
+			src="../lib/event-stream/event-stream.js"
+		></script>
 
-  <!-- Event Stream -->
-  <script type="module" src="../lib/event-stream/event-stream.js"></script>
+		<!-- Styles  -->
+		<link rel="stylesheet" href="../lib/style-tools.css" />
+		<link rel="stylesheet" href="../lib/themes/light-theme.css" />
 
-  <!-- Styles  -->
-  <link rel="stylesheet" href="../lib/style-tools.css" />
-  <link rel="stylesheet" href="../lib/themes/light-theme.css" />
+		<!-- Dragula -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css"
+		/>
 
-  <!-- Dragula -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" />
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+			}
+		</style>
+	</head>
 
+	<body>
+		<button id="username-btn">username</button>
 
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-    }
-  </style>
+		<app-modal id="username-modal" trigger="#username-btn" on="click">
+			<input type="text" name="username" id="" />
+		</app-modal>
 
-</head>
+		<!-- <app-modal trigger="#main-todo" on="done"></app-modal> -->
 
+		<app-modal trigger="#main-todo" on="done"></app-modal>
 
-<body>
-  <button id="username-btn">username</button>
+		<event-group id="request-get">
+			<event-source trigger="#get" on="click"></event-source>
 
-  <app-modal id="username-modal" trigger="#username-btn" on="click">
+			<event-source
+				trigger="#create-card-request"
+				on="response"
+			></event-source>
 
-    <input type="text" name="username" id="" />
+			<event-source trigger="window" on="load" wait="1s"></event-source>
+		</event-group>
 
-  </app-modal>
+		<http-request
+			trigger="#request-get"
+			on="data"
+			url="http://localhost:3000/items.html"
+			content-type="html"
+			target="#todo"
+		></http-request>
 
+		<!-- *Contenedor del Kanban -->
 
-  <!-- <app-modal trigger="#main-todo" on="done"></app-modal> -->
+		<kanban-board id="main-todo" title="Test board">
+			<kanban-column id="todo" title="TODO">
+				<p>
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+					Officia nihil dicta consectetur!
+				</p>
+			</kanban-column>
+			<kanban-column id="doing" title="DOING"> </kanban-column>
+			<kanban-column id="done" title="DONE"> </kanban-column>
+			<kanban-column id="tested" title="TESTED"> </kanban-column>
+		</kanban-board>
 
-  <app-modal trigger="#main-todo" on="done"></app-modal>
+		<!-- *Fin del Kanban -->
+	</body>
 
-  <event-group id="request-get">
-    <event-source trigger="#get" on="click"></event-source>
-
-   <event-source trigger="#create-card-request" on="response"></event-source>
-
-   <event-source trigger="window" on="load" wait="1s"></event-source>
-
-  </event-group>
-
-
-
-  <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html"
-    target="#todo"></http-request>
-
-  <!--$ Contenedor del Kanban -->
-
-  <kanban-board id="main-todo" title="test board">
-    <kanban-column id="todo" title="TODO">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Non at corrupti asperiores!
-
-      </p>
-
-      <p>Lorem ipsum dolor sit amet, consectetur</p>
-    </kanban-column>
-    <kanban-column id="doing" title="DOING"> </kanban-column>
-    <kanban-column id="done" title="DONE"> </kanban-column>
-  </kanban-board>
-
-  <!--$ Fin del Kanban -->
-
-
-
-</body>
-
-
-<!--  -->
+	<!--  -->
 </html>

@@ -1,41 +1,52 @@
+/* Normalizing */
 .kanban-board * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
+/* Contenedor Principal */
 .kanban-board {
     display: flex;
     flex-direction: column;
-    width: 800px;
-    padding: 1rem;
+
+    padding: 1rem 1rem .5rem;
     border-radius: .4rem;
     border: 0.2px solid var(--background-color-6);
+
     background-color: var(--background-color-7);
 }
 
+/* Titulo del Kanban completo */
 .kanban-board__title {
+    padding-bottom: 1rem;
+
     font-size: 1.6rem;
     font-weight: 500;
-    color: var(--text-color-emphasis-mid);
-    padding-bottom: 1rem;
     line-height: .8;
+
+    color: var(--text-color-emphasis-low);
 }
 
-.kanban-board__title span {}
-
+/* Contenedor en el que irán las columnas */
 .kanban-board__container {
-    width: 640px;
-    min-height: 480px;
     display: flex;
     gap: 1rem;
+
+    width: 100%;
+    min-height: 520px;
+
+    width: 800px;
+    max-width: 800px;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    padding-bottom: .5rem;
 }
 
+/* $ De interes */
 /* 
 ::slotted(kanban-column:last-of-type) {
    width: 100%;
 } */
-
-::slotted(kanban-column) {
-    display: block;
-    width: 100%;
-}
