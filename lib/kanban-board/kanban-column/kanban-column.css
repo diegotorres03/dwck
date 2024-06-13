@@ -1,3 +1,4 @@
+/* .Todo lo que entre en la columna  */
 ::slotted(*) {
     border: 1px solid var(--background-color-6);
     background-color: hsl(var(--theme-tone), 0%, 97.4%);
@@ -5,8 +6,28 @@
     border-radius: .3rem;
 
     font-size: .98rem;
+
+    cursor: grab;
 }
 
+/* Normalizing */
+.kanban-column * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Etiqueta personalizada que contiene la columna */
+:host {
+    /* ? valor riesgoso */
+    --column-width: calc((100% / 3) - 0.66rem);
+
+    display: block;
+    width: var(--column-width);
+    min-width: var(--column-width);
+}
+
+/* Contenedor principal */
 .kanban-column {
     box-sizing: border-box;
 
@@ -14,15 +35,15 @@
     flex-direction: column;
 
     height: 100%;
+    width: 100%;
 
     border-radius: .4rem;
     border: 0.2px solid var(--background-color-6);
 
     background-color: var(--background-color-8);
-
-    overflow: hidden;
 }
 
+/* Titulo de la columna */
 .kanban-column__title {
     font-weight: 600;
     color: var(--text-color-emphasis-high);
@@ -33,6 +54,7 @@
     border-bottom: 0.2px solid var(--background-color-6);
 }
 
+/* Contenedor donde irán las kanban-cards */
 .kanban-column__container {
     display: flex;
     flex-direction: column;
