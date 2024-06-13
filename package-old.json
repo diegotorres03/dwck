@@ -13,7 +13,7 @@
   },
   "author": "Diego Torres",
   "license": "ISC",
-  "peerDependencies": {
+  "dependencies": {
     "@aws-amplify/api": "^6.0.33",
     "@aws-sdk/client-bedrock-runtime": "^3.582.0",
     "@aws-sdk/client-dynamodb": "^3.245.0",

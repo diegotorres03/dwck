@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,6 +19,10 @@
 
   <!-- Data Sync -->
   <script type="module" src="../lib/ui-data/ui-data-sync.js"></script>
+  <script type="module" src="../lib/data-store/data-store.js"></script>
+
+  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+
 
   <!-- Http Request -->
   <script type="module" src="../lib/http-request/http-request.js"></script>
@@ -27,10 +32,15 @@
 
   <!-- Styles  -->
   <link rel="stylesheet" href="../lib/style-tools.css" />
-  <link rel="stylesheet" href="../lib/themes/light-theme.css" />
+  <!-- <link rel="stylesheet" href="../lib/themes/light-theme.css" /> -->
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
 
   <!-- Dragula -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" />
+
+  <!-- Dexie -->
+  <script src="../node_modules/dexie/dist/dexie.js"></script>
+
 
 
   <style>
@@ -62,30 +72,112 @@
 
   <event-group id="request-get">
     <event-source trigger="#get" on="click"></event-source>
-
-   <event-source trigger="#create-card-request" on="response"></event-source>
-
-   <event-source trigger="window" on="load" wait="1s"></event-source>
-
+    <event-source trigger="#create-card-request" on="response"></event-source>
+    <event-source trigger="window" on="load" wait="1s"></event-source>
   </event-group>
 
 
 
-  <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html"
-    target="#todo"></http-request>
+  <!-- <http-request trigger="#request-get" on="data" url="http://localhost:3000/items.html" content-type="html"
+    target="#todo"></http-request> -->
+
+
+  <data-store id="kanban-store">
+    <data-set id="tasks" trigger="#new-task-modal" on="accepted" visible>
+      <data-query trigger="#main-todo" on="todo" type="put" data-column="todo"></data-query>
+      <data-query trigger="#main-todo" on="doing" type="put" data-column="doing"></data-query>
+      <data-query trigger="#main-todo" on="done" type="put" data-column="done"></data-query>
+    </data-set>
+  </data-store>
+
+  <button id="new-task-btn">New task</button>
+
+  <app-modal id="new-task-modal" trigger="#new-task-btn">
+    <h4 slot="title">New Task</h4>
+    <section>
+      <label for="task-name">Task Name:</label>
+      <input type="text" name="name" id="task-name">
+      <br>
+      <label for="task-description">Description</label>
+      <textarea name="description" id="task-description"></textarea>
+      <br>
+    </section>
+  </app-modal>
+
+
+  <script>
+    function isTodo(event) {
+      return !event.detail.column || event.detail.column === 'todo'
+    }
+
+    function isDoing(event) {
+      return event.detail.column === 'doing'
+    }
+
+    function isDone(event) {
+      return event.detail.column === 'done'
+    }
+
+  </script>
+
+
+  <template id="task-template">
+    <simple-card data-field="id" name="id">
+      <h3><span name="name"></span></span> </h3>
+      <p name="description"></p>
+      <button data-detail-btn>detail</button>
+    </simple-card>
+  </template>
+
+  <app-modal trigger="[data-detail-btn]">
+    <section>
+      detail
+    </section>
+  </app-modal>
+
+  <!-- this one connects directly with the modal, useful to test without the store -->
+  <!-- <ui-data-repeat trigger="#new-task-modal" on="accepted" target="#todo" filter="isTodo"
+    template="#task-template"></ui-data-repeat> -->
+  <ui-data-repeat trigger="#tasks" on="updated" target="#todo" filter="isTodo"
+    template="#task-template"></ui-data-repeat>
+  <ui-data-repeat trigger="#tasks" on="updated" target="#doing" filter="isDoing"
+    template="#task-template"></ui-data-repeat>
+  <ui-data-repeat trigger="#tasks" on="updated" target="#done" filter="isDone"
+    template="#task-template"></ui-data-repeat>
+
+
+
+  <ui-data-repeat trigger="#main-todo" on="change" target="#task-table-body" >
+    <template>
+      <tr>
+        <td name="id"></td>
+        <td name="column"></td>
+        <td name="name"></td>
+        <td name="description"></td>
+        <td name="timestamp"></td>
+      </tr>
+    </template>
+  </ui-data-repeat>
+
+  <table id="task-table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>column</th>
+        <th>name</th>
+        <th>description</th>
+        <th>timestamp</th>
+      </tr>
+    </thead>
+    <tbody id="task-table-body">
+
+    </tbody>
+  </table>
+
 
   <!--$ Contenedor del Kanban -->
-
   <kanban-board id="main-todo" title="test board">
-    <kanban-column id="todo" title="TODO">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Non at corrupti asperiores!
-
-      </p>
-
-      <p>Lorem ipsum dolor sit amet, consectetur</p>
-    </kanban-column>
+    <kanban-column id="todo" title="TODO"></kanban-column>
     <kanban-column id="doing" title="DOING"> </kanban-column>
     <kanban-column id="done" title="DONE"> </kanban-column>
   </kanban-board>
@@ -98,4 +190,5 @@
 
 
 <!--  -->
+
 </html>

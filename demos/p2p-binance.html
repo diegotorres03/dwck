@@ -51,7 +51,16 @@
   <http-request trigger="#refresh-open-orders" on="click" url="http://localhost:3000/open-orders"
     target="#open-order-list"></http-request>
 
-  <app-layout >
+
+  <data-store id="order-store">
+    <data-set id="order-templates" trigger="#create-order-modal" on="accepted" visible>
+      <data-query trigger="#order-board" on="running" type="put" data-column="running"></data-query>
+      <data-query trigger="#order-board" on="paused" type="put" data-column="paused"></data-query>
+      <data-query trigger="#order-board" on="done" type="put" data-column="done"></data-query>
+    </data-set>
+  </data-store>
+
+  <app-layout>
 
     <header>
       <h3>P2P Bot</h3>
@@ -132,7 +141,7 @@
               <label for="compra">Compra</label>
               <input type="radio" name="direccion-orden" id="venta" value="venta">
               <label for="venta">Venta</label>
-              
+
               <br>
 
               <label for="precio">Precio</label>
@@ -142,27 +151,58 @@
           </app-modal>
 
 
-          <data-store id="order-store">
-            <data-set id="order-templates" trigger="#create-order-modal" on="accepted" visible></data-set>
+          <script>
+            
+            function isNew(event) {
+              return !event.detail.column
+            }
 
-          </data-store>
+            function isRunning(event) {
+              const { column } = event.detail
+              return column === 'running'
+            }
 
-          <ui-data-repeat trigger="#order-templates" on="updated" target="#templates">
-            <template>
-              <simple-card>
-                <h3><span name="activo"></span> - <span name="fiat"></span> </h3>
-                <i name="precio"></i>
-              </simple-card>
-            </template>
-          </ui-data-repeat>
+            function isPaused(event) {
+              const { column } = event.detail
+              return column === 'paused'
+            }
+
+
+            function isDone(event) {
+              const { column } = event.detail
+              return column === 'done'
+            }
+          </script>
+
+          <template id="bot-card-template">
+            <simple-card data-field="id" name="id">
+              <!-- <input type="hidden" name="id"> -->
+              <h3><span name="activo"></span> - <span name="fiat"></span> </h3>
+              <i name="precio"></i>
+              <button data-role="open-detail-modal">detail</button>
+            </simple-card>
+          </template>
+
+          <app-modal trigger="[data-role='open-detail-modal']" on="click">
+            <h4 slot="title">Order Detail</h4>
+            <section>
+              <b>asd</b>
+            </section>
+          </app-modal>
+
+          <ui-data-repeat trigger="#order-templates" on="updated" target="#templates" filter="isNew" template="#bot-card-template"></ui-data-repeat>
+
+          <ui-data-repeat trigger="#order-templates" on="updated" target="#running" filter="isRunning" template="#bot-card-template"></ui-data-repeat>
+
+          <ui-data-repeat trigger="#order-templates" on="updated" target="#paused" filter="isPaused" template="#bot-card-template"></ui-data-repeat>
+
+          <ui-data-repeat trigger="#order-templates" on="updated" target="#done" filter="isDone" template="#bot-card-template"></ui-data-repeat>
 
           <app-modal trigger="#order-board" on="done">All Done carajo</app-modal>
 
           <kanban-board id="order-board" title="Bots">
             <kanban-column id="templates" title="Plantillas">
-              <note-card editable>
-                Order 1
-              </note-card>
+              <!-- <note-card editable>Order 1</note-card> -->
             </kanban-column>
             <kanban-column id="running" title="En Proceso"></kanban-column>
             <kanban-column id="paused" title="Pausadas"></kanban-column>
@@ -170,14 +210,16 @@
           </kanban-board>
 
 
-          <http-request trigger="#order-board" on="running" url="http://localhost:3000/orders/run" method="post"
-            target="#open-order-list"></http-request>
 
-          <http-request trigger="#order-board" on="paused" url="http://localhost:3000/orders/pause" method="post"
-            target="#open-order-list"></http-request>
+          <!-- HTTP requests for each column change -->
+          <!-- <http-request trigger="#order-board" on="running" url="http://localhost:3000/orders/run" method="post"
+            target="#open-order-list"></http-request> -->
 
-          <http-request trigger="#order-board" on="done" url="http://localhost:3000/orders/stop" method="post"
-            target="#open-order-list"></http-request>
+          <!-- <http-request trigger="#order-board" on="paused" url="http://localhost:3000/orders/pause" method="post"
+            target="#open-order-list"></http-request> -->
+
+          <!-- <http-request trigger="#order-board" on="done" url="http://localhost:3000/orders/stop" method="post"
+            target="#open-order-list"></http-request> -->
 
         </app-route>
 
