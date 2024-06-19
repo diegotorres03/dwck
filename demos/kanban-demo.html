@@ -23,6 +23,11 @@
 
   <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
 
+  <!-- Data Chart -->
+  <script type="module" src="../lib/data-chart/data-chart.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Http Request -->
   <script type="module" src="../lib/http-request/http-request.js"></script>
@@ -82,12 +87,17 @@
     target="#todo"></http-request> -->
 
 
-  <data-store id="kanban-store">
-    <data-set id="tasks" trigger="#new-task-modal" on="accepted" visible>
+  <data-store id="kanban-store" version="1">
+
+    <data-set id="tasks" trigger="#new-task-modal" on="accepted">
       <data-query trigger="#main-todo" on="todo" type="put" data-column="todo"></data-query>
       <data-query trigger="#main-todo" on="doing" type="put" data-column="doing"></data-query>
       <data-query trigger="#main-todo" on="done" type="put" data-column="done"></data-query>
     </data-set>
+
+    <data-set id="task-log" trigger="#main-todo" on="change" type="timeseries" indexes="id,timestamp">
+    </data-set>
+
   </data-store>
 
   <button id="new-task-btn">New task</button>
@@ -122,8 +132,10 @@
 
 
   <template id="task-template">
-    <simple-card data-field="id" name="id">
+    <simple-card field="id" name="id">
       <h3><span name="name"></span></span> </h3>
+      <small name="timestamp" transform="timestampToDate"></small>
+
       <p name="description"></p>
       <button data-detail-btn>detail</button>
     </simple-card>
@@ -147,19 +159,155 @@
 
 
 
-  <ui-data-repeat trigger="#main-todo" on="change" target="#task-table-body" >
+  <ui-data-repeat trigger="#task-log" on="updated" target="#task-table-body">
+    <script>
+      function timestampToDate(event) {
+        const { timestamp } = event.detail
+        console.assert(!Number.isNaN(Number(timestamp)), 'timestamp must be present and valid')
+        return new Date(Number(timestamp)).toLocaleString()
+      }
+    </script>
     <template>
       <tr>
         <td name="id"></td>
         <td name="column"></td>
         <td name="name"></td>
         <td name="description"></td>
-        <td name="timestamp"></td>
+        <td name="timestamp" transform="timestampToDate"></td>
+        <td name="duration"></td>
       </tr>
     </template>
   </ui-data-repeat>
 
-  <table id="task-table">
+  <script>
+    document.querySelector('#task-log')
+      .addEventListener('updated', event => {
+        console.log('trace: script', event)
+        const table = document.querySelector(`#task-table-body`)
+        const rows = [...table.querySelectorAll('tr')]
+
+        console.log('reduce: rows', rows)
+        const timeMap = {}
+
+        const res = rows.reduce((all, row) => {
+          console.log('reduce: row', all, row)
+          return all
+        }, {})
+
+        console.log('reduce: res', res)
+
+        // rows.forEach(row => {
+        //   // console.log('trace: row', row, timeMap)
+
+        //   if (!row.dataset) return console.warn('paila')
+        //   console.log('trace: row', row, row.dataset)
+        // const { __id, column } = row.dataset
+        //   // console.llg()
+        //   if (!timeMap[__id]) timeMap[__id] = { [column]: 0 }
+        //   timeMap[__id][column] += 
+        // })
+
+        rows.sort((prev, next) => Number(prev.dataset.timestamp) - Number(next.dataset.timestamp))
+        console.log('trace: rows', rows)
+        rows.forEach(row => console.log('trace: sorted rows', row.dataset.column, new Date(Number(row.dataset.timestamp)).toLocaleString()))
+
+        // const timeMap = rows.reduce((result, row) => {
+        //   console.log('trace: row', row, result)
+
+        //   if(!row.dataset) return console.warn('paila')
+        //   console.log('trace: rows', row, row.dataset)
+        //   const { __id, column } = row.dataset
+        //   if (!result[__id]) result[__id] = { [column]: 0 }
+        //   result[__id]
+        //   return result
+        // }, {})
+
+        console.log('trace: timeMap', timeMap)
+      })
+  </script>
+  <!-- <data-chart id="from-table" from="#sample-table" x="Year" y="Sales" type="bar"></data-chart> -->
+
+  <table id="sample-table" style="display: none;">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Sales</th>
+        <th>Revenue</th>
+        <th>Customers</th>
+      </tr>
+    </thead>
+
+    <tbody title="first table">
+      <tr>
+        <td>2018</td>
+        <td>12,000</td>
+        <td>$600,000</td>
+        <td>2,000</td>
+      </tr>
+      <tr>
+        <td>2019</td>
+        <td>10,000</td>
+        <td>$500,000</td>
+        <td>2,500</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td>18,000</td>
+        <td>$900,000</td>
+        <td>3,000</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>15,000</td>
+        <td>$750,000</td>
+        <td>4,000</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>22,000</td>
+        <td>$1,100,000</td>
+        <td>5,000</td>
+      </tr>
+    </tbody>
+
+    <tbody id="asd" title="second table">
+      <tr>
+        <td>2018</td>
+        <td>10,000</td>
+        <td>$500,000</td>
+        <td>2,000</td>
+      </tr>
+      <tr>
+        <td>2019</td>
+        <td>12,000</td>
+        <td>$600,000</td>
+        <td>2,500</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td>15,000</td>
+        <td>$750,000</td>
+        <td>3,000</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>18,000</td>
+        <td>$900,000</td>
+        <td>4,000</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>22,000</td>
+        <td>$1,100,000</td>
+        <td>5,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+  <table id="task-table" border="1">
     <thead>
       <tr>
         <th>id</th>
@@ -167,6 +315,7 @@
         <th>name</th>
         <th>description</th>
         <th>timestamp</th>
+        <th>duration</th>
       </tr>
     </thead>
     <tbody id="task-table-body">
@@ -174,10 +323,15 @@
     </tbody>
   </table>
 
+  <!-- <data-chart id="task-performance" from="#task-table" x="timestamp" y="id" type="line"></data-chart> -->
+
+  <!-- <data-chart id="from-table" from="#sample-table" x="Year" y="Sales" type="bar"></data-chart> -->
 
   <!--$ Contenedor del Kanban -->
   <kanban-board id="main-todo" title="test board">
-    <kanban-column id="todo" title="TODO"></kanban-column>
+    <kanban-column id="todo" title="TODO">
+
+    </kanban-column>
     <kanban-column id="doing" title="DOING"> </kanban-column>
     <kanban-column id="done" title="DONE"> </kanban-column>
   </kanban-board>

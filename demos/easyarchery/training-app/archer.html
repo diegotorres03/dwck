@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach-app EasyArchery</title>
+  <script type="module" src="../../../lib/app-layout/app-layout.js"></script>
+  <script type="module" src="../../../lib/app-router/app-router.js"></script>
+  <script type="module" src="../../../lib/data-chart/data-chart.js"></script>
+  <script type="module" src="../../../lib/kanban-board/kanban-board.js"></script>
+  <script type="module" src="../../../lib/simple-card/simple-card.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="../../../lib/themes/dark-theme.css">
+  <link rel="stylesheet" href="../../../lib/style-tools.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" />
+
+
+  <style>
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <app-layout>
+    <header>header</header>
+
+    <select slot="left-title" name="team" id="team-select">
+      <option value="team 1">Team 1</option>
+      <option value="team 2">Team 2</option>
+    </select>
+
+    <nav>
+
+      <h4>Links:</h4>
+      <a href="#">Home</a>
+      <a href="#training-plan">Training Plan</a>
+
+      <hr>
+
+
+    </nav>
+
+    <main style="width: 100%;">
+      <app-router>
+
+        <app-route>
+          <h1>Home</h1>
+        </app-route>
+
+
+        <app-route hash="archer" class="flex-column">
+          <h1>Archers Page</h1>
+
+          <section id="archer-dashboard-charts" class="flex-row">
+
+
+
+            <data-chart id="data-chart" type="line">
+
+              <data-set name="cat_1" label="yearly stuff 1">
+                <data-point year="2024/06/01" count="75" />
+                <data-point year="2024/06/02" count="68" />
+                <data-point year="2024/06/03" count="69" />
+                <data-point year="2024/06/04" count="73" />
+                <data-point year="2024/06/05" count="70" />
+                <data-point year="2024/06/06" count="69" />
+                <data-point year="2024/06/07" count="72" />
+                <data-point year="2024/06/08" count="74" />
+                <data-point year="2024/06/09" count="75" />
+                <data-point year="2024/06/10" count="73" />
+                <data-point year="2024/06/11" count="78" />
+                <data-point year="2024/06/12" count="81" />
+                <data-point year="2024/06/13" count="79" />
+              </data-set>
+
+            </data-chart>
+
+            <data-chart id="data-chart" type="radar">
+
+              <data-set name="cat_1" label="yearly stuff 1">
+                <data-point year="body" count="8" />
+                <data-point year="technic" count="7" />
+                <data-point year="mind" count="9" />
+                <data-point year="motivation" count="7" />
+                <data-point year="sprit" count="8" />
+                <data-point year="energy level" count="5" />
+              </data-set>
+
+            </data-chart>
+
+          </section>
+
+
+        </app-route>
+
+
+        <app-route hash="training-plan">
+          <h1>Training Plans</h1>
+          <kanban-board id="main-todo" title="test board">
+            <kanban-column id="todo" title="TODO">
+              <simple-card>
+                Warm up 50 shots 10m
+              </simple-card>
+
+              <simple-card>
+                zone hit score for 100 shots in 70m
+              </simple-card>
+
+            </kanban-column>
+            <kanban-column id="doing" title="DOING"> </kanban-column>
+            <kanban-column id="done" title="DONE"> </kanban-column>
+          </kanban-board>
+        </app-route>
+
+
+
+      </app-router>
+    </main>
+
+  </app-layout>
+
+
+</body>
+
+</html>
