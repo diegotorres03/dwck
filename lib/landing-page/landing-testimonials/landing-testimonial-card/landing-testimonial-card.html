@@ -11,18 +11,19 @@
 
     </div>
     <div class="testimonial-card__testimonial">
-
-        <p id="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi ab asperiores praesentium.
-            Recusandae ullam
-            hic id porro sunt.</p>
+        <slot>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi ab asperiores praesentium.
+                Recusandae ullam
+                hic id porro sunt.</p>
+        </slot>
 
     </div>
     <div class="testimonial-card__footer">
 
         <div class="testimonial-card__footer-info">
 
-            <p class="testimonial-card__name" id="name">Name</p>
-            <p class="testimonial-card__position" id="position">Position</p>
+            <p class="testimonial-card__name" id="name"><var key="name">Name</var></p>
+            <p class="testimonial-card__position" id="position"><var key="role">Role</var></p>
 
         </div>
         <!-- Placekitten es una herramienta de imagenes -->
