@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+  <script type="module" src="../lib/data-sync/data-sync.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/state-machine/state-machine.js"></script>
+  <script type="module" src="../lib/state-machine/state-machine.js"></script>
+  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+
+  <link rel="stylesheet" href="../lib/themes/light-theme.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <div id="kanban-instructions">
+    <article>
+      # KanbanBoard Component
+
+      `kanban-board`
+
+
+      This element represent a Kanban board where various columns can be defined.
+
+
+      ## Simple Example
+
+
+      In this example we have a kanban board with 3 columns, defined by the `kanban-column` element, the tasks can be
+      any element, native or other web component.
+      The user will be able to drag and drop tasks between columns.
+
+      _Note:_ _the `title` attribute on the board and columns will be used on the UI, so make it human readable._
+    </article>
+  </div>
+
+
+  <button id="ask-llm">ask</button>
+  <ask-llm id="summarize-kanban-instructions" trigger="#ask-llm">
+    <source src="#kanban-instructions">
+
+    <p>can you summarize this instructions?</p>
+  </ask-llm>
+
+
+  <!-- <app-modal trigger="#ask-ai" on="click">
+  </app-modal> -->
+
+  <!-- <data-sync id="ask-llm-sync" user-id="diego" trigger="#llm-conversation" on="prompt" url="wss://mh8nrjiabg.execute-api.us-east-2.amazonaws.com/DemoWSApi_dev_stage/"></data-sync> -->
+
+
+  <http-request id="post-to-llm" method="post" trigger="#llm-conversation" on="prompt"
+    url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" target="#llm-conversation" append>
+    <template>
+      <p name="response"></p>
+    </template>
+  </http-request>
+
+
+  <state-machine id="kanban-machine">
+    <machine-state id="initial-state">
+      <state-transition></state-transition>
+    </machine-state>
+  </state-machine>
+
+
+  <kanban-board title="bot-tasks">
+    <kanban-column title="todo" id="todo">
+      <p>task 1</p>
+    </kanban-column>
+    <kanban-column title="doing" id="doing"></kanban-column>
+    <kanban-column title="done" id="done"></kanban-column>
+  </kanban-board>
+
+
+  <app-modal trigger="#bot-tasks" on="done"></app-modal>
+
+
+
+
+</body>
+
+</html>

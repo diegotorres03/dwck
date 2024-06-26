@@ -5,19 +5,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+  <script type="module" src="../lib/data-sync/data-sync.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/state-machine/state-machine.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css">
   <title>Document</title>
 </head>
 
 <body>
 
-  <button id="ask-ai">ask ai</button>
   <!-- <app-modal trigger="#ask-ai" on="click">
   </app-modal> -->
 
+  <!-- <data-sync id="ask-llm-sync" user-id="diego" trigger="#llm-conversation" on="prompt" url="wss://mh8nrjiabg.execute-api.us-east-2.amazonaws.com/DemoWSApi_dev_stage/"></data-sync> -->
 
-  <ask-llm trigger="#ask-ai" on="click">
-    <p>hi, how are you doin today</p>
+
+  <http-request id="post-to-llm" method="post" trigger="#llm-conversation" on="prompt"
+    url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" target="#llm-conversation" append>
+    <template>
+      <p name="response"></p>
+    </template>
+  </http-request>
+
+  <script>
+    document.querySelector('#post-to-llm')?.addEventListener('response', event => {
+      console.log('request response', event.detail)
+      const askLLM = document.querySelector('#llm-conversation')
+      const response = document.createElement('section')
+      response.setAttribute('data-sender', 'llm')
+      response.setAttribute('contenteditable', '')
+      response.innerHTML = event.detail.response
+      askLLM.append(response)
+    })
+  </script>
+
+  <article id="easyarchery-mission">
+    <p>At EasyArchery, our mission is to democratize and advance the sport of archery across Latin America and
+      worldwide.
+    </p>
+
+    <p>Through the manufacture of affordable, high-quality archery equipment and comprehensive training programs for
+      coaches and archers, we aim to break down barriers to participation and foster a thriving archery community. By
+      making archery accessible to all, we strive to promote physical activity, skill development, and a sense of
+      achievement among individuals of all ages and backgrounds.</p>
+  </article>
+
+
+  <article id="prompt-events">
+    Your are running on a web environment, and you can emit events on the DOM by using a the `emit-event` tag.
+    Use the name attribute from the tag to give the event name, and use the data attributes for the values.
+
+    <example>
+
+
+      H: can you emit a test event.
+
+      A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
+    </example>
+    
+  </article>
+
+
+  <ask-llm id="llm-conversation" trigger="#ask-ai" data-action="ask-llm">
+    <!-- <source src="#easyarchery-mission" type="text/html"> -->
+    <source src="#prompt-events" type="text/html">
+    <p contenteditable>emit a 'updated' event with some sample attributes</p>
   </ask-llm>
+
+
+  <button id="ask-ai">ask ai</button>
+
+  
+  <app-modal trigger="#llm-conversation" on="updated">
+    updated
+  </app-modal>
+
+
+  <script>
+    document.querySelector('#llm-conversation')?.addEventListener('updated', ev => console.log(ev))
+  </script>
+
 
 </body>
 
