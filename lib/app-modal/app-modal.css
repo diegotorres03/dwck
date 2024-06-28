@@ -3,22 +3,19 @@
   padding: 0;
   margin: 0;
 
-
   /* ModalWrap */
-  --modal-wrap-border-value: var(--border-value) solid
-  var(--border-color-2);
+  --modal-wrap-border-value: var(--border-value) solid var(--border-color-2);
   --modal-wrap-border-radius-value: var(--border-radius-value);
 
   /* ModalHeader */
   --modal-header-padding-value: var(--padding-value);
   --modal-header-text-color: var(--text-color-emphasis-mid);
   --modal-header-background-color: var(--background-color-4);
-  --modal-header-border-value:var(--border-value) solid
-  var(--border-color-2);
+  --modal-header-border-value: var(--border-value) solid var(--border-color-2);
 
   /* Close */
   --close-background-color: var(--background-color-5);
-  --close-padding-value: .4rem;
+  --close-padding-value: 0.4rem;
   --close-text-color: var(--text-color-emphasis-mid);
   --close-text-color-hover: var(--text-color-emphasis-high);
 
@@ -29,23 +26,22 @@
 
   /* Footer */
 
-  --footer-background-color:var(--background-color-3);
+  --footer-background-color: var(--background-color-3);
   --footer-padding-value: 0 var(--padding-value) var(--padding-value);
   --footer-gap-value: var(--gap-value);
 
   /* DeclineButton */
-  --decline-btn-border-radius-value: .2rem;
+  --decline-btn-border-radius-value: 0.2rem;
   --decline-btn-background-color: var(--background-color-4);
   --decline-btn-text-color: var(--text-color-emphasis-mid);
 
   /* DeclineButton */
-  --accept-btn-border-radius-value: .2rem;
+  --accept-btn-border-radius-value: 0.2rem;
   --accept-btn-background-color: var(--main-color-4);
   --accept-btn-text-color: var(--text-color-inverted);
 
   /* Buttons */
-  --button-padding-value:calc(var(--padding-value)/2) var(--padding-value);
-
+  --button-padding-value: calc(var(--padding-value) / 2) var(--padding-value);
 }
 
 /* CSS */
@@ -80,14 +76,15 @@ input {
 
   /* width: 60%; */
 
-  max-width: 400px;
+  width: 380px;
+  /* max-width: 400px; */
 
   border: var(--modal-wrap-border-value);
   border-radius: var(--modal-wrap-border-radius-value);
 
   overflow: hidden;
 
-  filter: drop-shadow(0 1rem 4rem hsl(var(--theme-tone), 50%, 80%, 0.40));
+  filter: drop-shadow(0 1rem 4rem hsl(var(--theme-tone), 50%, 80%, 0.4));
 }
 
 #checker {
@@ -110,7 +107,7 @@ input {
   }
 
   to {
-    background: hsl(var(--theme-tone), 5%, 12%, .9);
+    background: hsl(var(--theme-tone), 5%, 12%, 0.9);
   }
 }
 
@@ -132,7 +129,7 @@ input {
 /* Inyecta css directamente al elemento "[slot="title"]" 
 que esté dentro del componente que lleve esta hoja de css */
 
-::slotted([slot="title"]){
+::slotted([slot="title"]) {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1rem;
@@ -163,7 +160,7 @@ que esté dentro del componente que lleve esta hoja de css */
 }
 
 .close:active {
-  filter: brightness(.85);
+  filter: brightness(0.85);
 }
 
 .main-content {
@@ -186,7 +183,7 @@ que esté dentro del componente que lleve esta hoja de css */
 .accept-btn {
   display: inline-block;
   width: 100%;
-  
+
   padding: var(--button-padding-value);
   border: none;
   border-radius: var(--accept-btn-border-radius-value);
@@ -197,7 +194,7 @@ que esté dentro del componente que lleve esta hoja de css */
 .decline-btn {
   display: inline-block;
   width: 100%;
-  
+
   padding: var(--button-padding-value);
   border: none;
   border-radius: var(--decline-btn-border-radius-value);
@@ -206,16 +203,19 @@ que esté dentro del componente que lleve esta hoja de css */
   background-color: var(--decline-btn-background-color);
 }
 
-.accept-btn, .decline-btn {
+.accept-btn,
+.decline-btn {
   display: block;
   transition: all 0.2s ease;
 
   cursor: pointer;
 }
-.accept-btn:hover, .decline-btn:hover {
+.accept-btn:hover,
+.decline-btn:hover {
   filter: brightness(1.25) contrast(90%);
 }
-.accept-btn:active , .decline-btn:active {
+.accept-btn:active,
+.decline-btn:active {
   filter: brightness(0.95);
   transform: scale(0.95);
 }
