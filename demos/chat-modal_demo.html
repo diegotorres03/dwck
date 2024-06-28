@@ -163,6 +163,11 @@
   </app-modal>
   <button>Press Me</button>
 
+  <ui-data-repeat trigger="#ask-llm" on="add-to-cart" append>
+    <template>
+      <p name="name"></p>
+    </template>
+  </ui-data-repeat>
 
 </body>
 
@@ -175,6 +180,22 @@
   const eventSource = document.querySelector('#ask')
 
   console.log('source', eventSource)
+
+  const instructions = `
+
+    Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
+    Use the name attribute from the tag to give the event name, and use the data attributes for the values.
+
+    <example>
+
+
+      H: can you emit a test event.
+
+      A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
+    
+    </example>
+
+  `
 
   const requests = [
     "Entiendo, te ayudaré con eso en 5 minutos",
@@ -225,7 +246,24 @@
       }).join('\n\n')
 
     const api = 'https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm'
-    fetch(api, { method: 'post', body: JSON.stringify({ prompt: prompt }) })
+
+    const eventInstructions = `Human: Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
+    Use the name attribute from the tag to give the event name, and use the data attributes for the values.
+
+    <example>
+
+
+      H: can you emit a test event.
+
+      A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
+    </example>
+
+
+    Assistant: ok!
+
+
+    `
+    fetch(api, { method: 'post', body: JSON.stringify({ prompt: eventInstructions + prompt }) })
       .then(res => res.json())
       .then(res => {
         console.log(res)
@@ -236,12 +274,6 @@
       })
       .catch(console.error)
 
-    // setTimeout(() => {
-    //   const request = createMessageBox(getRandomRequest(requests), "Ai");
-    //   request.className = "chat__message-box receiver";
-    //   chatBody.appendChild(request);
-    //   request.scrollIntoView({ behavior: "smooth", block: "start" });
-    // }, 1200);
   });
 </script>
 
