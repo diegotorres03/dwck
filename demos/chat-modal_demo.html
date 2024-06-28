@@ -1,203 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
 
-    <script type="module" src="../lib/chat-modal/chat-modal.js"></script>
-    <script type="module" src="../lib/app-modal/app-modal.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 
-    <link rel="stylesheet" href="../lib/style-tools.css" />
-    <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
+  <script type="module" src="../lib/chat-modal/chat-modal.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
 
-    <style>
-      app-modal * {
-        box-sizing: border-box;
-      }
 
-      /* Chat body */
+  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
 
-      section.chat__body {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+  <link rel="stylesheet" href="../lib/style-tools.css" />
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
 
-        padding: 0.5rem;
-        border-radius: 0.4rem;
+  <style>
+    app-modal * {
+      box-sizing: border-box;
+    }
 
-        min-height: 240px;
-        max-height: 240px;
+    /* Chat body */
 
-        overflow-x: auto;
+    section.chat__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
 
-        background-color: var(--background-color-2);
-      }
+      padding: 0.5rem;
+      border-radius: 0.4rem;
 
-      .chat__message-box {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
+      min-height: 240px;
+      max-height: 240px;
 
-        /* width: 80%; */
-        max-width: 90%;
+      overflow-x: auto;
 
-        padding: 0.5rem;
-        border-radius: 0.4rem;
+      background-color: var(--background-color-2);
+    }
 
-        font-size: 0.8rem;
+    .chat__message-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
 
-        word-wrap: break-word;
+      /* width: 80%; */
+      max-width: 90%;
 
-        background-color: var(--background-color-6);
-      }
+      padding: 0.5rem;
+      border-radius: 0.4rem;
 
-      .chat__message-box.sender {
-        align-self: flex-end;
-        border-radius: 0.2rem 0.2rem 0 0.2rem;
-      }
+      font-size: 0.8rem;
 
-      .chat__message-box.receiver {
-        border-radius: 0.2rem 0.2rem 0.2rem 0;
-        background-color: var(--main-color-2);
-      }
+      word-wrap: break-word;
 
-      .message-box__title {
-        line-height: 1;
-        font-size: 0.8rem;
-        margin: 0;
+      background-color: var(--background-color-6);
+    }
 
-        color: var(--text-color-emphasis-mid);
-      }
+    .chat__message-box.sender {
+      align-self: flex-end;
+      border-radius: 0.2rem 0.2rem 0 0.2rem;
+    }
 
-      .sender .message-box__title {
-        text-align: end;
-      }
+    .chat__message-box.receiver {
+      border-radius: 0.2rem 0.2rem 0.2rem 0;
+      background-color: var(--main-color-2);
+    }
 
-      .message-box__text {
-        color: var(--text-color-emphasis-low);
-      }
+    .message-box__title {
+      line-height: 1;
+      font-size: 0.8rem;
+      margin: 0;
 
-      /* Input */
+      color: var(--text-color-emphasis-mid);
+    }
 
-      .footer {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+    .sender .message-box__title {
+      text-align: end;
+    }
 
-        min-width: 100%;
-      }
+    .message-box__text {
+      color: var(--text-color-emphasis-low);
+    }
 
-      .chat__input-prompt {
-        width: 80%;
+    /* Input */
 
-        padding: 0.4rem;
-        border-radius: 0.4rem;
-        border: 1px solid var(--background-color-7);
+    .footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
 
-        color: var(--text-color-emphasis-mid);
+      min-width: 100%;
+    }
 
-        background-color: var(--background-color-4);
-      }
+    .chat__input-prompt {
+      width: 80%;
 
-      .chat__input-prompt:focus {
-        outline: none;
-        filter: brightness(1.05);
-      }
+      padding: 0.4rem;
+      border-radius: 0.4rem;
+      border: 1px solid var(--background-color-7);
 
-      .chat__send-btn {
-        display: grid;
-        place-items: center;
-        width: 20%;
-      }
-    </style>
-  </head>
-  <body>
-    <app-modal trigger="button" on="click">
-      <!-- Title -->
-      <span slot="title">Bedrock Chat</span>
-      <!-- Body, where the messages would go -->
+      color: var(--text-color-emphasis-mid);
+
+      background-color: var(--background-color-4);
+    }
+
+    .chat__input-prompt:focus {
+      outline: none;
+      filter: brightness(1.05);
+    }
+
+    .chat__send-btn {
+      display: grid;
+      place-items: center;
+      width: 20%;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+  <!-- <http-request id="post-to-llm" method="post" trigger="#ask-llm" on="prompt"
+    url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" target="chat__body" append>
+    <template>
+      <p name="response"></p>
+    </template>
+  </http-request> -->
+
+
+  <!-- <p>Here some instructions on how to emit events and how to emit events</p> -->
+  <article id="instructions" style="display: none;">
+  </article>
+
+  <event-source id="ask"></event-source>
+
+  <!-- <app-modal trigger="#ask" on="data"></app-modal> -->
+
+
+  <app-modal trigger="button" on="click">
+    <!-- Title -->
+    <span slot="title">Bedrock Chat</span>
+    <!-- Body, where the messages would go -->
+
+    <ask-llm id="ask-llm" trigger="#ask" on="data">
+      <source src="#instructions">
       <section class="chat__body">
-        <!-- The sender message-box -->
-        <!-- <span class="chat__message-box sender">
-          <h3 class="message-box__title">You</h3>
-          <span class="message-box__text">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae
-            assumenda impedit dolores.
-          </span>
-        </span> -->
-        <!-- The receiver message-box -->
-        <!-- <span class="chat__message-box receiver">
-          <h3 class="message-box__title">Ai</h3>
-          <span class="message-box__text"> Lorem ipsum, dolor sit amet </span>
-        </span> -->
       </section>
-      <!-- Footer, when the input to message would go -->
-      <div class="footer" slot="footer">
-        <input
-          class="chat__input-prompt"
-          type="text"
-          name="prompt"
-          id="prompt"
-        />
-        <button class="chat__send-btn">Send</button>
-      </div>
-    </app-modal>
-    <button>Press Me</button>
-  </body>
+    </ask-llm>
 
-  <!-- Código de prueba -->
-  <script>
-    const chatBody = document.querySelector(".chat__body");
-    const input = document.querySelector(".chat__input-prompt");
-    const sendBtn = document.querySelector(".chat__send-btn");
 
-    const requests = [
-      "Entiendo, te ayudaré con eso en 5 minutos",
-      "No te preocupes, estamos aquí para solucionarlo",
-      "Cuéntame más detalles, estoy escuchando",
-      "¿Has considerado buscar una alternativa más sencilla?",
-      "Lo comprendo, a veces las soluciones simples son las mejores",
-      "¿Qué te parece intentar abordarlo desde otro ángulo?",
-      "Estoy seguro de que encontraremos una solución juntos",
-      "Déjame pensar en la mejor manera de resolverlo",
-      "Podemos buscar una solución eficiente para esto",
-      "¡Claro! Vamos a resolver esto paso a paso",
-    ];
 
-    const getRandomRequest = (requests) => {
-      const randomNumber = Math.floor(Math.random() * requests.length);
-      console.log(randomNumber);
-      return requests[randomNumber];
-    };
+    <div class="footer" slot="footer">
+      <input id="prompt" class="chat__input-prompt" type="text" name="prompt" id="prompt" />
+      <button id="send-message-btn" class="chat__send-btn">Send</button>
+    </div>
 
-    const createMessageBox = (str, name) => {
-      const messageBox = document.createElement("span");
-      messageBox.className = "chat__message-box sender";
-      const content = `
+  </app-modal>
+  <button>Press Me</button>
+
+
+</body>
+
+<!-- Código de prueba -->
+<script>
+  const chatBody = document.querySelector(".chat__body");
+  const input = document.querySelector(".chat__input-prompt");
+  const sendBtn = document.querySelector(".chat__send-btn");
+
+  const eventSource = document.querySelector('#ask')
+
+  console.log('source', eventSource)
+
+  const requests = [
+    "Entiendo, te ayudaré con eso en 5 minutos",
+    "No te preocupes, estamos aquí para solucionarlo",
+    "Cuéntame más detalles, estoy escuchando",
+    "¿Has considerado buscar una alternativa más sencilla?",
+    "Lo comprendo, a veces las soluciones simples son las mejores",
+    "¿Qué te parece intentar abordarlo desde otro ángulo?",
+    "Estoy seguro de que encontraremos una solución juntos",
+    "Déjame pensar en la mejor manera de resolverlo",
+    "Podemos buscar una solución eficiente para esto",
+    "¡Claro! Vamos a resolver esto paso a paso",
+  ];
+
+  const getRandomRequest = (requests) => {
+    const randomNumber = Math.floor(Math.random() * requests.length);
+    console.log(randomNumber);
+    return requests[randomNumber];
+  };
+
+  const createMessageBox = (str, name) => {
+    const messageBox = document.createElement("span");
+    messageBox.className = "chat__message-box sender";
+    const content = `
 				<h3 class="message-box__title">${name}</h3>
 				<span class="message-box__text">
 					${str}
 				</span>`;
-      messageBox.innerHTML = content;
-      return messageBox;
-    };
+    messageBox.innerHTML = content;
+    return messageBox;
+  };
 
-    sendBtn.addEventListener("click", () => {
-      const text = input.value;
-      if (text !== "") {
-        const messageBox = createMessageBox(text, "You");
-        chatBody.appendChild(messageBox);
-        messageBox.scrollIntoView({ behavior: "smooth", block: "start" });
-        input.value = "";
+  sendBtn.addEventListener("click", () => {
+    const text = input.value;
+    if (text === "") return
+    const messageBox = createMessageBox(text, "Human");
+    chatBody.appendChild(messageBox);
+    messageBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    input.value = "";
 
-        setTimeout(() => {
-          const request = createMessageBox(getRandomRequest(requests), "Ai");
-          request.className = "chat__message-box receiver";
-          chatBody.appendChild(request);
-          request.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 1200);
-      }
-    });
-  </script>
+    // eventSource.dispatchEvent(new CustomEvent('data', { detail: { prompt: text }, bubbles: true }))
+
+    const prompt = Array.from(chatBody.querySelectorAll('.chat__message-box'))
+      .map(box => {
+        const text = box.querySelector('.message-box__text').textContent
+        const sender = box.querySelector('.message-box__title').textContent  
+        return `${sender}: ${text}`
+      }).join('\n\n')
+
+    const api = 'https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm'
+    fetch(api, { method: 'post', body: JSON.stringify({ prompt: prompt }) })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        const response = createMessageBox(res.response, 'Assistant')
+        response.className = "chat__message-box receiver"
+        chatBody.appendChild(response);
+        response.scrollIntoView({ behavior: "smooth", block: "start" });
+      })
+      .catch(console.error)
+
+    // setTimeout(() => {
+    //   const request = createMessageBox(getRandomRequest(requests), "Ai");
+    //   request.className = "chat__message-box receiver";
+    //   chatBody.appendChild(request);
+    //   request.scrollIntoView({ behavior: "smooth", block: "start" });
+    // }, 1200);
+  });
+</script>
+
 </html>
