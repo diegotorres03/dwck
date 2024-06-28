@@ -193,28 +193,20 @@
 
       A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
     
+
+    </example>
+
+    <example> 
+
+
+      H:  emit an event 'add-to-cart', the name is DX30 graphics card, the value is $300 and the id is 3 
+
+      A: <emit-event name="add-to-cart" data-name="DX30 graphics card" data-value="$300" data-id="3"></emit-event>
+
+
     </example>
 
   `
-
-  const requests = [
-    "Entiendo, te ayudaré con eso en 5 minutos",
-    "No te preocupes, estamos aquí para solucionarlo",
-    "Cuéntame más detalles, estoy escuchando",
-    "¿Has considerado buscar una alternativa más sencilla?",
-    "Lo comprendo, a veces las soluciones simples son las mejores",
-    "¿Qué te parece intentar abordarlo desde otro ángulo?",
-    "Estoy seguro de que encontraremos una solución juntos",
-    "Déjame pensar en la mejor manera de resolverlo",
-    "Podemos buscar una solución eficiente para esto",
-    "¡Claro! Vamos a resolver esto paso a paso",
-  ];
-
-  const getRandomRequest = (requests) => {
-    const randomNumber = Math.floor(Math.random() * requests.length);
-    console.log(randomNumber);
-    return requests[randomNumber];
-  };
 
   const createMessageBox = (str, name) => {
     const messageBox = document.createElement("span");
