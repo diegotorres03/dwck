@@ -22,6 +22,7 @@
     "prettier": "^2.8.4"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.0.18",
     "dexie": "^4.0.7"
   }
 }
