@@ -1,0 +1,6 @@
+/* Normalize */
+@import url("./normalize.css");
+
+* {
+  box-sizing: border-box;
+}

@@ -9,7 +9,7 @@
     <script type="module" src="../lib/app-modal/app-modal.js"></script>
 
     <link rel="stylesheet" href="../lib/style-tools.css" />
-    <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
+    <link rel="stylesheet" href="../lib/themes/emerson-theme.css" />
 
     <style>
       app-modal * {
@@ -31,7 +31,7 @@
 
         overflow-x: auto;
 
-        background-color: var(--background-color-2);
+        background-color: var(--background-color-8);
       }
 
       .chat__message-box {
@@ -49,7 +49,7 @@
 
         word-wrap: break-word;
 
-        background-color: var(--background-color-6);
+        background-color: var(--background-color-5);
       }
 
       .chat__message-box.sender {
@@ -60,6 +60,7 @@
       .chat__message-box.receiver {
         border-radius: 0.2rem 0.2rem 0.2rem 0;
         background-color: var(--main-color-2);
+        color: var(--text-color-emphasis-low-i);
       }
 
       .message-box__title {
@@ -72,6 +73,14 @@
 
       .sender .message-box__title {
         text-align: end;
+      }
+
+      .receiver .message-box__title {
+        color: var(--text-color-emphasis-mid-i);
+      }
+
+      .receiver .message-box__text {
+        color: var(--text-color-emphasis-low-i);
       }
 
       .message-box__text {
@@ -91,13 +100,13 @@
       .chat__input-prompt {
         width: 80%;
 
-        padding: 0.4rem;
+        padding: 0.5rem;
         border-radius: 0.4rem;
-        border: 1px solid var(--background-color-7);
+        border: 1px solid var(--background-color-5);
 
         color: var(--text-color-emphasis-mid);
 
-        background-color: var(--background-color-4);
+        background-color: var(--background-color-7);
       }
 
       .chat__input-prompt:focus {
@@ -109,6 +118,9 @@
         display: grid;
         place-items: center;
         width: 20%;
+
+        background-color: hsl(212, 39%, 20%);
+        color: var(--text-color-emphasis-high-i);
       }
     </style>
   </head>
