@@ -8,6 +8,7 @@
 
   <script type="module" src="../lib/chat-modal/chat-modal.js"></script>
   <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
 
 
   <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
@@ -171,6 +172,8 @@
 
 </body>
 
+
+
 <!-- Código de prueba -->
 <script>
   const chatBody = document.querySelector(".chat__body");
@@ -180,6 +183,185 @@
   const eventSource = document.querySelector('#ask')
 
   console.log('source', eventSource)
+
+
+  const kanbanBoardInstructions = `
+
+use the \`kanban-board\` tag to create a new kanban board.
+
+Give it and \`id\` attribute and a \`title\` attribute, this attribute will be used as the title of the board, so make it human readable.
+
+  
+
+Now, create the colunms you will require, for example, a regular board will have a \`todo\`, \`doing\` and \`done\` columns, but feel free to change it according to what you need.
+
+  
+
+In important that you add an \`id\` and \`title\` to each column. Id should be unique in the document, and the title will be displayed on the UI so make it human readable.
+
+  
+
+So far we should have something like this:
+
+\`\`\`html
+
+<kanban-board id="main-todo" title="test board">
+
+	<kanban-column id="todo" title="TODO">
+	
+	  
+	
+	</kanban-column>
+	
+	<kanban-column id="doing" title="DOING">
+	
+	  
+	
+	</kanban-column>
+	
+	<kanban-column id="done" title="DONE">
+	
+	  
+	
+	</kanban-column>
+
+</kanban-board>
+
+  
+
+\`\`\`
+
+  
+
+Now you have an empty kanban board.
+
+  
+
+to add tasks, insert a \`simple-card\` tag or any other tag like \`section\` or \`div\` on the desired column. Inside the \`simple-card\` add the content of the task, any valid HTML can go here.
+
+  `
+
+  const renderHtmlInstructions = `
+    Since you are running in a web environment, you ask the system to render HTML by writing your html inside a template tag, just add a \`data-attribute\` and assignt the css selector for the container where the content is going to be appended
+
+    <example>
+
+
+      H: Show me the result you found as an html table and append it to the main tag
+
+      A: Sure here is your result
+      
+      <template data-target="main">
+
+        <table id="sample-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Sales</th>
+              <th>Revenue</th>
+              <th>Customers</th>
+            </tr>
+          </thead>
+          
+          <tbody title="first table">
+            <tr>
+              <td>2018</td>
+              <td>12,000</td>
+              <td>$600,000</td>
+              <td>2,000</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td>10,000</td>
+              <td>$500,000</td>
+              <td>2,500</td>
+            </tr>
+            <tr>
+              <td>2020</td>
+              <td>18,000</td>
+              <td>$900,000</td>
+              <td>3,000</td>
+            </tr>
+            <tr>
+              <td>2021</td>
+              <td>15,000</td>
+              <td>$750,000</td>
+              <td>4,000</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>22,000</td>
+              <td>$1,100,000</td>
+              <td>5,000</td>
+            </tr>
+          </tbody>
+
+          <tbody id="asd" title="second table">
+            <tr>
+              <td>2018</td>
+              <td>10,000</td>
+              <td>$500,000</td>
+              <td>2,000</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td>12,000</td>
+              <td>$600,000</td>
+              <td>2,500</td>
+            </tr>
+            <tr>
+              <td>2020</td>
+              <td>15,000</td>
+              <td>$750,000</td>
+              <td>3,000</td>
+            </tr>
+            <tr>
+              <td>2021</td>
+              <td>18,000</td>
+              <td>$900,000</td>
+              <td>4,000</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>22,000</td>
+              <td>$1,100,000</td>
+              <td>5,000</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </template>
+    </example>
+    
+
+
+    <example> 
+
+
+      H: Can you render a todo list with sample items: 
+
+      A: Sure! creating a todo list with sample items:
+
+      <template target="body">
+        <ol>
+          <li>
+            <input type="checkbox" name="task1">
+            <em>task1</em>
+          </li>
+
+          <li>
+            <input type="checkbox" name="task2">
+            <em>task2</em>
+          </li>
+
+          <li>
+            <input type="checkbox" name="task3">
+            <em>task3</em>
+          </li>
+        </ol>
+      </template>
+
+    </example>`
 
   const instructions = `
 
@@ -206,10 +388,12 @@
 
     </example>
 
+    ${renderHtmlInstructions}
+
   `
 
   const createMessageBox = (str, name) => {
-    const messageBox = document.createElement("span");
+    const messageBox = document.createElement("div");
     messageBox.className = "chat__message-box sender";
     const content = `
 				<h3 class="message-box__title">${name}</h3>
@@ -228,12 +412,13 @@
     messageBox.scrollIntoView({ behavior: "smooth", block: "start" });
     input.value = "";
 
+
     // eventSource.dispatchEvent(new CustomEvent('data', { detail: { prompt: text }, bubbles: true }))
 
     const prompt = Array.from(chatBody.querySelectorAll('.chat__message-box'))
       .map(box => {
         const text = box.querySelector('.message-box__text').textContent
-        const sender = box.querySelector('.message-box__title').textContent  
+        const sender = box.querySelector('.message-box__title').textContent
         return `${sender}: ${text}`
       }).join('\n\n')
 
@@ -250,6 +435,10 @@
       A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
     </example>
 
+    ${renderHtmlInstructions}
+
+
+    ${kanbanBoardInstructions}
 
     Assistant: ok!
 
@@ -263,6 +452,18 @@
         response.className = "chat__message-box receiver"
         chatBody.appendChild(response);
         response.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        const templates = Array.from(response.querySelectorAll('template'))
+
+        console.log('templates', templates)
+
+        templates.forEach(template => {
+          const targetSelector = template.dataset.target || template.getAttribute('target')
+          if(!targetSelector) return
+          const target = document.querySelector(targetSelector)
+          console.log('appending to target')
+          target.appendChild(template.content.cloneNode(true))
+        })
       })
       .catch(console.error)
 
@@ -270,3 +471,7 @@
 </script>
 
 </html>
+
+<!-- 
+  can you help me bake a chocolate cake? you can create a kanban boad so we can track the progress of the cake, feel free to append this board to the body
+ -->

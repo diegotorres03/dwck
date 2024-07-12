@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Kanban</title>
+  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+  <!-- <script type="module" src="../lib/"></script> -->
+  <link rel="stylesheet" href="../lib/themes/light-theme.css">
+</head>
+<body>
+
+  <button id="ask-ai-open-btn">open assistant</button>
+  
+  <app-modal trigger="#ask-ai-open-btn">
+    <h3 slot="title">Assistant</h3>
+    <section>
+      <textarea name="" id=""></textarea>
+      <button>ask</button>
+    </section>
+  </app-modal>
+  <kanban-board id="cake-recipe" title="Chocolate Cake Recipe">
+
+    <kanban-column id="todo" title="To Do">
+    
+     <simple-card>1. Preheat oven to 350°F. Grease a 9x13 inch baking pan and set aside.</simple-card>
+     
+     <simple-card>2. In a large bowl, whisk together the flour, sugar, cocoa powder, baking soda and salt.</simple-card>
+     
+     <simple-card>3. In a separate bowl, whisk the eggs until light and fluffy. Whisk in the milk, oil and vanilla.</simple-card>
+     
+     <simple-card>4. Pour the wet ingredients into the dry ingredients and mix just until combined.</simple-card>
+     
+     <simple-card>5. Slowly pour the boiling water into the batter and mix until smooth.</simple-card>
+     
+     <simple-card>6. Pour the batter into the prepared pan. Bake for 30-35 minutes, until a toothpick inserted in the center comes out clean.</simple-card>
+     
+     <simple-card>7. Allow the cake to cool completely before frosting. You can frost it with your choice of frosting such as chocolate buttercream or cream cheese frosting.</simple-card>
+     
+     <simple-card>8. Cut into squares and enjoy! Store any leftovers in an airtight container at room temperature for up to 3 days.</simple-card>
+  
+    </kanban-column>
+  
+    <kanban-column id="doing" title="In Progress">
+  
+    </kanban-column>
+  
+    <kanban-column id="done" title="Done">
+  
+    </kanban-column>
+  
+  </kanban-board>
+
+
+</body>
+</html>
