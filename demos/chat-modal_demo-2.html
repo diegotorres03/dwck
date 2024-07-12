@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <script type="module" src="../lib/chat-modal/chat-modal.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+
+
+  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
+  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+
+  <link rel="stylesheet" href="../lib/style-tools.css" />
+  <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
+
+  <style>
+    app-modal * {
+      box-sizing: border-box;
+    }
+
+    /* Chat body */
+
+    section.chat__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      padding: 0.5rem;
+      border-radius: 0.4rem;
+
+      min-height: 240px;
+      max-height: 240px;
+
+      overflow-x: auto;
+
+      background-color: var(--background-color-2);
+    }
+
+    .chat__message-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      /* width: 80%; */
+      max-width: 90%;
+
+      padding: 0.5rem;
+      border-radius: 0.4rem;
+
+      font-size: 0.8rem;
+
+      word-wrap: break-word;
+
+      background-color: var(--background-color-6);
+    }
+
+    .chat__message-box.sender {
+      align-self: flex-end;
+      border-radius: 0.2rem 0.2rem 0 0.2rem;
+    }
+
+    .chat__message-box.receiver {
+      border-radius: 0.2rem 0.2rem 0.2rem 0;
+      background-color: var(--main-color-2);
+    }
+
+    .message-box__title {
+      line-height: 1;
+      font-size: 0.8rem;
+      margin: 0;
+
+      color: var(--text-color-emphasis-mid);
+    }
+
+    .sender .message-box__title {
+      text-align: end;
+    }
+
+    .message-box__text {
+      color: var(--text-color-emphasis-low);
+    }
+
+    /* Input */
+
+    .footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      min-width: 100%;
+    }
+
+    .chat__input-prompt {
+      width: 80%;
+
+      padding: 0.4rem;
+      border-radius: 0.4rem;
+      border: 1px solid var(--background-color-7);
+
+      color: var(--text-color-emphasis-mid);
+
+      background-color: var(--background-color-4);
+    }
+
+    .chat__input-prompt:focus {
+      outline: none;
+      filter: brightness(1.05);
+    }
+
+    .chat__send-btn {
+      display: grid;
+      place-items: center;
+      width: 20%;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+  <!-- <http-request id="post-to-llm" method="post" trigger="#ask-llm" on="prompt"
+    url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" target="chat__body" append>
+    <template>
+      <p name="response"></p>
+    </template>
+  </http-request> -->
+
+
+  <!-- <p>Here some instructions on how to emit events and how to emit events</p> -->
+  <article id="instructions" style="display: none;">
+  </article>
+
+  <event-source id="ask"></event-source>
+
+  <!-- <app-modal trigger="#ask" on="data"></app-modal> -->
+
+
+  <app-modal trigger="button" on="click">
+    <!-- Title -->
+    <span slot="title">Bedrock Chat</span>
+    <!-- Body, where the messages would go -->
+
+    <ask-llm id="ask-llm" trigger="#ask" on="data">
+      <source src="#instructions">
+      <section class="chat__body">
+      </section>
+    </ask-llm>
+
+
+
+    <div class="footer" slot="footer">
+      <input id="prompt" class="chat__input-prompt" type="text" name="prompt" id="prompt" />
+      <button id="send-message-btn" class="chat__send-btn">Send</button>
+    </div>
+
+  </app-modal>
+  <button>Press Me</button>
+
+  <ui-data-repeat trigger="#ask-llm" on="add-to-cart" append>
+    <template>
+      <p name="name"></p>
+    </template>
+  </ui-data-repeat>
+
+</body>
+
+
+
+<!-- Código de prueba -->
+<script>
+  const chatBody = document.querySelector(".chat__body");
+  const input = document.querySelector(".chat__input-prompt");
+  const sendBtn = document.querySelector(".chat__send-btn");
+
+  const eventSource = document.querySelector('#ask')
+
+  console.log('source', eventSource)
+
+
+  const kanbanBoardInstructions = `
+
+use the \`kanban-board\` tag to create a new kanban board.
+
+Give it and \`id\` attribute and a \`title\` attribute, this attribute will be used as the title of the board, so make it human readable.
+
+  
+
+Now, create the colunms you will require, for example, a regular board will have a \`todo\`, \`doing\` and \`done\` columns, but feel free to change it according to what you need.
+
+  
+
+In important that you add an \`id\` and \`title\` to each column. Id should be unique in the document, and the title will be displayed on the UI so make it human readable.
+
+  
+
+So far we should have something like this:
+
+\`\`\`html
+
+<kanban-board id="main-todo" title="test board">
+
+	<kanban-column id="todo" title="TODO">
+	
+	  
+	
+	</kanban-column>
+	
+	<kanban-column id="doing" title="DOING">
+	
+	  
+	
+	</kanban-column>
+	
+	<kanban-column id="done" title="DONE">
+	
+	  
+	
+	</kanban-column>
+
+</kanban-board>
+
+  
+
+\`\`\`
+
+  
+
+Now you have an empty kanban board.
+
+  
+
+to add tasks, insert a \`simple-card\` tag or any other tag like \`section\` or \`div\` on the desired column. Inside the \`simple-card\` add the content of the task, any valid HTML can go here.
+
+  `
+
+  const renderHtmlInstructions = `
+    Since you are running in a web environment, you ask the system to render HTML by writing your html inside a template tag, just add a \`data-attribute\` and assignt the css selector for the container where the content is going to be appended
+
+    <example>
+
+
+      H: Show me the result you found as an html table and append it to the main tag
+
+      A: Sure here is your result
+      
+      <template data-target="main">
+
+        <table id="sample-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Sales</th>
+              <th>Revenue</th>
+              <th>Customers</th>
+            </tr>
+          </thead>
+          
+          <tbody title="first table">
+            <tr>
+              <td>2018</td>
+              <td>12,000</td>
+              <td>$600,000</td>
+              <td>2,000</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td>10,000</td>
+              <td>$500,000</td>
+              <td>2,500</td>
+            </tr>
+            <tr>
+              <td>2020</td>
+              <td>18,000</td>
+              <td>$900,000</td>
+              <td>3,000</td>
+            </tr>
+            <tr>
+              <td>2021</td>
+              <td>15,000</td>
+              <td>$750,000</td>
+              <td>4,000</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>22,000</td>
+              <td>$1,100,000</td>
+              <td>5,000</td>
+            </tr>
+          </tbody>
+
+          <tbody id="asd" title="second table">
+            <tr>
+              <td>2018</td>
+              <td>10,000</td>
+              <td>$500,000</td>
+              <td>2,000</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td>12,000</td>
+              <td>$600,000</td>
+              <td>2,500</td>
+            </tr>
+            <tr>
+              <td>2020</td>
+              <td>15,000</td>
+              <td>$750,000</td>
+              <td>3,000</td>
+            </tr>
+            <tr>
+              <td>2021</td>
+              <td>18,000</td>
+              <td>$900,000</td>
+              <td>4,000</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>22,000</td>
+              <td>$1,100,000</td>
+              <td>5,000</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </template>
+    </example>
+    
+
+
+    <example> 
+
+
+      H: Can you render a todo list with sample items: 
+
+      A: Sure! creating a todo list with sample items:
+
+      <template target="body">
+        <ol>
+          <li>
+            <input type="checkbox" name="task1">
+            <em>task1</em>
+          </li>
+
+          <li>
+            <input type="checkbox" name="task2">
+            <em>task2</em>
+          </li>
+
+          <li>
+            <input type="checkbox" name="task3">
+            <em>task3</em>
+          </li>
+        </ol>
+      </template>
+
+    </example>`
+
+  const instructions = `
+
+    Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
+    Use the name attribute from the tag to give the event name, and use the data attributes for the values.
+
+    <example>
+
+
+      H: can you emit a test event.
+
+      A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
+    
+
+    </example>
+
+    <example> 
+
+
+      H:  emit an event 'add-to-cart', the name is DX30 graphics card, the value is $300 and the id is 3 
+
+      A: <emit-event name="add-to-cart" data-name="DX30 graphics card" data-value="$300" data-id="3"></emit-event>
+
+
+    </example>
+
+    ${renderHtmlInstructions}
+
+  `
+
+  const createMessageBox = (str, name) => {
+    const messageBox = document.createElement("div");
+    messageBox.className = "chat__message-box sender";
+    const content = `
+				<h3 class="message-box__title">${name}</h3>
+				<span class="message-box__text">
+					${str}
+				</span>`;
+    messageBox.innerHTML = content;
+    return messageBox;
+  };
+
+  sendBtn.addEventListener("click", () => {
+    const text = input.value;
+    if (text === "") return
+    const messageBox = createMessageBox(text, "Human");
+    chatBody.appendChild(messageBox);
+    messageBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    input.value = "";
+
+
+    // eventSource.dispatchEvent(new CustomEvent('data', { detail: { prompt: text }, bubbles: true }))
+
+    const prompt = Array.from(chatBody.querySelectorAll('.chat__message-box'))
+      .map(box => {
+        const text = box.querySelector('.message-box__text').textContent
+        const sender = box.querySelector('.message-box__title').textContent
+        return `${sender}: ${text}`
+      }).join('\n\n')
+
+    const api = 'https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm'
+
+    const eventInstructions = `Human: Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
+    Use the name attribute from the tag to give the event name, and use the data attributes for the values.
+
+    <example>
+
+
+      H: can you emit a test event.
+
+      A: <emit-event name="test" data-property="some value" data-other-property="other value"></emit-event>
+    </example>
+
+    ${renderHtmlInstructions}
+
+
+    ${kanbanBoardInstructions}
+
+    Assistant: ok!
+
+
+    `
+    fetch(api, { method: 'post', body: JSON.stringify({ prompt: eventInstructions + prompt }) })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        const response = createMessageBox(res.response, 'Assistant')
+        response.className = "chat__message-box receiver"
+        chatBody.appendChild(response);
+        response.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        const templates = Array.from(response.querySelectorAll('template'))
+
+        console.log('templates', templates)
+
+        templates.forEach(template => {
+          const targetSelector = template.dataset.target || template.getAttribute('target')
+          if(!targetSelector) return
+          const target = document.querySelector(targetSelector)
+          console.log('appending to target')
+          target.appendChild(template.content.cloneNode(true))
+        })
+      })
+      .catch(console.error)
+
+  });
+</script>
+
+</html>
+
+<!-- 
+  can you help me bake a chocolate cake? you can create a kanban boad so we can track the progress of the cake, feel free to append this board to the body
+ -->
