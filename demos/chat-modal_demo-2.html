@@ -18,7 +18,7 @@
 
   <link rel="stylesheet" href="../lib/style-tools.css" />
   <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js">
   <style>
     app-modal * {
       box-sizing: border-box;
@@ -185,9 +185,7 @@
   console.log('source', eventSource)
 
 
-  const kanbanBoardInstructions = `
-
-use the \`kanban-board\` tag to create a new kanban board.
+  const kanbanBoardInstructions = `If you are asked to create a todo list or a kanban board. Use the \`kanban-board\` tag to create a new kanban board.
 
 Give it and \`id\` attribute and a \`title\` attribute, this attribute will be used as the title of the board, so make it human readable.
 
@@ -241,8 +239,7 @@ to add tasks, insert a \`simple-card\` tag or any other tag like \`section\` or 
 
   `
 
-  const renderHtmlInstructions = `
-    Since you are running in a web environment, you ask the system to render HTML by writing your html inside a template tag, just add a \`data-attribute\` and assignt the css selector for the container where the content is going to be appended
+  const renderHtmlInstructions = `If you are asked to render some html, you can do it by writing your html inside a \`template\` tag, just add a \`data-attribute\` and assignt the css selector for the container where the content is going to be appended
 
     <example>
 
@@ -459,7 +456,7 @@ to add tasks, insert a \`simple-card\` tag or any other tag like \`section\` or 
 
         templates.forEach(template => {
           const targetSelector = template.dataset.target || template.getAttribute('target')
-          if(!targetSelector) return
+          if (!targetSelector) return
           const target = document.querySelector(targetSelector)
           console.log('appending to target')
           target.appendChild(template.content.cloneNode(true))
@@ -473,5 +470,12 @@ to add tasks, insert a \`simple-card\` tag or any other tag like \`section\` or 
 </html>
 
 <!-- 
-  can you help me bake a chocolate cake? you can create a kanban boad so we can track the progress of the cake, feel free to append this board to the body
+  can you help me bake a chocolate cake? you can create a kanban boad so we can track the progress of the cake. Add all the tasks in the 'todo' column, then append this board to the body
  -->
+
+ <!-- Step by Step -->
+ <!-- 
+  H: can you give me a step by step instructions on how to make a chocolate cacke? 
+
+  H: can you make that list in to a kanban board and append it to the body, add all of them to the todo column? 
+  -->
