@@ -9,12 +9,12 @@
 
   /* ModalHeader */
   --modal-header-padding-value: var(--padding-value);
-  --modal-header-text-color: var(--text-color-emphasis-mid);
-  --modal-header-background-color: var(--background-color-4);
+  --modal-header-text-color: var(--main-color);
+  --modal-header-background-color: var(--background-color-6);
   --modal-header-border-value: var(--border-value) solid var(--border-color-2);
 
   /* Close */
-  --close-background-color: var(--background-color-5);
+  --close-background-color: var(--background-color-5-);
   --close-padding-value: 0.4rem;
   --close-text-color: var(--text-color-emphasis-mid);
   --close-text-color-hover: var(--text-color-emphasis-high);
@@ -27,6 +27,54 @@
   /* Footer */
 
   --footer-background-color: var(--background-color-3);
+  --footer-padding-value: 0 var(--padding-value) var(--padding-value);
+  --footer-gap-value: var(--gap-value);
+
+  /* DeclineButton */
+  --decline-btn-border-radius-value: 0.2rem;
+  --decline-btn-background-color: var(--background-color-4);
+  --decline-btn-text-color: var(--text-color-emphasis-mid);
+
+  /* DeclineButton */
+  --accept-btn-border-radius-value: 0.2rem;
+  --accept-btn-background-color: var(--main-color-4);
+  --accept-btn-text-color: var(--text-color-inverted);
+
+  /* Buttons */
+  --button-padding-value: calc(var(--padding-value) / 2) var(--padding-value);
+}
+
+/* Cambio de tema */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  /* ModalWrap */
+  --modal-wrap-border-value: var(--border-value) solid var(--border-color-2);
+  --modal-wrap-border-radius-value: var(--border-radius-value);
+
+  /* ModalHeader */
+  --modal-header-padding-value: var(--padding-value);
+  --modal-header-text-color: var(--text-color-emphasis-high-i);
+  --modal-header-background-color: hsl(212, 39%, 20%);
+  --modal-header-border-value: var(--border-value) solid var(--border-color-3);
+
+  /* Close */
+  --close-background-color: var(--background-color-5);
+  --close-padding-value: 0.4rem;
+  --close-text-color: var(--text-color-emphasis-high-i);
+  --close-text-color-hover: var(--text-color-emphasis-high);
+
+  /* MainContent */
+  --main-content-padding-value: var(--padding-value);
+  --main-content-text-color: var(--text-color-emphasis-mid);
+  --main-content-background-color: var(--background-color-6);
+
+  /* Footer */
+
+  --footer-background-color: var(--background-color-6);
   --footer-padding-value: 0 var(--padding-value) var(--padding-value);
   --footer-gap-value: var(--gap-value);
 
