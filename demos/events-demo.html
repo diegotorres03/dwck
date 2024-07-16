@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events Demo</title>
+
+  <script type="module" src="../lib/event-stream/event-stream.js"></script>
+  <script type="module" src="../lib/app-modal/app-modal.js"></script>
+
+
+
+  <link rel="stylesheet" href="../lib/css/style-tools.css">
+  <link rel="stylesheet" href="../lib/css/themes/dark-theme.css">
+
+
+  <button id="send-test-event-btn">test</button>
+
+  <event-source id="test-event" trigger="#send-test-event-btn" data-value="sample value">
+    <h1 name="title">this is the main title</h1>
+  </event-source>
+
+  <app-modal trigger="#test-event" on="data">
+    <h1 slot="title">this is a test event</h1>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores, maxime exercitationem, laboriosam pariatur quibusdam soluta veritatis, id nihil debitis recusandae enim ducimus nobis odit. Eligendi, dolorem omnis. Qui, quaerat odit.</p>
+
+    <var></var>
+    <slot></slot>
+  </app-modal>
+
+  <script>
+    document.querySelector('#test-event')
+      .addEventListener('data', event => {
+        console.log(event)
+        console.log(event.target.children)
+      })
+  </script>
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>
