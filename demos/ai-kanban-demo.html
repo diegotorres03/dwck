@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Kanban</title>
   <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+  <script type="module" src="../lib/app-layout/app-layout.js"></script>
+  <script type="module" src="../lib/app-router/app-router.js"></script>
+  <script type="module" src="../lib/http-request/http-request.js"></script>
   <script type="module" src="../lib/app-modal/app-modal.js"></script>
   <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
   <!-- <script type="module" src="../lib/"></script> -->
   <link rel="stylesheet" href="../lib/themes/light-theme.css">
+  <!-- Centered viewport -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" />
 </head>
+
 <body>
 
-  <button id="ask-ai-open-btn">open assistant</button>
-  
-  <app-modal trigger="#ask-ai-open-btn">
+  <!-- <button id="ask-ai-open-btn">open assistant</button> -->
+
+  <http-request id="post-to-llm" method="post" trigger="ask-llm" on="prompt"
+    url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" target="ask-llm" append>
+    <template>
+      <p name="response"></p>
+    </template>
+  </http-request>
+  <script>
+    document.querySelector('#post-to-llm')?.addEventListener('response', event => {
+      console.log('request response', event.detail)
+      const askLLM = document.querySelector('ask-llm')
+      const response = document.createElement('section')
+      response.setAttribute('data-sender', 'llm')
+      response.setAttribute('contenteditable', '')
+      response.innerHTML = event.detail.response
+      askLLM.append(response)
+    })
+  </script>
+  <main>
+
+    <ask-llm trigger="#send-btn" contenteditable>
+
+      <p>You are running on a web browser, if you have plain html as reponse it will be rendered. When ansering with html, don't scape it and add it without the code and pre tags.</p>
+
+      <p>if you are intentionally asked to show sample html code, escape it and use the corresponding <pre><code></code></pre> tags to display it.</p>
+
+      <source src="../lib/http-request/readme.md" type="text/plain">
+      <source src="../lib/kanban-board/readme.md" type="text/plain">
+      <source src="../lib/app-modal/readme.md" type="text/plain">
+      <source src="../lib/app-layout/readme.md" type="text/plain">
+      <source src="../lib/app-router/readme.md" type="text/plain">
+
+      <p>you are going to help me create a web applicatio to showcase the web components we described as part of this prompt.</p>
+
+      <p>Let's start by</p>
+      
+    </ask-llm>
+  </main>
+  <!-- <textarea name="prompt" id="prompt" rows="20" cols="50">can you summarize this?</textarea> -->
+
+  <hr>
+
+  <section>
+
+    <button id="send-btn">send</button>
+  </section>
+
+
+  <!-- <app-modal trigger="#ask-ai-open-btn">
     <h3 slot="title">Assistant</h3>
     <section>
       <textarea name="" id=""></textarea>
       <button>ask</button>
     </section>
-  </app-modal>
-  <kanban-board id="cake-recipe" title="Chocolate Cake Recipe">
+  </app-modal> -->
+
+
+  <!-- <kanban-board id="cake-recipe" title="Chocolate Cake Recipe">
 
     <kanban-column id="todo" title="To Do">
     
@@ -51,8 +107,9 @@
   
     </kanban-column>
   
-  </kanban-board>
+  </kanban-board> -->
 
 
 </body>
+
 </html>
