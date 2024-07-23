@@ -1,0 +1,25 @@
+<section class="app-layout">
+  <div class="app-layout__side-bar" id="side-bar">
+    <div class="side-bar__header">
+      <slot name="header">Header</slot>
+    </div>
+    <section class="side-bar__menu">
+      <div class="side-bar__menu-content">
+        <slot name="menu"> </slot>
+      </div>
+    </section>
+    <div class="side-bar__footer">
+      <slot name="footer">Footer</slot>
+    </div>
+    <div class="side-bar__resizer" id="resizer"></div>
+  </div>
+  <div class="app-layout__main-container">
+    <section class="main-container__top-bar">
+      <button id="hidder-btn">↔️</button>
+      <slot name="top-bar"></slot>
+    </section>
+    <div class="main-container__display">
+      <slot name="main"></slot>
+    </div>
+  </div>
+</section>

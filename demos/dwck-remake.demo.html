@@ -6,13 +6,44 @@
     <title>DwCK Remake</title>
 
     <!-- Import Components -->
-    <script type="module" src="../lib/app-layout/app-layout.js"></script>
+    <script type="module" src="../lib/app-layout-2/app-layout.js"></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="../lib/css/style-tools.css" />
-    <link rel="stylesheet" href="../lib/css/themes/light-theme.css" />
+    <link rel="stylesheet" href="../lib/css/themes/dark-theme_new.css" />
+    <style>
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        overflow: hidden;
+      }
+      header > img {
+        width: 100px;
+        height: auto;
+      }
+    </style>
   </head>
   <body>
-    <app-layout></app-layout>
+    <app-layout-2>
+      <header>
+        <img
+          src="https://www.smartclick.com.co/wp-content/uploads/2023/04/4-Logo-vertical-sin-fondos-1-300x150.png"
+          alt=""
+        />
+      </header>
+      <menu>
+        <li class="active">Inicio</li>
+        <li>Nosotros</li>
+        <li>Historial</li>
+      </menu>
+      <main></main>
+
+      <footer>
+        <p style="margin: 0">email@email.com</p>
+      </footer>
+    </app-layout-2>
   </body>
 </html>

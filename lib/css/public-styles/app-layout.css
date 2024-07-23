@@ -1,0 +1,38 @@
+app-layout-2 > [slot="header"] {
+}
+
+app-layout-2 > [slot="menu"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+app-layout-2 > [slot="menu"] > li {
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+
+  background-color: transparent;
+
+  font-weight: 200;
+
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+app-layout-2 > [slot="menu"] > li:hover {
+  background-color: var(--color-background-300);
+}
+
+app-layout-2 > [slot="menu"] > li:active {
+  filter: brightness(0.95);
+}
+
+app-layout-2 > [slot="menu"] > li.active {
+  color: var(--color-background-200);
+  background-color: var(--color-primary-400);
+}

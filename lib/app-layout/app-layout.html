@@ -1,10 +1,10 @@
-<div class="al-container">
-  <header class="al-header">
-    <slot name="header">Header</slot>
+<div class="app-layout">
+  <header class="app-layout__header">
     <button id="hidder-btn">↔️</button>
+    <slot name="header">Header</slot>
   </header>
-  <div class="al-split">
-    <div data-left-content-hide class="al-split__left">
+  <div class="app-layout__main">
+    <div data-left-content-hide class="app-layout__left-container">
       <!-- <section class="left__header">
 
         <slot name="left-title">Left header</slot>
@@ -19,29 +19,28 @@
         </div>
 
       </section> -->
-      <div class="left__menu">
+      <div class="left-menu">
         <!-- <div class="left__menu-header">
 
           <slot name="left-title">left-title</slot>
 
         </div> -->
-        <div class="left__menu-content">
+        <div class="left-menu__content">
           <slot name="nav">nav</slot>
         </div>
       </div>
-      <div class="resizer"></div>
+      <div class="left-menu__resizer"></div>
     </div>
-    <div class="al-split__right">
-      <!-- <section class="top__menu">
+    <div class="app-layout__display-container">
+      <!-- <section class="top-bar">
         <slot name="top-menu"
           >top-menu
         </slot>
       </section> -->
-      <div class="right__display">
+      <div class="display">
         <slot name="main">
           <h1>Main</h1>
           <p>To call this element, use the slot <b>main</b>.</p>
-
           <pre>
             <code>
               &lt;app-layout&gt;
@@ -56,7 +55,7 @@
     </div>
   </div>
 
-  <footer class="al-footer">
+  <footer class="app-layout__footer">
     <slot name="footer">Footer</slot>
   </footer>
 </div>
