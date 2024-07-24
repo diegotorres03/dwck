@@ -6,44 +6,54 @@
     <title>DwCK Remake</title>
 
     <!-- Import Components -->
-    <script type="module" src="../lib/app-layout-2/app-layout.js"></script>
+    <script type="module" src="../lib/app-layout/app-layout.js"></script>
+    <script type="module" src="../lib/app-router/app-router.js"></script>
+    <script type="module" src="../lib/app-modal/app-modal.js"></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="../lib/css/style-tools.css" />
     <link rel="stylesheet" href="../lib/css/themes/dark-theme_new.css" />
     <style>
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 100%;
-        overflow: hidden;
-      }
-      header > img {
-        width: 100px;
-        height: auto;
+      :root {
+        --theme-hue: 155;
       }
     </style>
   </head>
   <body>
-    <app-layout-2>
+    <app-layout>
       <header>
         <img
           src="https://www.smartclick.com.co/wp-content/uploads/2023/04/4-Logo-vertical-sin-fondos-1-300x150.png"
           alt=""
         />
       </header>
+
       <menu>
-        <li class="active">Inicio</li>
-        <li>Nosotros</li>
-        <li>Historial</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#page-1">Item 1</a></li>
+        <li><a href="#page-2">Item 2</a></li>
+        <hr />
+        <li id="settings" class="lo">Settings</li>
       </menu>
-      <main></main>
+
+      <main>
+        <app-router>
+          <app-route>Default</app-route>
+          <app-route hash="page-1">Route 1</app-route>
+          <app-route hash="page-2">Route 2</app-route>
+        </app-router>
+        <app-modal trigger="#settings" on="click">
+          <span slot="title">Bedrock Chat</span>
+          <main>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
+            sunt dolorem sint?
+          </main>
+        </app-modal>
+      </main>
 
       <footer>
-        <p style="margin: 0">email@email.com</p>
+        <p style="margin: 0">info@dev-archy.com</p>
       </footer>
-    </app-layout-2>
+    </app-layout>
   </body>
 </html>

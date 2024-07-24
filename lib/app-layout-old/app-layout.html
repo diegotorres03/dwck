@@ -1,0 +1,61 @@
+<div class="app-layout">
+  <header class="app-layout__header">
+    <button id="hidder-btn">↔️</button>
+    <slot name="header">Header</slot>
+  </header>
+  <div class="app-layout__main">
+    <div data-left-content-hide class="app-layout__left-container">
+      <!-- <section class="left__header">
+
+        <slot name="left-title">Left header</slot>
+
+      </section>
+      <section class="left__menu">
+
+        <div class="left__menu-content">
+          
+          <slot name="left-content">Left menu</slot>
+
+        </div>
+
+      </section> -->
+      <div class="left-menu">
+        <!-- <div class="left__menu-header">
+
+          <slot name="left-title">left-title</slot>
+
+        </div> -->
+        <div class="left-menu__content">
+          <slot name="nav">nav</slot>
+        </div>
+      </div>
+      <div class="left-menu__resizer"></div>
+    </div>
+    <div class="app-layout__display-container">
+      <!-- <section class="top-bar">
+        <slot name="top-menu"
+          >top-menu
+        </slot>
+      </section> -->
+      <div class="display">
+        <slot name="main">
+          <h1>Main</h1>
+          <p>To call this element, use the slot <b>main</b>.</p>
+          <pre>
+            <code>
+              &lt;app-layout&gt;
+
+                &lt;main &gt;&lt;/main&gt;
+
+              &lt;/app-layout&gt;
+            </code>
+          </pre>
+        </slot>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-layout__footer">
+    <slot name="footer">Footer</slot>
+  </footer>
+</div>

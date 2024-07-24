@@ -2,49 +2,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-
-  /* ModalWrap */
-  --modal-wrap-border-value: var(--border-value) solid var(--border-color-2);
-  --modal-wrap-border-radius-value: var(--border-radius-value);
-
-  /* ModalHeader */
-  --modal-header-padding-value: var(--padding-value);
-  --modal-header-text-color: var(--main-color);
-  --modal-header-background-color: var(--background-color-6);
-  --modal-header-border-value: var(--border-value) solid var(--border-color-2);
-
-  /* Close */
-  --close-background-color: var(--background-color-5-);
-  --close-padding-value: 0.4rem;
-  --close-text-color: var(--text-color-emphasis-mid);
-  --close-text-color-hover: var(--text-color-emphasis-high);
-
-  /* MainContent */
-  --main-content-padding-value: var(--padding-value);
-  --main-content-text-color: var(--text-color-emphasis-mid);
-  --main-content-background-color: var(--background-color-3);
-
-  /* Footer */
-
-  --footer-background-color: var(--background-color-3);
-  --footer-padding-value: 0 var(--padding-value) var(--padding-value);
-  --footer-gap-value: var(--gap-value);
-
-  /* DeclineButton */
-  --decline-btn-border-radius-value: 0.2rem;
-  --decline-btn-background-color: var(--background-color-4);
-  --decline-btn-text-color: var(--text-color-emphasis-mid);
-
-  /* DeclineButton */
-  --accept-btn-border-radius-value: 0.2rem;
-  --accept-btn-background-color: var(--main-color-4);
-  --accept-btn-text-color: var(--text-color-inverted);
-
-  /* Buttons */
-  --button-padding-value: calc(var(--padding-value) / 2) var(--padding-value);
 }
 
-/* Cambio de tema */
+/*$ 🌞 LIGHT THEME */
 
 * {
   box-sizing: border-box;
@@ -52,44 +12,90 @@
   margin: 0;
 
   /* ModalWrap */
-  --modal-wrap-border-value: var(--border-value) solid var(--border-color-2);
-  --modal-wrap-border-radius-value: var(--border-radius-value);
+  --modal-wrap-border-value: none;
+  --modal-wrap-border-radius-value: 0.4rem;
 
   /* ModalHeader */
-  --modal-header-padding-value: var(--padding-value);
-  --modal-header-text-color: var(--text-color-emphasis-high-i);
-  --modal-header-background-color: hsl(212, 39%, 20%);
-  --modal-header-border-value: var(--border-value) solid var(--border-color-3);
+  --modal-header-padding-value: 0.6rem 0.8rem;
+  --modal-header-text-color: var(--color-text-i-500);
+  --modal-header-background-color: var(--color-background-i-100);
+  --modal-header-border-value: 1px solid var(--color-background-i-300);
 
   /* Close */
-  --close-background-color: var(--background-color-5);
   --close-padding-value: 0.4rem;
-  --close-text-color: var(--text-color-emphasis-high-i);
-  --close-text-color-hover: var(--text-color-emphasis-high);
+  --close-text-color: var(--color-text-i-300);
+  --close-text-color-hover: var(--color-primary-700);
 
   /* MainContent */
-  --main-content-padding-value: var(--padding-value);
-  --main-content-text-color: var(--text-color-emphasis-mid);
-  --main-content-background-color: var(--background-color-6);
+  --main-content-padding-value: 0.8rem;
+  --main-content-text-color: var(--color-text-i-400);
+  --main-content-background-color: var(--color-background-i-100);
 
   /* Footer */
-
-  --footer-background-color: var(--background-color-6);
-  --footer-padding-value: 0 var(--padding-value) var(--padding-value);
-  --footer-gap-value: var(--gap-value);
+  --footer-background-color: var(--color-background-i-100);
+  --footer-padding-value: 0 0.8rem 0.8rem;
+  --footer-gap-value: 0.8rem;
 
   /* DeclineButton */
   --decline-btn-border-radius-value: 0.2rem;
-  --decline-btn-background-color: var(--background-color-4);
-  --decline-btn-text-color: var(--text-color-emphasis-mid);
+  --decline-btn-background-color: var(--color-background-i-400);
+  --decline-btn-text-color: var(--color-text-i-400);
 
-  /* DeclineButton */
+  /* AcceptButton */
   --accept-btn-border-radius-value: 0.2rem;
-  --accept-btn-background-color: var(--main-color-4);
-  --accept-btn-text-color: var(--text-color-inverted);
+  --accept-btn-background-color: var(--color-primary-200);
+  --accept-btn-text-color: var(--color-primary-700);
 
   /* Buttons */
-  --button-padding-value: calc(var(--padding-value) / 2) var(--padding-value);
+  --button-padding-value: 0.4rem 0.8rem;
+}
+
+/*? 🌚 DARK THEME */
+
+@media (prefers-color-scheme: dark) {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    /* ModalWrap */
+    --modal-wrap-border-value: none;
+    --modal-wrap-border-radius-value: 0.4rem;
+
+    /* ModalHeader */
+    --modal-header-padding-value: 0.6rem 0.8rem;
+    --modal-header-text-color: var(--color-text-500);
+    --modal-header-background-color: var(--color-background-200);
+    --modal-header-border-value: 1px solid var(--color-background-300);
+
+    /* Close */
+    --close-padding-value: 0.4rem;
+    --close-text-color: var(--color-text-300);
+    --close-text-color-hover: var(--color-primary-300);
+
+    /* MainContent */
+    --main-content-padding-value: 0.8rem;
+    --main-content-text-color: var(--color-text-400);
+    --main-content-background-color: var(--color-background-200);
+
+    /* Footer */
+    --footer-background-color: var(--color-background-200);
+    --footer-padding-value: 0 0.8rem 0.8rem;
+    --footer-gap-value: 0.8rem;
+
+    /* DeclineButton */
+    --decline-btn-border-radius-value: 0.2rem;
+    --decline-btn-background-color: var(--color-background-400);
+    --decline-btn-text-color: var(--color-text-400);
+
+    /* AcceptButton */
+    --accept-btn-border-radius-value: 0.2rem;
+    --accept-btn-background-color: var(--color-primary-400);
+    --accept-btn-text-color: var(--color-text-200);
+
+    /* Buttons */
+    --button-padding-value: 0.4rem 0.8rem;
+  }
 }
 
 /* CSS */
@@ -131,8 +137,6 @@ input {
   border-radius: var(--modal-wrap-border-radius-value);
 
   overflow: hidden;
-
-  filter: drop-shadow(0 1rem 4rem hsl(var(--theme-tone), 50%, 80%, 0.4));
 }
 
 #checker {
@@ -155,7 +159,7 @@ input {
   }
 
   to {
-    background: hsl(var(--theme-tone), 5%, 12%, 0.9);
+    background: hsl(var(--theme-hue), 5%, 5%, 0.6);
   }
 }
 
@@ -167,10 +171,11 @@ input {
   width: 100%;
   padding: var(--modal-header-padding-value);
 
-  font-size: 16px !important;
+  font-size: 0.8rem;
+  font-weight: 400;
 
-  border-bottom: var(--modal-header-border-value);
   color: var(--modal-header-text-color);
+  border-bottom: var(--modal-header-border-value);
   background-color: var(--modal-header-background-color);
 }
 
@@ -178,17 +183,18 @@ input {
 que esté dentro del componente que lleve esta hoja de css */
 
 ::slotted([slot="title"]) {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1rem;
+  height: 14px;
 }
 
 .close {
   position: relative;
 
+  display: grid;
+  place-items: center;
+
   width: 20px;
   height: 20px;
-  padding-bottom: 1px;
+  /* padding-bottom: 1px; */
 
   border-radius: 4px;
 
@@ -197,9 +203,7 @@ que esté dentro del componente que lleve esta hoja de css */
 .close span {
   display: grid;
   place-items: center;
-
-  width: 100%;
-  min-height: 100%;
+  padding-top: 0.2rem;
 }
 
 .close:hover {
@@ -214,7 +218,8 @@ que esté dentro del componente que lleve esta hoja de css */
 .main-content {
   width: 100%;
   padding: var(--main-content-padding-value);
-
+  font-size: 0.8rem;
+  line-height: 1.25;
   background-color: var(--main-content-background-color);
   color: var(--main-content-text-color);
 }
@@ -236,6 +241,10 @@ que esté dentro del componente que lleve esta hoja de css */
   border: none;
   border-radius: var(--accept-btn-border-radius-value);
 
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.8rem;
+
   color: var(--accept-btn-text-color);
   background-color: var(--accept-btn-background-color);
 }
@@ -246,6 +255,10 @@ que esté dentro del componente que lleve esta hoja de css */
   padding: var(--button-padding-value);
   border: none;
   border-radius: var(--decline-btn-border-radius-value);
+
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.8rem;
 
   color: var(--decline-btn-text-color);
   background-color: var(--decline-btn-background-color);
@@ -260,10 +273,9 @@ que esté dentro del componente que lleve esta hoja de css */
 }
 .accept-btn:hover,
 .decline-btn:hover {
-  filter: brightness(1.25) contrast(90%);
+  filter: brightness(1.05) contrast(90%);
 }
 .accept-btn:active,
 .decline-btn:active {
-  filter: brightness(0.95);
-  transform: scale(0.95);
+  filter: brightness(0.9);
 }

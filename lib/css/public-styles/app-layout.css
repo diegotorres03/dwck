@@ -1,7 +1,32 @@
-app-layout-2 > [slot="header"] {
+/* Header por defecto */
+
+header {
+  display: block;
 }
 
-app-layout-2 > [slot="menu"] {
+/* Cuando el header contiene un img */
+
+app-layout > [slot="header"]:has(img) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  overflow: hidden;
+}
+
+app-layout > [slot="header"] > img {
+  width: 100px;
+  height: auto;
+}
+
+app-layout > [slot="header"] > img {
+  filter: brightness(0.2);
+}
+
+/* Menu */
+
+app-layout > [slot="menu"] {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -12,27 +37,90 @@ app-layout-2 > [slot="menu"] {
   list-style: none;
 }
 
-app-layout-2 > [slot="menu"] > li {
+app-layout > [slot="menu"] > li > a,
+app-layout > [slot="menu"] > li:not(:has(a)) {
   padding: 0.8rem 1rem;
   border-radius: 0.4rem;
 
-  background-color: transparent;
-
-  font-weight: 200;
+  font-weight: 300;
+  color: inherit;
+  text-decoration: none;
 
   transition: background-color 0.2s ease;
   cursor: pointer;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-app-layout-2 > [slot="menu"] > li:hover {
-  background-color: var(--color-background-300);
+app-layout > [slot="menu"] > li:has(a) {
+  display: grid;
 }
 
-app-layout-2 > [slot="menu"] > li:active {
-  filter: brightness(0.95);
+/* app-layout > [slot="menu"] > li:not(:has(a)) {
+  border: 1px solid red !important;
+} */
+
+/* Separator */
+
+app-layout > [slot="menu"] > hr {
+  width: 100%;
+  height: 1px;
+  border: none;
 }
 
-app-layout-2 > [slot="menu"] > li.active {
-  color: var(--color-background-200);
-  background-color: var(--color-primary-400);
+/*$ 🌞 LIGHT THEME */
+
+app-layout > [slot="menu"] > li > a,
+app-layout > [slot="menu"] > li:not(:has(a)) {
+  color: var(--color-text-i-400);
+}
+
+app-layout > [slot="menu"] > li > a:hover,
+app-layout > [slot="menu"] > li:not(:has(a)):hover {
+  background-color: var(--color-background-i-200);
+}
+
+app-layout > [slot="menu"] > li > a:active {
+  background-color: var(--color-background-i-400);
+}
+
+app-layout > [slot="menu"] > li > a.active-route {
+  color: var(--color-primary-700);
+  background-color: hsl(var(--theme-hue), 80%, 50%, 0.1);
+}
+
+/* Separator */
+
+app-layout > [slot="menu"] > hr {
+  background-color: var(--color-background-i-300);
+}
+
+/*? 🌚 TEMA OSCURO */
+
+@media (prefers-color-scheme: dark) {
+  app-layout > [slot="header"] > img {
+    filter: brightness(1);
+  }
+
+  app-layout > [slot="menu"] > li > a:hover,
+  app-layout > [slot="menu"] > li:not(:has(a)):hover {
+    background-color: var(--color-background-300);
+  }
+
+  app-layout > [slot="menu"] > li > a.active-route {
+    color: var(--color-primary-400);
+    background-color: hsl(var(--theme-hue), 80%, 70%, 0.1);
+  }
+
+  app-layout > [slot="menu"] > li > a:active {
+    background-color: var(--color-background-400);
+  }
+
+  /* Separator */
+
+  app-layout > [slot="menu"] > hr {
+    background-color: var(--color-background-300);
+  }
 }
