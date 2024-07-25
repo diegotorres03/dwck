@@ -11,10 +11,19 @@
   <script type="module" src="../lib/http-request/http-request.js"></script>
   <script type="module" src="../lib/app-modal/app-modal.js"></script>
   <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+  <script type="module" src="../lib/note-card/note-card.js"></script>
+
+  <script type="module" src="../lib/ace-editor/ace-editor.js"></script>
   <!-- <script type="module" src="../lib/"></script> -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+
   <link rel="stylesheet" href="../lib/themes/light-theme.css">
   <!-- Centered viewport -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" />
 </head>
 
 <body>
@@ -32,39 +41,79 @@
       console.log('request response', event.detail)
       const askLLM = document.querySelector('ask-llm')
       const response = document.createElement('section')
-      response.setAttribute('data-sender', 'llm')
+      response.setAttribute('role', 'assistant')
+      // response.setAttribute('data-sender', 'llm')
       response.setAttribute('contenteditable', '')
-      response.innerHTML = event.detail.response
+      response.innerHTML = `<p>${event.detail.response}</p>`
       askLLM.append(response)
     })
   </script>
   <main>
 
-    <ask-llm trigger="#send-btn" contenteditable>
+    <ask-llm trigger="#send-btn" on="prompt" contenteditable>
 
-      <p>You are running on a web browser, if you have plain html as reponse it will be rendered. When ansering with html, don't scape it and add it without the code and pre tags.</p>
+      <section role="system">
 
-      <p>if you are intentionally asked to show sample html code, escape it and use the corresponding <pre><code></code></pre> tags to display it.</p>
+        <p>You are running on a web browser, if you have plain html as reponse it will be rendered. When ansering with
+          html, don't scape it and add it without the code and pre tags.</p>
 
-      <source src="../lib/http-request/readme.md" type="text/plain">
-      <source src="../lib/kanban-board/readme.md" type="text/plain">
-      <source src="../lib/app-modal/readme.md" type="text/plain">
-      <source src="../lib/app-layout/readme.md" type="text/plain">
-      <source src="../lib/app-router/readme.md" type="text/plain">
+        <p>if you are intentionally asked to show sample html code, escape it and use the corresponding
+        <pre><code></code></pre> tags to display it.</p>
 
-      <p>you are going to help me create a web applicatio to showcase the web components we described as part of this prompt.</p>
+        <source src="../lib/http-request/readme.md" type="text/plain">
+        <source src="../lib/kanban-board/readme.md" type="text/plain">
+        <source src="../lib/app-modal/readme.md" type="text/plain">
+        <source src="../lib/app-layout/readme.md" type="text/plain">
+        <source src="../lib/app-router/readme.md" type="text/plain">
 
-      <p>Let's start by</p>
+        <p>Remember that this is a web environment, DO NOT answer using MARKDOWN syntax, it won't work, please format everything in html  using code and pre tags</p>
+
+        <p>If you are asked to render HTML just return you response as plain HTML text, don't use pre and code tags or markdown code syntax.</p>
+
+
+
+      </section>
+
+      <!-- <img src="./assets/small-cat.png" alt=""> -->
+      <!-- <p>What can you see in this image</p> -->
+      <!-- <section role="user">
+        <p>hi, are you there?</p>
+      </section> -->
+
       
     </ask-llm>
+
   </main>
   <!-- <textarea name="prompt" id="prompt" rows="20" cols="50">can you summarize this?</textarea> -->
 
   <hr>
 
   <section>
-
+    <textarea name="" id="user-prompt"></textarea>
     <button id="send-btn">send</button>
+    <script>
+      document.querySelector('#send-btn')
+        .addEventListener('click', event => {
+          const prompt = document.querySelector('#user-prompt').value
+          const promptHtml = document.querySelector('#prompt-editor')?.querySelector('.ql-container')
+          // alert(prompt)
+          console.log('promptHtml.innerHTML', promptHtml.innerHTML)
+          const promptEvent = new CustomEvent('prompt', {composed: true, bubbles: true, detail: {
+            prompt: promptHtml,
+          }})
+          event.target.dispatchEvent(promptEvent)
+          document.querySelector('#user-prompt').value = ''
+          // promptHtml.innerHTML = ''
+          console.log('promptHtml', promptHtml)
+        })
+    </script>
+
+    <note-card id="prompt-editor" editable controls>
+      <section>
+        <h1>sample text</h1>
+      </section>
+    </note-card>
+    <!-- <ace-editor></ace-editor> -->
   </section>
 
 
