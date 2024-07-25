@@ -1,23 +1,20 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
 /*$ 🌞 LIGHT THEME */
 
-* {
+.app-modal * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  user-select: text;
+}
 
+* {
   /* ModalWrap */
   --modal-wrap-border-value: none;
   --modal-wrap-border-radius-value: 0.4rem;
 
   /* ModalHeader */
   --modal-header-padding-value: 0.6rem 0.8rem;
-  --modal-header-text-color: var(--color-text-i-500);
+  --modal-header-text-color: var(--color-text-i-200);
   --modal-header-background-color: var(--color-background-i-100);
   --modal-header-border-value: 1px solid var(--color-background-i-300);
 
@@ -28,7 +25,7 @@
 
   /* MainContent */
   --main-content-padding-value: 0.8rem;
-  --main-content-text-color: var(--color-text-i-400);
+  --main-content-text-color: var(--color-text-i-300);
   --main-content-background-color: var(--color-background-i-100);
 
   /* Footer */
@@ -54,10 +51,6 @@
 
 @media (prefers-color-scheme: dark) {
   * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-
     /* ModalWrap */
     --modal-wrap-border-value: none;
     --modal-wrap-border-radius-value: 0.4rem;

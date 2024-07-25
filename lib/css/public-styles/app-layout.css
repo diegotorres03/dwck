@@ -58,10 +58,6 @@ app-layout > [slot="menu"] > li:has(a) {
   display: grid;
 }
 
-/* app-layout > [slot="menu"] > li:not(:has(a)) {
-  border: 1px solid red !important;
-} */
-
 /* Separator */
 
 app-layout > [slot="menu"] > hr {
@@ -72,29 +68,31 @@ app-layout > [slot="menu"] > hr {
 
 /*$ 🌞 LIGHT THEME */
 
-app-layout > [slot="menu"] > li > a,
-app-layout > [slot="menu"] > li:not(:has(a)) {
-  color: var(--color-text-i-400);
-}
+@media (prefers-color-scheme: light) {
+  app-layout > [slot="menu"] > li > a,
+  app-layout > [slot="menu"] > li:not(:has(a)) {
+    color: var(--color-text-i-400);
+  }
 
-app-layout > [slot="menu"] > li > a:hover,
-app-layout > [slot="menu"] > li:not(:has(a)):hover {
-  background-color: var(--color-background-i-200);
-}
+  app-layout > [slot="menu"] > li > a:hover,
+  app-layout > [slot="menu"] > li:not(:has(a)):hover {
+    background-color: var(--color-background-i-200);
+  }
 
-app-layout > [slot="menu"] > li > a:active {
-  background-color: var(--color-background-i-400);
-}
+  app-layout > [slot="menu"] > li > a:active {
+    background-color: var(--color-background-i-400);
+  }
 
-app-layout > [slot="menu"] > li > a.active-route {
-  color: var(--color-primary-700);
-  background-color: hsl(var(--theme-hue), 80%, 50%, 0.1);
-}
+  app-layout > [slot="menu"] > li > a.active-route {
+    color: var(--color-primary-700);
+    background-color: hsl(var(--theme-hue), 80%, 50%, 0.1);
+  }
 
-/* Separator */
+  /* Separator */
 
-app-layout > [slot="menu"] > hr {
-  background-color: var(--color-background-i-300);
+  app-layout > [slot="menu"] > hr {
+    background-color: var(--color-background-i-300);
+  }
 }
 
 /*? 🌚 TEMA OSCURO */

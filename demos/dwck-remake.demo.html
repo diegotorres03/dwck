@@ -11,8 +11,12 @@
     <script type="module" src="../lib/app-modal/app-modal.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../lib/css/style-tools.css" />
-    <link rel="stylesheet" href="../lib/css/themes/dark-theme_new.css" />
+    <link rel="stylesheet" href="../lib/css/index.css" />
+    <link rel="stylesheet" href="../lib/css/themes/default-theme.css" />
+    <link
+      href="https://dev.iconly.io/public/qpoCO0JFYAmS/iconly.css"
+      rel="stylesheet"
+    />
     <style>
       :root {
         --theme-hue: 155;
@@ -33,7 +37,12 @@
         <li><a href="#page-1">Item 1</a></li>
         <li><a href="#page-2">Item 2</a></li>
         <hr />
-        <li id="settings" class="lo">Settings</li>
+        <li id="settings" class="lo">
+          <span style="display: flex; align-items: center; gap: 0.6rem"
+            ><i class="icon-settings" style="font-size: 1.4rem"></i
+            >Settings</span
+          >
+        </li>
       </menu>
 
       <main>
@@ -43,11 +52,37 @@
           <app-route hash="page-2">Route 2</app-route>
         </app-router>
         <app-modal trigger="#settings" on="click">
-          <span slot="title">Bedrock Chat</span>
+          <span slot="title">Ad Configuration</span>
           <main>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-            sunt dolorem sint?
+            <form
+              action=""
+              style="display: flex; flex-direction: column; gap: 0.4rem"
+            >
+              <label for="name">Name</label>
+              <input class="d-block w-100" type="text" name="name" id="name" />
+              <label for="">Birthday</label>
+              <input type="date" name="" id="" />
+              <label for="">Email</label>
+              <input type="email" name="" id="" />
+              <label for="">Coso</label>
+              <input type="number" name="" id="" />
+
+              <div style="display: flex; flex-direction: column; gap: 0.4rem">
+                <p style="margin: 0">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Illum rerum quis perspiciatis.
+                </p>
+                <input type="radio" id="radio1" name="opciones" />
+                <label class="radio" for="radio1">Opción 1</label>
+
+                <input type="radio" id="radio2" name="opciones" />
+                <label class="radio" for="radio2">Opción 2</label>
+              </div>
+            </form>
           </main>
+          <!-- <footer>
+            <button>Accept</button>
+          </footer> -->
         </app-modal>
       </main>
 

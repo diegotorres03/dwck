@@ -23,10 +23,10 @@
 
   /* Colores de fondo */
   --color-background-i-100: hsl(0, 0%, 98%);
-  --color-background-i-200: hsl(0, 0%, 92%);
-  --color-background-i-300: hsl(0, 0%, 86%);
-  --color-background-i-400: hsl(0, 0%, 82%);
-  --color-background-i-500: hsl(0, 0%, 76%);
+  --color-background-i-200: hsl(0, 0%, 90%);
+  --color-background-i-300: hsl(0, 0%, 82%);
+  --color-background-i-400: hsl(0, 0%, 76%);
+  --color-background-i-500: hsl(0, 0%, 68%);
 
   /* Colores de texto para tema oscuro */
   --color-text-i-100: #e0e0e0;
