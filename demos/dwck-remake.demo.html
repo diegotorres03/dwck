@@ -9,6 +9,8 @@
     <script type="module" src="../lib/app-layout/app-layout.js"></script>
     <script type="module" src="../lib/app-router/app-router.js"></script>
     <script type="module" src="../lib/app-modal/app-modal.js"></script>
+    <script type="module" src="../lib/data-chart/data-chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="../lib/css/index.css" />
@@ -19,7 +21,7 @@
     />
     <style>
       :root {
-        --theme-hue: 155;
+        --theme-hue: 250;
       }
     </style>
   </head>
@@ -33,9 +35,29 @@
       </header>
 
       <menu>
-        <li><a href="#">Home</a></li>
-        <li><a href="#page-1">Item 1</a></li>
-        <li><a href="#page-2">Item 2</a></li>
+        <li>
+          <a href="#">
+            <span style="display: flex; align-items: center; gap: 0.6rem">
+              <i class="icon-home" style="font-size: 1.4rem"></i>Home</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="#page-2">
+            <span style="display: flex; align-items: center; gap: 0.6rem">
+              <i class="icon-table" style="font-size: 1.4rem"></i>
+              <p class="ellipsis" style="margin: 0">Open Orders</p>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#page-1">
+            <span style="display: flex; align-items: center; gap: 0.6rem">
+              <i class="icon-book-clock" style="font-size: 1.4rem"></i
+              >Historial</span
+            ></a
+          >
+        </li>
         <hr />
         <li id="settings" class="lo">
           <span style="display: flex; align-items: center; gap: 0.6rem"
@@ -47,7 +69,92 @@
 
       <main>
         <app-router>
-          <app-route>Default</app-route>
+          <app-route>
+            <data-chart
+              id="from-table"
+              from="#sample-table"
+              x="Year"
+              y="Sales"
+              type="radio"
+            ></data-chart>
+
+            <table id="sample-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Sales</th>
+                  <th>Revenue</th>
+                  <th>Customers</th>
+                </tr>
+              </thead>
+
+              <tbody title="first table">
+                <tr>
+                  <td>2018</td>
+                  <td>12,000</td>
+                  <td>$600,000</td>
+                  <td>2,000</td>
+                </tr>
+                <tr>
+                  <td>2019</td>
+                  <td>10,000</td>
+                  <td>$500,000</td>
+                  <td>2,500</td>
+                </tr>
+                <tr>
+                  <td>2020</td>
+                  <td>18,000</td>
+                  <td>$900,000</td>
+                  <td>3,000</td>
+                </tr>
+                <tr>
+                  <td>2021</td>
+                  <td>15,000</td>
+                  <td>$750,000</td>
+                  <td>4,000</td>
+                </tr>
+                <tr>
+                  <td>2022</td>
+                  <td>22,000</td>
+                  <td>$1,100,000</td>
+                  <td>5,000</td>
+                </tr>
+              </tbody>
+
+              <tbody id="asd" title="second table">
+                <tr>
+                  <td>2018</td>
+                  <td>10,000</td>
+                  <td>$500,000</td>
+                  <td>2,000</td>
+                </tr>
+                <tr>
+                  <td>2019</td>
+                  <td>12,000</td>
+                  <td>$600,000</td>
+                  <td>2,500</td>
+                </tr>
+                <tr>
+                  <td>2020</td>
+                  <td>15,000</td>
+                  <td>$750,000</td>
+                  <td>3,000</td>
+                </tr>
+                <tr>
+                  <td>2021</td>
+                  <td>18,000</td>
+                  <td>$900,000</td>
+                  <td>4,000</td>
+                </tr>
+                <tr>
+                  <td>2022</td>
+                  <td>22,000</td>
+                  <td>$1,100,000</td>
+                  <td>5,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </app-route>
           <app-route hash="page-1">Route 1</app-route>
           <app-route hash="page-2">Route 2</app-route>
         </app-router>
@@ -77,6 +184,12 @@
 
                 <input type="radio" id="radio2" name="opciones" />
                 <label class="radio" for="radio2">Opción 2</label>
+
+                <input type="checkbox" id="check1" />
+                <label for="check1" class="checkbox">Check 1</label>
+
+                <input type="checkbox" id="check2" />
+                <label for="check2" class="checkbox">Check 2</label>
               </div>
             </form>
           </main>

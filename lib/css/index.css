@@ -8,7 +8,9 @@
 /* Font */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-* {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
 
@@ -18,6 +20,12 @@ body {
 
 .hidden {
   display: none;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* Displays */
@@ -106,10 +114,45 @@ label.radio:before {
   top: 50%;
   transform: translateY(-50%);
 
-  width: 0.4rem;
-  height: 0.4rem;
+  width: 15px;
+  height: 15px;
 
   border-radius: 50%;
+
+  transition: all 0.2s ease;
+}
+
+/* Checkboxes */
+
+input[type="checkbox"] {
+  appearance: none;
+  visibility: hidden;
+  position: absolute;
+}
+
+label.checkbox {
+  position: relative;
+  padding-left: 1.6rem !important;
+  padding: 0.4rem;
+  margin-left: 0.4rem;
+  cursor: pointer;
+}
+
+label.checkbox:before {
+  content: "";
+
+  display: grid;
+  place-items: center;
+
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 15px;
+  height: 15px;
+
+  border-radius: 0.1rem;
 
   transition: all 0.2s ease;
 }
@@ -169,6 +212,20 @@ label.radio:before {
     background-color: transparent;
     outline: none;
   }
+
+  label.checkbox:before {
+    background-color: var(--color-background-i-400);
+
+    outline: none;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    content: "✓";
+
+    color: var(--color-primary-200);
+    background-color: var(--color-primary-700);
+    outline: none;
+  }
 }
 
 /*? 🌚 TEMA OSCURO */
@@ -223,6 +280,20 @@ label.radio:before {
   input[type="radio"]:checked + label:before {
     border: 0.3rem solid var(--color-primary-300);
     background-color: transparent;
+    outline: none;
+  }
+
+  label.checkbox:before {
+    background-color: var(--color-background-400);
+    /* border: 0.3rem solid var(--color-background-400); */
+    outline: 0.05rem solid var(--color-background-300);
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    content: "✓";
+
+    color: var(--color-primary-800);
+    background-color: var(--color-primary-300);
     outline: none;
   }
 }
