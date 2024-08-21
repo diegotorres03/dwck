@@ -18,8 +18,18 @@
 
       <footer class="footer-content">
         <slot name="footer">
-          <button onclick="accept" class="accept-btn clickable">Accept</button>
-          <button onclick="cancel" class="decline-btn clickable">
+          <button
+            onclick="accept"
+            class="accept-btn clickable"
+            data-id="accept"
+          >
+            Accept
+          </button>
+          <button
+            onclick="cancel"
+            class="decline-btn clickable"
+            data-id="decline"
+          >
             Decline
           </button>
         </slot>

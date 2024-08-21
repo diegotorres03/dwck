@@ -21,11 +21,12 @@
     />
     <style>
       :root {
-        --theme-hue: 250;
+        /* --theme-hue: 250; */
       }
+      
     </style>
   </head>
-  <body>
+  <body class="dark-theme">
     <app-layout>
       <header>
         <img
@@ -65,12 +66,24 @@
             >Settings</span
           >
         </li>
+        <li id="theme-toggler" class="theme-toggler">
+          <span style="display: flex; align-items: center; gap: 0.6rem"
+            >Change Theme</span
+          >
+        </li>
       </menu>
+
+      <script>
+        const toggler = document.querySelector("#theme-toggler")
+        toggler.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark")
+        })
+      </script>
 
       <main>
         <app-router>
           <app-route>
-            <data-chart
+            <!-- <data-chart
               id="from-table"
               from="#sample-table"
               x="Year"
@@ -153,9 +166,11 @@
                   <td>5,000</td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
           </app-route>
-          <app-route hash="page-1">Route 1</app-route>
+          <app-route hash="page-1">Route 1
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur impedit temporibus praesentium.</p>
+          </app-route>
           <app-route hash="page-2">Route 2</app-route>
         </app-router>
         <app-modal trigger="#settings" on="click">
@@ -193,9 +208,7 @@
               </div>
             </form>
           </main>
-          <!-- <footer>
-            <button>Accept</button>
-          </footer> -->
+
         </app-modal>
       </main>
 
@@ -203,5 +216,6 @@
         <p style="margin: 0">info@dev-archy.com</p>
       </footer>
     </app-layout>
+
   </body>
 </html>
