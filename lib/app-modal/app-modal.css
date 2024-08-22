@@ -26,7 +26,7 @@
   /* MainContent */
   --main-content-padding-value: 0.8rem;
   --main-content-text-color: var(--color-text-i-300);
-  --main-content-background-color: var(--color-background-i-100);
+  /* --main-content-background-color: var(--color-background-i-100); */
 
   /* Footer */
   --footer-background-color: var(--color-background-i-100);
@@ -136,7 +136,7 @@ input {
   top: -1000px;
 }
 
-#checker:checked ~ .modal-overlay {
+#checker:checked~.modal-overlay {
   animation: 1s 1 normal appear;
   animation-delay: 0.4s;
   animation-fill-mode: forwards;
@@ -152,7 +152,7 @@ input {
   }
 
   to {
-    background: hsl(var(--theme-hue), 5%, 5%, 0.6);
+    background: hsl(var(--theme-hue), 5%, 5%, 0.8);
   }
 }
 
@@ -193,6 +193,7 @@ que esté dentro del componente que lleve esta hoja de css */
 
   color: var(--close-text-color);
 }
+
 .close span {
   display: grid;
   place-items: center;
@@ -241,6 +242,7 @@ que esté dentro del componente que lleve esta hoja de css */
   color: var(--accept-btn-text-color);
   background-color: var(--accept-btn-background-color);
 }
+
 .decline-btn {
   display: inline-block;
   width: 100%;
@@ -264,11 +266,48 @@ que esté dentro del componente que lleve esta hoja de css */
 
   cursor: pointer;
 }
+
 .accept-btn:hover,
 .decline-btn:hover {
   filter: brightness(1.05) contrast(90%);
 }
+
 .accept-btn:active,
 .decline-btn:active {
   filter: brightness(0.9);
+}
+
+/* Colorización */
+
+.main-content {
+  background-color: var(--color-background-200);
+  color: var(--color-text-200);
+}
+
+.footer-content {
+  background-color: var(--color-background-200);
+}
+
+.accept-btn {
+  color: var(--color-text-i-400);
+  background-color: var(--color-primary-600);
+}
+
+.decline-btn {
+  color: var(--color-text-200);
+  background-color: var(--color-background-300);
+}
+
+.modal-header {
+  background-color: var(--color-background-200);
+  color: var(--color-text-200);
+  border-bottom-color: var(--color-border-200);
+}
+
+.close {
+  color: var(--color-text-200);
+}
+
+.close:hover {
+  color: var(--color-primary-600);
 }

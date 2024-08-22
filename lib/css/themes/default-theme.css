@@ -4,15 +4,15 @@
   /* Colores Primarios */
   --color-primary: hsl(var(--theme-hue), 64%, 66%);
 
-  --color-primary-100: hsl(var(--theme-hue), 56%, 76%);
-  --color-primary-200: hsl(var(--theme-hue), 54%, 70%);
-  --color-primary-300: hsl(var(--theme-hue), 52%, 64%);
-  --color-primary-400: hsl(var(--theme-hue), 50%, 58%);
-  --color-primary-500: hsl(var(--theme-hue), 48%, 52%);
-  --color-primary-600: hsl(var(--theme-hue), 46%, 46%);
-  --color-primary-700: hsl(var(--theme-hue), 44%, 40%);
-  --color-primary-800: hsl(var(--theme-hue), 42%, 34%);
-  --color-primary-900: hsl(var(--theme-hue), 40%, 28%);
+  --color-primary-100: hsl(var(--theme-hue), 80%, 95%);
+  --color-primary-200: hsl(var(--theme-hue), 72%, 88%);
+  --color-primary-300: hsl(var(--theme-hue), 64%, 80%);
+  --color-primary-400: hsl(var(--theme-hue), 56%, 72%);
+  --color-primary-500: hsl(var(--theme-hue), 48%, 64%);
+  --color-primary-600: hsl(var(--theme-hue), 40%, 56%);
+  --color-primary-700: hsl(var(--theme-hue), 32%, 48%);
+  --color-primary-800: hsl(var(--theme-hue), 24%, 40%);
+  --color-primary-900: hsl(var(--theme-hue), 16%, 32%);
 
   /* Colores de fondo */
   --color-background-500: hsl(210, 10%, 64%);
@@ -32,11 +32,13 @@
   --color-text-100: hsl(210, 10%, 56%);
   --color-text-200: hsl(210, 10%, 40%);
   --color-text-300: hsl(210, 10%, 24%);
+  --color-text-400: hsl(210, 10%, 14%);
 
   /* Colores de texto invertido */
   --color-text-i-100: hsl(210, 10%, 38%);
   --color-text-i-200: hsl(210, 10%, 54%);
   --color-text-i-300: hsl(210, 10%, 72%);
+  --color-text-i-400: hsl(210, 10%, 92%);
 
   /* Colores para bordes */
   --color-border-100: hsl(210, 10%, 82%);
@@ -46,17 +48,18 @@
 
 :root.dark {
   /* Colores Primarios */
-  --color-primary: hsl(var(--theme-hue), 78%, 72%);
+  --color-primary: hsl(var(--theme-hue), 50%, 50%);
 
-  --color-primary-100: hsl(var(--theme-hue), 64%, 12%);
-  --color-primary-200: hsl(var(--theme-hue), 62%, 18%);
-  --color-primary-300: hsl(var(--theme-hue), 60%, 24%);
-  --color-primary-400: hsl(var(--theme-hue), 58%, 30%);
-  --color-primary-500: hsl(var(--theme-hue), 56%, 36%);
-  --color-primary-600: hsl(var(--theme-hue), 54%, 42%);
-  --color-primary-700: hsl(var(--theme-hue), 52%, 48%);
-  --color-primary-800: hsl(var(--theme-hue), 50%, 54%);
-  --color-primary-900: hsl(var(--theme-hue), 48%, 60%);
+  --color-primary-100: hsl(var(--theme-hue), 24%, 20%);
+  --color-primary-200: hsl(var(--theme-hue), 28%, 24%);
+  --color-primary-300: hsl(var(--theme-hue), 32%, 28%);
+  --color-primary-400: hsl(var(--theme-hue), 36%, 32%);
+  --color-primary-500: hsl(var(--theme-hue), 40%, 36%);
+  --color-primary-600: hsl(var(--theme-hue), 44%, 40%);
+  --color-primary-700: hsl(var(--theme-hue), 48%, 44%);
+  --color-primary-800: hsl(var(--theme-hue), 52%, 48%);
+  --color-primary-900: hsl(var(--theme-hue), 56%, 52%);
+
 
   /* Colores de fondo */
   --color-background-100: hsl(210, 10%, 12%);
@@ -75,12 +78,14 @@
   /* Colores de texto */
   --color-text-100: hsl(210, 10%, 38%);
   --color-text-200: hsl(210, 10%, 54%);
-  --color-text-300: hsl(210, 10%, 72%);
+  --color-text-300: hsl(210, 10%, 70%);
+  --color-text-400: hsl(210, 10%, 86%);
 
   /* Colores para texto invertido */
   --color-text-i-100: hsl(210, 10%, 56%);
   --color-text-i-200: hsl(210, 10%, 40%);
   --color-text-i-300: hsl(210, 10%, 24%);
+  --color-text-i-400: hsl(210, 10%, 18%);
 
   /* Colores para bordes */
   --color-border-100: hsl(210, 10%, 18%);
