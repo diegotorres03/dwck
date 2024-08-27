@@ -1,39 +1,31 @@
-<div class="app-modal">
-  <!-- <label for="checker">open modal</label> -->
+<div>
+    <!-- <label for="checker">open modal</label> -->
 
-  <input id="checker" type="checkbox" />
+    <input id="checker" type="checkbox">
 
-  <div class="modal-overlay">
-    <article class="modal-wrap">
-      <header class="modal-header">
-        <slot name="title" class="title">Slot Name: <b>title</b></slot>
-        <label class="close" for="checker">
-          <span class="close-content">&#10006;</span></label
-        >
-      </header>
+    <div class="modal-overlay">
 
-      <section class="main-content">
-        <slot>Slot Name: <b>main</b></slot>
-      </section>
+        <article class="modal-wrap">
+            <header class="modal-header">
 
-      <footer class="footer-content">
-        <slot name="footer">
-          <button
-            onclick="accept"
-            class="accept-btn clickable"
-            data-id="accept"
-          >
-            Accept
-          </button>
-          <button
-            onclick="cancel"
-            class="decline-btn clickable"
-            data-id="decline"
-          >
-            Decline
-          </button>
-        </slot>
-      </footer>
-    </article>
-  </div>
+                <slot name="title" class="title">Slot Name: <b>title</b></slot>
+                <label class="close" for="checker">
+                    <span  class="close-content " >&#10006;</span></label>
+
+            </header>
+
+            <section class="main-content">
+                <slot >Slot Name: <b>main</b></slot>
+            </section>
+
+            <footer class="footer-content ">
+
+                <slot name="footer">
+                    <button onclick="accept" class="accept-btn clickable">Accept</button>
+                    <button onclick="cancel" class="decline-btn clickable">Decline</button>
+                </slot>
+
+            </footer>
+        </article>
+    </div>
 </div>
