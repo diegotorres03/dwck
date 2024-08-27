@@ -58,6 +58,37 @@ body {
 
 /* Default Styles */
 
+/* BUTTON */
+
+button {
+  display: grid;
+  place-items: center;
+
+  padding: 0.4rem 1rem;
+  border-radius: 0.24rem;
+  border: none;
+
+  font-family: inherit;
+  font-size: 0.8rem;
+
+  color: var(--color-text-200);
+  background-color: var(--color-background-400);
+}
+
+button.cta {
+  color: var(--color-text-i-400);
+  background-color: var(--color-primary-600);
+}
+
+button:hover {
+  filter: brightness(1.12);
+  cursor: pointer;
+}
+
+button:active {
+  filter: brightness(1);
+}
+
 /* INPUTS */
 
 input[type="text"],

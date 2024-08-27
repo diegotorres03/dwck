@@ -183,61 +183,16 @@
 
 /* COLORIZACIÓN */
 
-/* .app-layout {
-  color: var(--color-text-500);
-}
-
-.side-bar__header {
-  color: var(--color-text-200);
-  border-bottom: 1px solid var(--color-background-300);
-  background-color: var(--color-background-100);
- 
-}
-
-.side-bar__menu-content {
-  color: var(--color-text-i-300);
-  background-color: var(--color-background-100);
-}
-
-.side-bar__footer {
-  color: var(--color-text-i-300);
-  border-top: 1px solid var(--color-background-300);
-  background-color: var(--color-background-100);
-}
-
-.side-bar__resizer:hover {
-  border-color: var(--color-primary-200);
-  transition: border-color 0.2s ease;
-}
-
-.side-bar__resizer:active {
-  border-color: var(--color-primary-400);
-  transition: border-color 0.2s ease;
-}
-
-.main-container__top-bar {
-  border-bottom: 1px solid var(--color-background-i-300);
-  background-color: var(--color-background-i-200);
-}
-
 #hidder-btn {
-  color: var(--color-primary-700);
+  color: var(--color-text-i-200);
   border: none;
-  background-color: var(--color-background-i-400);
+  background-color: var(--color-background-300);
 }
 
 #hidder-btn:hover {
-  background-color: var(--color-primary-400);
-  color: var(--color-text-i-100);
+  filter: brightness(.95);
 }
 
-.main-container__display {
-  background-color: var(--color-background-i-200);
-
-  background-color: var(--color-background-100);
-} */
-
-/* 🌚 DARK THEME */
 .app-layout {
   color: var(--color-text-200);
 }
@@ -260,11 +215,11 @@
 }
 
 .side-bar__resizer:hover {
-  border-color: var(--color-primary);
+  border-color: var(--color-background-500);
 }
 
 .side-bar__resizer:active {
-  border-color: var(--color-primary-light);
+  border-color: var(--color-primary-700);
 }
 
 .main-container__top-bar {
