@@ -22,6 +22,7 @@
     "prettier": "^2.8.4"
   },
   "dependencies": {
-    "dexie": "^4.0.7"
+    "dexie": "^4.0.7",
+    "lib": "link:/home/codentide/Code/Work/dwck-lib/lib"
   }
 }

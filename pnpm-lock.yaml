@@ -11,6 +11,9 @@ importers:
       dexie:
         specifier: ^4.0.7
         version: 4.0.7
+      lib:
+        specifier: link:/home/codentide/Code/Work/dwck-lib/lib
+        version: link:lib
     devDependencies:
       '@types/dexie':
         specifier: ^1.3.1
