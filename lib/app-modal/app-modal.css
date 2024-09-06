@@ -1,94 +1,8 @@
-/*$ 🌞 LIGHT THEME */
-
 .app-modal * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   user-select: text;
-}
-
-* {
-  /* ModalWrap */
-  --modal-wrap-border-value: none;
-  --modal-wrap-border-radius-value: 0.4rem;
-
-  /* ModalHeader */
-  --modal-header-padding-value: 0.6rem 0.8rem;
-  --modal-header-text-color: var(--color-text-i-200);
-  --modal-header-background-color: var(--color-background-i-100);
-  --modal-header-border-value: 1px solid var(--color-background-i-300);
-
-  /* Close */
-  --close-padding-value: 0.4rem;
-  --close-text-color: var(--color-text-i-300);
-  --close-text-color-hover: var(--color-primary-700);
-
-  /* MainContent */
-  --main-content-padding-value: 0.8rem;
-  --main-content-text-color: var(--color-text-i-300);
-  /* --main-content-background-color: var(--color-background-i-100); */
-
-  /* Footer */
-  --footer-background-color: var(--color-background-i-100);
-  --footer-padding-value: 0 0.8rem 0.8rem;
-  --footer-gap-value: 0.8rem;
-
-  /* DeclineButton */
-  --decline-btn-border-radius-value: 0.2rem;
-  --decline-btn-background-color: var(--color-background-i-400);
-  --decline-btn-text-color: var(--color-text-i-400);
-
-  /* AcceptButton */
-  --accept-btn-border-radius-value: 0.2rem;
-  --accept-btn-background-color: var(--color-primary-200);
-  --accept-btn-text-color: var(--color-primary-700);
-
-  /* Buttons */
-  --button-padding-value: 0.4rem 0.8rem;
-}
-
-/*? 🌚 DARK THEME */
-
-@media (prefers-color-scheme: dark) {
-  * {
-    /* ModalWrap */
-    --modal-wrap-border-value: none;
-    --modal-wrap-border-radius-value: 0.4rem;
-
-    /* ModalHeader */
-    --modal-header-padding-value: 0.6rem 0.8rem;
-    --modal-header-text-color: var(--color-text-500);
-    --modal-header-background-color: var(--color-background-200);
-    --modal-header-border-value: 1px solid var(--color-background-300);
-
-    /* Close */
-    --close-padding-value: 0.4rem;
-    --close-text-color: var(--color-text-300);
-    --close-text-color-hover: var(--color-primary-300);
-
-    /* MainContent */
-    --main-content-padding-value: 0.8rem;
-    --main-content-text-color: var(--color-text-400);
-    --main-content-background-color: var(--color-background-200);
-
-    /* Footer */
-    --footer-background-color: var(--color-background-200);
-    --footer-padding-value: 0 0.8rem 0.8rem;
-    --footer-gap-value: 0.8rem;
-
-    /* DeclineButton */
-    --decline-btn-border-radius-value: 0.2rem;
-    --decline-btn-background-color: var(--color-background-400);
-    --decline-btn-text-color: var(--color-text-400);
-
-    /* AcceptButton */
-    --accept-btn-border-radius-value: 0.2rem;
-    --accept-btn-background-color: var(--color-primary-400);
-    --accept-btn-text-color: var(--color-text-200);
-
-    /* Buttons */
-    --button-padding-value: 0.4rem 0.8rem;
-  }
 }
 
 /* CSS */
@@ -121,13 +35,10 @@ input {
   display: flex;
   flex-direction: column;
 
-  /* width: 60%; */
-
   width: 380px;
-  /* max-width: 400px; */
 
-  border: var(--modal-wrap-border-value);
-  border-radius: var(--modal-wrap-border-radius-value);
+  border: none;
+  border-radius: .4rem;
 
   overflow: hidden;
 }
@@ -161,15 +72,14 @@ input {
   align-items: center;
   justify-content: space-between;
 
-  width: 100%;
-  padding: var(--modal-header-padding-value);
+  padding: 0.6rem 0.8rem;
 
   font-size: 0.8rem;
   font-weight: 400;
 
-  color: var(--modal-header-text-color);
-  border-bottom: var(--modal-header-border-value);
-  background-color: var(--modal-header-background-color);
+  color: var(--color-text-500);
+  border-bottom: 1px solid var(--color-background-300);
+  background-color: var(--color-background-200);
 }
 
 /* Inyecta css directamente al elemento "[slot="title"]" 
@@ -187,11 +97,10 @@ que esté dentro del componente que lleve esta hoja de css */
 
   width: 20px;
   height: 20px;
-  /* padding-bottom: 1px; */
 
   border-radius: 4px;
 
-  color: var(--close-text-color);
+  color: var(--color-text-300);
 }
 
 .close span {
@@ -201,7 +110,7 @@ que esté dentro del componente que lleve esta hoja de css */
 }
 
 .close:hover {
-  color: var(--close-text-color-hover);
+  color: var(--color-primary-300);
   cursor: pointer;
 }
 
@@ -210,53 +119,53 @@ que esté dentro del componente que lleve esta hoja de css */
 }
 
 .main-content {
-  width: 100%;
-  padding: var(--main-content-padding-value);
+  /* width: 100%; */
+  padding: 0.8rem;
   font-size: 0.8rem;
   line-height: 1.25;
-  background-color: var(--main-content-background-color);
-  color: var(--main-content-text-color);
+  background-color: var(--color-background-200);
+  color: var(--color-text-400);
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
-  gap: var(--footer-gap-value);
-  width: 100%;
-  padding: var(--footer-padding-value);
-  background-color: var(--footer-background-color);
+  gap: 0.8rem;
+  /* width: 100%; */
+  padding: 0 0.8rem 0.8rem;
+  background-color: var(--color-background-200);
 }
 
 .accept-btn {
   display: inline-block;
   width: 100%;
 
-  padding: var(--button-padding-value);
+  padding: 0.4rem 0.8rem;
   border: none;
-  border-radius: var(--accept-btn-border-radius-value);
+  border-radius: 0.2rem;
 
   font-family: inherit;
   font-weight: 500;
   font-size: 0.8rem;
 
-  color: var(--accept-btn-text-color);
-  background-color: var(--accept-btn-background-color);
+  color: var(--color-text-200);
+  background-color: var(--color-primary-400);
 }
 
 .decline-btn {
   display: inline-block;
   width: 100%;
 
-  padding: var(--button-padding-value);
+  padding: 0.4rem 0.8rem;
   border: none;
-  border-radius: var(--decline-btn-border-radius-value);
+  border-radius: 0.2rem;
 
   font-family: inherit;
   font-weight: 500;
   font-size: 0.8rem;
 
-  color: var(--decline-btn-text-color);
-  background-color: var(--decline-btn-background-color);
+  color: var(--color-text-400);
+  background-color: var(--color-background-400);
 }
 
 .accept-btn,
