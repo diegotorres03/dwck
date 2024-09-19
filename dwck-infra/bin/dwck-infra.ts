@@ -19,7 +19,7 @@ new DwckInfraStack(app, 'DevArchyStackDev', {
     // account: '123456789012', 
     region: 'us-east-1'
   },
-  domainName: 'dwck-alpha.dev-archy.com',
-  certArn: 'arn:aws:acm:us-east-1:905418338837:certificate/04a50b00-cb01-4ca2-b566-465c8c85c335',
-  hostedZoneId: 'Z03499403A5GA5MZQP82V'
+  // domainName: 'dwck-alpha.dev-archy.com',
+  // certArn: 'arn:aws:acm:us-east-1:905418338837:certificate/04a50b00-cb01-4ca2-b566-465c8c85c335',
+  // hostedZoneId: 'Z03499403A5GA5MZQP82V'
 })
