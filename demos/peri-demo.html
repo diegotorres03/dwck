@@ -15,6 +15,7 @@
       href="https://dev.iconly.io/public/qpoCO0JFYAmS/iconly.css"
       rel="stylesheet"
     />
+
     <style>
       :root {
         --theme-hue: 220;
@@ -60,6 +61,12 @@
 
         width: 40%;
       }
+
+      iframe {
+        display: block;
+        width: 1000px;
+        height: 700px;
+      }
     </style>
   </head>
   <body>
@@ -104,14 +111,15 @@
       <main>
         <app-router>
           <app-route>
-            <h2>Academia de Moda</h2>
+            <!-- <h2>Academia de Moda</h2>
             <br />
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
               aliquid non excepturi id error delectus optio quod temporibus,
               officiis consectetur atque veniam? Harum nobis quidem odit!
               Consequatur aut hic quo ea veritatis.
-            </p>
+            </p> -->
+            <iframe src="peri-calendar.demo.html" frameborder="0"></iframe>
           </app-route>
           <app-route hash="st-1">
             <h2>Sastrería 1</h2>
@@ -247,6 +255,7 @@
       </main>
       <footer>© 2024 Peri Collection, All rights reserved.</footer>
     </app-layout>
+    <div id="calendar"></div>
   </body>
   <script>
     const toggler = document.querySelector('#theme-toggler')
