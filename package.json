@@ -23,6 +23,7 @@
     "prettier": "^2.8.4"
   },
   "dependencies": {
+    "chartjs": "^0.3.24",
     "dexie": "^4.0.7",
     "lib": "link:/home/codentide/Code/Work/dwck-lib/lib"
   }
