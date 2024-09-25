@@ -16,8 +16,8 @@ app-layout>[slot="header"]:has(img) {
 }
 
 app-layout>[slot="header"]>img {
-  width: 100px;
-  height: auto;
+  width: auto;
+  max-height: 50px;
 }
 
 /* app-layout>[slot="header"]>img {
