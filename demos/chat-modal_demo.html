@@ -15,8 +15,8 @@
     <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
     <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
 
-    <link rel="stylesheet" href="../lib/style-tools.css" />
-    <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
+    <link rel="stylesheet" href="../lib/css/index.css" />
+    <link rel="stylesheet" href="../lib/css/themes/default-theme.css" />
 
     <style>
       app-modal * {
@@ -167,13 +167,13 @@
 
   <!-- Código de prueba -->
   <script>
-    const chatBody = document.querySelector(".chat__body");
-    const input = document.querySelector(".chat__input-prompt");
-    const sendBtn = document.querySelector(".chat__send-btn");
+    const chatBody = document.querySelector('.chat__body')
+    const input = document.querySelector('.chat__input-prompt')
+    const sendBtn = document.querySelector('.chat__send-btn')
 
-    const eventSource = document.querySelector("#ask");
+    const eventSource = document.querySelector('#ask')
 
-    console.log("source", eventSource);
+    console.log('source', eventSource)
 
     const instructions = `
 
@@ -200,40 +200,40 @@
 
     </example>
 
-  `;
+  `
 
     const createMessageBox = (str, name) => {
-      const messageBox = document.createElement("span");
-      messageBox.className = "chat__message-box sender";
+      const messageBox = document.createElement('span')
+      messageBox.className = 'chat__message-box sender'
       const content = `
 				<h3 class="message-box__title">${name}</h3>
 				<span class="message-box__text">
 					${str}
-				</span>`;
-      messageBox.innerHTML = content;
-      return messageBox;
-    };
+				</span>`
+      messageBox.innerHTML = content
+      return messageBox
+    }
 
-    sendBtn.addEventListener("click", () => {
-      const text = input.value;
-      if (text === "") return;
-      const messageBox = createMessageBox(text, "Human");
-      chatBody.appendChild(messageBox);
-      messageBox.scrollIntoView({ behavior: "smooth", block: "start" });
-      input.value = "";
+    sendBtn.addEventListener('click', () => {
+      const text = input.value
+      if (text === '') return
+      const messageBox = createMessageBox(text, 'Human')
+      chatBody.appendChild(messageBox)
+      messageBox.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      input.value = ''
 
       // eventSource.dispatchEvent(new CustomEvent('data', { detail: { prompt: text }, bubbles: true }))
 
-      const prompt = Array.from(chatBody.querySelectorAll(".chat__message-box"))
-        .map((box) => {
-          const text = box.querySelector(".message-box__text").textContent;
-          const sender = box.querySelector(".message-box__title").textContent;
-          return `${sender}: ${text}`;
+      const prompt = Array.from(chatBody.querySelectorAll('.chat__message-box'))
+        .map(box => {
+          const text = box.querySelector('.message-box__text').textContent
+          const sender = box.querySelector('.message-box__title').textContent
+          return `${sender}: ${text}`
         })
-        .join("\n\n");
+        .join('\n\n')
 
       const api =
-        "https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm";
+        'https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm'
 
       const eventInstructions = `Human: Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
     Use the name attribute from the tag to give the event name, and use the data attributes for the values.
@@ -252,20 +252,20 @@
     ${kanbanBoardInstructions}
 
 
-    `;
+    `
       fetch(api, {
-        method: "post",
-        body: JSON.stringify({ prompt: eventInstructions + prompt }),
+        method: 'post',
+        body: JSON.stringify({ prompt: eventInstructions + prompt })
       })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-          const response = createMessageBox(res.response, "Assistant");
-          response.className = "chat__message-box receiver";
-          chatBody.appendChild(response);
-          response.scrollIntoView({ behavior: "smooth", block: "start" });
+        .then(res => res.json())
+        .then(res => {
+          console.log(res)
+          const response = createMessageBox(res.response, 'Assistant')
+          response.className = 'chat__message-box receiver'
+          chatBody.appendChild(response)
+          response.scrollIntoView({ behavior: 'smooth', block: 'start' })
         })
-        .catch(console.error);
-    });
+        .catch(console.error)
+    })
   </script>
 </html>
