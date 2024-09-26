@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script type="module" src="periDemo.js"></script>
+    <link rel="stylesheet" href="../lib/css/index.css" />
+    <link rel="stylesheet" href="../lib/css/themes/default-theme.css" />
+
+    <style>
+      #external-events {
+        width: 300px;
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+
+        background-color: var(--color-background-200);
+      }
+
+      .fc-event {
+        padding: 0.4rem;
+      }
+
+      #drop-remove {
+        appearance: initial;
+        visibility: visible;
+        position: static;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div id="calendar"></div> -->
+
+    <div id="external-events">
+      <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+        <div class="fc-event-main">My Event 1</div>
+      </div>
+      <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+        <div class="fc-event-main">My Event 2</div>
+      </div>
+      <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+        <div class="fc-event-main">My Event 3</div>
+      </div>
+      <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+        <div class="fc-event-main">My Event 4</div>
+      </div>
+      <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+        <div class="fc-event-main">My Event 5</div>
+      </div>
+
+      <p>
+        <input type="checkbox" id="drop-remove" />
+        <label for="drop-remove">remove after drop</label>
+      </p>
+    </div>
+
+    <div id="calendar-container">
+      <div id="calendar"></div>
+    </div>
+  </body>
+</html>
