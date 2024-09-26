@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@aws-cdk/aws-cognito-identitypool-alpha": "2.158.0-alpha.0",
-    "aws-cdk-lib": "2.151.0",
+    "aws-cdk-lib": "^2.151.0",
     "constructs": "^10.0.0",
-    "devarchy-cdk": "^0.1.0",
+    "devarchy-cdk": "^0.1.1",
     "source-map-support": "^0.5.21"
   }
 }
