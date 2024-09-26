@@ -1,5 +1,5 @@
 :root {
-  --theme-hue: 165;
+  --theme-hue: 25;
 
   /* Colores Primarios */
   --color-primary: hsl(var(--theme-hue), 64%, 66%);
