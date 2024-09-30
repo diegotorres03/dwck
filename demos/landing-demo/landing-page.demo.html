@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>landing-page.demo</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="../../lib/css/themes/default-theme.css" />
+    <link rel="stylesheet" href="../../lib/css/index.css" />
+    <!-- Components -->
+    <script type="module" src="../../lib/landing-page/landing-page.js"></script>
+    <script type="module" src="../../lib/app-router/app-router.js"></script>
+
+    <style>
+      :root {
+        --theme-hue: 25;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Landing Container -->
+    <landing-page>
+      <!-- Header -->
+      <landing-header
+        slot="header"
+        title="Mega Peanut"
+        subtitle="Be more Peanut"
+        logo="https://cdn-icons-png.flaticon.com/512/17845/17845557.png"
+      >
+        <!-- Links -->
+        <a href="#">Home</a>
+        <a href="#about">About Us</a>
+      </landing-header>
+      <!-- Main -->
+      <app-router>
+        <!-- Home -->
+        <app-route>
+          <landing-hero
+            title="Lorem ipsum dolor sit amet."
+            background="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          >
+            <img slot="hero-image" src="./assets/Analytics.png" alt="" />
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Explicabo ad optio dicta, aspernatur nam voluptate quod cupiditate
+              magnam qui nihil, expedita provident cumque veniam distinctio.
+            </p>
+          </landing-hero>
+        </app-route>
+        <!-- About -->
+        <app-route hash="about">
+          <h1>ABOUT</h1>
+        </app-route>
+      </app-router>
+    </landing-page>
+  </body>
+</html>

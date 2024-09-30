@@ -3,6 +3,7 @@
 
 /* Components Public Style */
 @import url("./public-styles/app-layout.css");
+@import url("./public-styles/landing-page.css");
 /*todo @import url("./public-styles/app-modal.css"); */
 
 /* Font */
@@ -14,7 +15,11 @@
   box-sizing: border-box;
 }
 
+html,
 body {
+  width: 100%;
+  min-height: 100vh;
+
   font-family: "Inter", sans-serif;
 }
 

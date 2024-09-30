@@ -1,14 +1,10 @@
-/* TO DO:
-- [ ] Actualizar variables CSS 
-*/
-
 /* Definición de variables*/
 * {
-  --hero-background-color: var(--main-color-6);
-  --hero-before-background: ;
+  --hero-background-color: ;
+  --hero-before-background: var(--color-primary-400);
 
-  --hero-title-font-color: var(--background-color-1);
-  --hero-subtitle-font-color: var(--background-color-3);
+  --hero-title-font-color: var(--color-text-400);
+  --hero-subtitle-font-color: var(--color-text-300);
 
   --hero-button-background-color: var(--background-color-1);
   --hero-button-font-color: var(--text-color-emphasis-high);
@@ -29,6 +25,7 @@
   padding: 0;
 
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .landing-hero {
@@ -38,6 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 4rem;
 
   height: calc(100vh - 64px);
 
@@ -55,7 +53,9 @@
 
   z-index: 90;
 
-  background: var(--main-color-5);
+  background: var(--hero-before-background);
+
+
 }
 
 /* Estilos para la sub capa del contenedor principal (bg-dinamico) */
@@ -74,8 +74,11 @@
   background-size: cover;
   background-position: 50% 50%;
 
-  filter: grayscale(100%);
+  filter: grayscale(100%)contrast(40%);
   mix-blend-mode: soft-light;
+  filter: blur(2px);
+
+
 }
 
 /* Estilos para el contenedor de información (left) */
@@ -98,6 +101,10 @@
   font-weight: 700;
 
   color: var(--hero-title-font-color);
+}
+
+.landing-hero__info-title var {
+  font-style: normal;
 }
 
 /* Estilos para los elementos pasados por slot (dentro de info) */
