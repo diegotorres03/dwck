@@ -1,7 +1,7 @@
 * {
-  --testimonial-background-color: var(--text-color-emphasis-high);
-  --testimonial-title-font-color: var(--background-color-1);
-  --testimonial-subtitle-font-color: var(--background-color-4);
+  --testimonial_background: hsl(240, 0%, 98%);
+  --title_color: var(--color-text-400);
+  --subtitle_color: var(--color-text-200);
 }
 
 .landing-testimonials *,
@@ -27,7 +27,7 @@
 
   padding: 6rem 8rem;
 
-  background-color: hsl(var(--theme-tone), 40%, 96%);
+  background-color: var(--testimonial_background);
 }
 
 .landing-testimonials__title-box {
@@ -44,14 +44,27 @@
 
 .landing-testimonials__title {
   font-size: 2rem;
-  color: var(--testimonial-title-font-color);
   line-height: 1;
+
+  color: var(--title_color);
+}
+
+.landing-testimonials__title var {
+  font-style: normal;
 }
 
 .landing-testimonials__subtitle {
-  color: var(--testimonial-subtitle-font-color);
+  font-size: 1rem;
   line-height: 1.5;
+
+  color: var(--subtitle_color);
 }
+
+.landing-testimonials__subtitle var {
+  font-style: normal;
+}
+
+
 /*  */
 
 .landing-testimonials__testimonial-container {

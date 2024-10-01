@@ -1,7 +1,7 @@
 * {
-  --feature-background-color: hsl(var(--theme-tone), 100%, 97.5%);
-  --feature-title-font-color: var(--background-color-1);
-  --feature-subtitle-font-color: var(--background-color-4);
+  --feature_background: hsl(var(--theme-hue), 90%, 96%);
+  --title_color: var(--color-text-400);
+  --subtitle_color: var(--color-text-200);
 }
 
 .landing-features *,
@@ -26,7 +26,7 @@
   gap: 4rem;
 
   padding: 6rem 8rem;
-  background-color: hsl(var(--theme-tone), 40%, 96%);
+  background-color: var(--feature_background);
 }
 
 .landing-features__title-box {
@@ -43,22 +43,32 @@
 
 .landing-features__title {
   font-size: 2rem;
-  color: var(--feature-title-font-color);
+  color: var(--title_color);
   line-height: 1;
 }
 
+.landing-features__title var {
+  font-style: normal;
+}
+
 .landing-features__subtitle {
-  color: var(--feature-subtitle-font-color);
+  font-size: 1rem;
   line-height: 1.5;
+
+  color: var(--subtitle_color);
+}
+
+.landing-features__subtitle var {
+  font-style: normal;
 }
 
 /*  */
 
 .landing-features__feature-container {
   display: flex;
-  flex-flow: row nowrap;
-  align-items: start;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
   gap: 0.8rem;
 
   width: 100%;
@@ -66,10 +76,12 @@
 
 /* Responsive */
 
+/* Máximo 1200px */
 @media screen and (max-width: 1200px) {
   .landing-features {
     padding: 4rem 6rem;
   }
+
   .landing-features__feature-container {
     flex-flow: row wrap;
     justify-content: space-around;
@@ -77,24 +89,23 @@
   }
 }
 
+/* Máximo 992px */
 @media screen and (max-width: 992px) {
   .landing-features__title-box {
     width: 70%;
   }
 }
 
+/* Máximo 768px */
 @media screen and (max-width: 768px) {
   .landing-features__feature-container {
-    flex-flow: row wrap;
-    justify-content: space-around;
     gap: 2.8rem;
+    /* Solo cambiamos el gap aquí */
   }
 
   .landing-features__title-box {
     width: 100%;
-
     gap: 1rem;
-
     text-align: center;
   }
 
@@ -109,6 +120,8 @@
   }
 }
 
+
+/* Máximo 576px */
 @media screen and (max-width: 576px) {
   .landing-features {
     padding: 4rem 2rem;
@@ -116,10 +129,14 @@
 
   .landing-features__title {
     font-size: 1.8rem;
-    /* line-height: 1.2; */
+  }
+
+  .landing-features__subtitle {
+    font-size: 0.9rem;
   }
 }
 
+/* Máximo 357px */
 @media screen and (max-width: 357px) {
   .landing-features {
     padding: 2rem 2rem;

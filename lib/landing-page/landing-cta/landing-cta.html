@@ -1,22 +1,19 @@
 <section class="landing-cta">
+  <div class="landing-cta__title-box">
+    <h3 class="landing-cta__title" id="title">
+      <var key="title">Landing CTA Section</var>
+    </h3>
 
-    <div class="landing-cta__title-box">
-
-        <h3 class="landing-cta__title" id="title"><var key="title">Landing CTA Section</var></h3>
-        <p class="landing-cta__subtitle" id="subtitle"><var key="subtitle">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Accusantium architecto quaerat laboriosam.
-        </var></p>
-
-    </div>
-    <div class="landing-cta__input-box">
-
-        <slot name="cta-input">
-
-            <button id="cta-btn" class="landing-cta__subscribe-btn"><var key="cta">Subscribe</var></button>
-            
-        </slot>
-
-    </div>
-        
+    <p class="landing-cta__subtitle" id="subtitle">
+      <var key="subtitle"> </var>
+    </p>
+    <slot> </slot>
+  </div>
+  <div class="landing-cta__input-box">
+    <slot name="cta-input">
+      <button id="cta-btn" class="landing-cta__subscribe-btn">
+        <var key="cta">Subscribe</var>
+      </button>
+    </slot>
+  </div>
 </section>

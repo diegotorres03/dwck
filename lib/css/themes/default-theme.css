@@ -4,15 +4,16 @@
   /* Colores Primarios */
   --color-primary: hsl(var(--theme-hue), 64%, 66%);
 
-  --color-primary-100: hsl(var(--theme-hue), 80%, 95%);
-  --color-primary-200: hsl(var(--theme-hue), 72%, 88%);
-  --color-primary-300: hsl(var(--theme-hue), 64%, 80%);
-  --color-primary-400: hsl(var(--theme-hue), 56%, 72%);
-  --color-primary-500: hsl(var(--theme-hue), 48%, 64%);
-  --color-primary-600: hsl(var(--theme-hue), 40%, 56%);
-  --color-primary-700: hsl(var(--theme-hue), 32%, 48%);
-  --color-primary-800: hsl(var(--theme-hue), 24%, 40%);
-  --color-primary-900: hsl(var(--theme-hue), 16%, 32%);
+  --color-primary-100: hsl(var(--theme-hue), 88%, 95%);
+  --color-primary-150: hsl(var(--theme-hue), 80%, 92%);
+  --color-primary-200: hsl(var(--theme-hue), 76%, 88%);
+  --color-primary-300: hsl(var(--theme-hue), 68%, 80%);
+  --color-primary-400: hsl(var(--theme-hue), 60%, 72%);
+  --color-primary-500: hsl(var(--theme-hue), 52%, 64%);
+  --color-primary-600: hsl(var(--theme-hue), 44%, 56%);
+  --color-primary-700: hsl(var(--theme-hue), 36%, 48%);
+  --color-primary-800: hsl(var(--theme-hue), 36%, 40%);
+  --color-primary-900: hsl(var(--theme-hue), 36%, 32%);
 
   /* Colores de fondo */
   --color-background-500: hsl(210, 10%, 64%);

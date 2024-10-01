@@ -1,6 +1,5 @@
 /* Definición de variables*/
 * {
-  --hero-background-color: ;
   --hero-before-background: var(--color-primary-400);
 
   --hero-title-font-color: var(--color-text-400);
@@ -54,8 +53,6 @@
   z-index: 90;
 
   background: var(--hero-before-background);
-
-
 }
 
 /* Estilos para la sub capa del contenedor principal (bg-dinamico) */
@@ -223,7 +220,7 @@
   .landing-hero {
     padding: 4rem 1rem;
 
-    height: auto;
+    min-height: calc(100vh - 64px);
   }
 
   .landing-hero__info-title {

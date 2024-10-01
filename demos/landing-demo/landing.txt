@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="node_modules/dwck-lib/lib/landing-page/landing-page.js"></script>
+
+  <script type="module" src="node_modules/dwck-lib/lib/app-modal/app-modal.js"></script>
+
+  <link rel="stylesheet" href="node_modules/dwck-lib/lib/themes/dark-theme.css">
+  <title>EasyArchery.net</title>
+
+  <link rel="stylesheet" href="node_modules/dwck-lib/lib/landing-page/landing-header/landing-header.css">
+  <style>
+    :root {
+      /*$ DARK THEME COLORS */
+      /* Tone of the theme */
+      --theme-tone: 205;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    /* header */
+
+    li {
+      width: auto;
+      height: 100%;
+    }
+
+    li>a {
+      height: 100%;
+      font-size: .9rem;
+
+      color: var(--text-color-emphasis-mid);
+    }
+
+    button {
+      display: block;
+    }
+
+    landing-feature-card svg path {
+      fill: var(--main-color-3);
+    }
+
+    /*  */
+
+    landing-footer-column * {
+      transition: all .2s ease;
+    }
+
+    landing-footer-column *:hover {
+      color: var(--main-color-5);
+
+      transform: translateX(2px);
+      transition: all .4s ease;
+
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <landing-page>
+
+    <landing-header title="EasyArchery" subtitle="It's never been easier!" logo="">
+      <img width="80px" src="./assets/EasyArcheryLogo.png" alt="EasyArchery logo" slot="logo">
+
+      <a clickable href="#home">Home</a>
+      <a clickable href="#aboutus">About Us</a>
+      <a clickable cta href="#subscribe">Subscribe</a>
+
+    </landing-header>
+
+    <landing-hero title="Our Mission" image="" background="../../../../../assets/EasyArcheryFoto.jpg">
+
+      <p>At EasyArchery, our mission is to democratize and advance the sport of archery across Latin America and
+        worldwide. </p>
+      <p>Through the manufacture of affordable, high-quality archery equipment and comprehensive training programs
+        for coaches and archers, we aim to break down barriers to participation and foster a thriving archery
+        community. By making archery accessible to all, we strive to promote physical activity, skill
+        development, and a sense of achievement among individuals of all ages and backgrounds.</p>
+
+
+        <iframe slot="hero-image" width="372" height="207" src="https://www.youtube.com/embed/m5muBXNAMEY" frameborder="0" allowfullscreen></iframe>
+
+    </landing-hero>
+
+
+    <!-- Información sobre 'landing-feature-card'
+                    - Landing feature card es un sub-componente de 'landing-feature-componente', 
+                    este actúa como item que va dentro de la sección de features
+                    - Acepta un titulo por medio de [data-title] y un subtitulo de [data-subtitle]
+                    - Además acepta un img o svg por medio de [slot="feature-card-img"]
+                    - Cabe a destacar que si se añade un svg al slot, se le aplicara el color predeterminado al path del mismo (o sea, se colorea el icono de manera unicolor acorde al tema escogido)
+                -->
+    <landing-features title="Why Choose EasyArchery" subtitle="for our data driven approach and etc...">
+
+      <landing-feature-card title="Data Driven Approach" subtitle="we are data driven as heck!">
+        <!-- <img width="80px" slot="feature-card-img" src="assets/data-analysis-svgrepo-com.svg" alt=""> -->
+      </landing-feature-card>
+
+      <landing-feature-card title="Easy to Use">
+
+        <svg slot="feature-card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M23.119.882a2.966,2.966,0,0,0-2.8-.8l-16,3.37a4.995,4.995,0,0,0-2.853,8.481L3.184,13.65a1,1,0,0,1,.293.708v3.168a2.965,2.965,0,0,0,.3,1.285l-.008.007.026.026A3,3,0,0,0,5.157,20.2l.026.026.007-.008a2.965,2.965,0,0,0,1.285.3H9.643a1,1,0,0,1,.707.292l1.717,1.717A4.963,4.963,0,0,0,15.587,24a5.049,5.049,0,0,0,1.605-.264,4.933,4.933,0,0,0,3.344-3.986L23.911,3.715A2.975,2.975,0,0,0,23.119.882ZM4.6,12.238,2.881,10.521a2.94,2.94,0,0,1-.722-3.074,2.978,2.978,0,0,1,2.5-2.026L20.5,2.086,5.475,17.113V14.358A2.978,2.978,0,0,0,4.6,12.238Zm13.971,7.17a3,3,0,0,1-5.089,1.712L11.762,19.4a2.978,2.978,0,0,0-2.119-.878H6.888L21.915,3.5Z" />
+        </svg>
+
+      </landing-feature-card>
+
+      <landing-feature-card title="We help you Build"
+        subtitle="Join our builder workshops and learn how to manufacture your own equipment locally!">
+
+        <svg slot="feature-card-img" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512"
+          height="512">
+          <path
+            d="M19.333,14.667a4.66,4.66,0,0,0-3.839,2.024L8.985,13.752a4.574,4.574,0,0,0,.005-3.488l6.5-2.954a4.66,4.66,0,1,0-.827-2.643,4.633,4.633,0,0,0,.08.786L7.833,8.593a4.668,4.668,0,1,0-.015,6.827l6.928,3.128a4.736,4.736,0,0,0-.079.785,4.667,4.667,0,1,0,4.666-4.666ZM19.333,2a2.667,2.667,0,1,1-2.666,2.667A2.669,2.669,0,0,1,19.333,2ZM4.667,14.667A2.667,2.667,0,1,1,7.333,12,2.67,2.67,0,0,1,4.667,14.667ZM19.333,22A2.667,2.667,0,1,1,22,19.333,2.669,2.669,0,0,1,19.333,22Z" />
+        </svg>
+
+      </landing-feature-card>
+     
+      <landing-feature-card title="We Help You Scale" subtitle="Leverage the power of Software and Artificial Intelligence to support your athletes at a national level">
+
+        <svg slot="feature-card-img" id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+          data-name="Layer 1">
+          <path
+            d="m12 0a12 12 0 1 0 12 12 12.013 12.013 0 0 0 -12-12zm8.227 6.329a9.932 9.932 0 0 1 1.746 5.131l-2.736-1.927zm-5.516-3.945-2.711 1.97-2.711-1.97a9.762 9.762 0 0 1 5.422 0zm-.211 8.672-.952 2.944h-3.1l-.948-2.944 2.5-1.82zm-9.737-1.523-2.736 1.927a9.94 9.94 0 0 1 1.745-5.131zm-.756 8.452 3.475.015 1.085 3.38a10.034 10.034 0 0 1 -4.56-3.395zm6.836 3.942-1.901-5.927-6.111-.018a9.914 9.914 0 0 1 -.659-2.176l4.928-3.475-1.776-5.755a10.04 10.04 0 0 1 1.8-1.3l4.833 3.524-4.813 3.5 1.856 5.7h6l1.855-5.708-4.812-3.492 4.837-3.52a10.04 10.04 0 0 1 1.8 1.3l-1.78 5.751 4.931 3.474a9.9 9.9 0 0 1 -.659 2.175l-6.114.02-1.9 5.927a9.205 9.205 0 0 1 -2.314 0zm4.589-.547 1.086-3.38 3.475-.011a10.021 10.021 0 0 1 -4.561 3.391z" />
+        </svg>
+
+      </landing-feature-card>
+
+    </landing-features>
+
+    <landing-testimonials title="Meet Our Team"
+      subtitle="Welcome to Easy Archery, a small family-owned business founded by Diego Torres and Monica Leon. Inspired by their passion for archery and a vision to expand access to the sport, they established Easy Archery to serve communities with limited opportunities.">
+
+      <landing-testimonial-card name="Monica Leon" role="CEO"
+        img="./assets/Monica.jpeg">
+        <p>Monica Leon brings a wealth of experience in safety and quality management to Easy Archery. As our manager
+          and safety product specialist, Monica ensures that every aspect of our equipment meets the highest standards.
+          Her dedication to research and development ensures that our products not only perform exceptionally but also
+          prioritize safety and reliability.</p>
+      </landing-testimonial-card>
+
+      <landing-testimonial-card name="Diego Torres" role="Product Design" img="./assets/Diego.png">
+        <p>Diego Torres is a seasoned athlete and coach with extensive experience in competitive archery. He is the
+          creative force behind Easy Archery, responsible for designing, implementing, and producing our innovative PVC
+          bows. Drawing on his expertise, Diego has crafted bows that faithfully replicate the feel of professional
+          competition bows, thereby reducing the learning curve for aspiring champions.</p>
+      </landing-testimonial-card>
+
+    </landing-testimonials>
+
+
+    <landing-cta title="How to contribute?"
+      subtitle="At Easy Archery, we are dedicated to expanding access to archery through innovation and inclusion. Your support can make a meaningful impact by enabling us to conduct research, develop new solutions, and make archery more accessible to all.
+      Your donation will directly contribute to:
+      Research and Development: Funding ongoing research to enhance equipment safety, performance, and accessibility.
+      Inclusive Programs: Supporting initiatives that introduce archery to communities with limited access to sports facilities.
+      Technological Innovation: Investing in AI and software solutions that track athlete performance and accelerate skill development.
+      Join us in shaping the future of archery. Your contribution not only supports our mission but also helps us create a more inclusive and innovative archery community. Together, we can empower aspiring athletes and enthusiasts alike to reach their full potential in this timeless sport." cta="Donate!"
+      background="../../../../../assets/ShootingLine.jpg">
+
+      <button id="cta-btn" slot="cta-input">Donate!</button>
+    <!-- <a slot="cta-input" href="https://www.paypal.com/us/digital-wallet/manage-money/crypto/pyusd">Donate!</a> -->
+
+    </landing-cta>
+    
+    <app-modal trigger="#cta-btn">
+      <h3 slot="title">How to contribute</h3>
+      <main >
+        <img src="./assets/ea-qr-donations.png" alt="QR for donations"></img>
+        <div><a style="color: whitesmoke" target="_blank" href="https://www.paypal.com/donate/?hosted_button_id=5NX4E4RBHWJMY">Paypal</a></div>
+
+      </main>
+    </app-modal>
+
+
+    <landing-footer>
+
+      <landing-footer-column title="Services">
+
+        <p>Online Timer App.</p>
+        <p>Coach Support App.</p>
+        <p>Score App</p>
+        <p>Tournament Coordination App</p>
+      </landing-footer-column>
+
+
+      <landing-footer-column title="Contact">
+
+        <p><a style="color: var(--title-font-color);" href="mailto:info@easyarchery.net">info@easyarchery.net</a></p>
+        <p><a style="color: var(--title-font-color);" target="_blank" href="https://easyarchery.net">easyarchery.net</a></p>
+        <p>EasyArchery LLC.</p>
+        <p>Chicago Illinois</p>
+        <!-- <p>+</p> -->
+
+      </landing-footer-column>
+
+      <!-- <landing-footer-column title="Socials">
+
+        <p>Facebook: @techsoluciones</p>
+        <p>Twitter: @techsoluciones</p>
+        <p>LinkedIn: TechSoluciones</p>
+        <p>Instagram: @techsoluciones</p>
+
+      </landing-footer-column> -->
+
+
+      <p slot="copyright">&copy; 2024 EasyArchery.</p>
+
+    </landing-footer>
+
+  </landing-page>
+
+</body>
+
+</html>
