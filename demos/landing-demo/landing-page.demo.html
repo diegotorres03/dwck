@@ -12,10 +12,83 @@
     <script type="module" src="../../lib/dwck-welcome/dwck-welcome.js"></script>
     <script type="module" src="../../lib/app-router/app-router.js"></script>
     <script type="module" src="../../lib/app-modal/app-modal.js"></script>
+    <!-- Icons -->
+    <link
+      href="https://dev.iconly.io/public/qpoCO0JFYAmS/iconly.css"
+      rel="stylesheet"
+    />
 
     <style>
       :root {
         --theme-hue: 25;
+      }
+
+      landing-page {
+        position: relative;
+      }
+
+      #ai-btn {
+        position: fixed;
+        bottom: 1.2rem;
+        right: 1.2rem;
+        z-index: 1000;
+
+        padding: 0.7rem 0.8rem 0.7rem;
+        border-radius: 0.6rem;
+
+        font-size: 1.6rem;
+
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+
+        background-color: var(--color-background-i-100);
+        color: ghostwhite;
+
+        transition: all 0.3s ease;
+      }
+
+      #ai-btn:hover {
+        transform: translateY(-4px);
+        background-color: hsl(var(--theme-hue), 75%, 47%);
+        color: ghostwhite;
+      }
+
+      .moving {
+        animation-name: moving;
+        animation-duration: 2s; /* Duración de la animación */
+        animation-timing-function: ease-in-out; /* Suavizar la animación */
+        animation-iteration-count: 2; /* Repetir infinitamente */
+        animation-fill-mode: forwards; /* Mantener el último estado de la animación después de finalizar */
+      }
+
+      .moving:hover {
+        animation-name: none;
+      }
+
+      @keyframes moving {
+        0% {
+          transform: translateY(0px);
+        }
+        30% {
+          transform: translateY(-28px);
+        }
+        45% {
+          transform: translateY(-28px) rotate(20deg);
+        }
+        55% {
+          transform: translateY(-28px) rotate(-20deg);
+        }
+        65% {
+          transform: translateY(-28px) rotate(15deg);
+        }
+        75% {
+          transform: translateY(-28px) rotate(-10deg);
+        }
+        85% {
+          transform: translateY(-28px) rotate(5deg);
+        }
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
       }
     </style>
   </head>
@@ -38,6 +111,13 @@
       <app-router>
         <!-- Home -->
         <app-route>
+          <button
+            class="moving"
+            id="ai-btn"
+            title="Habla con un asistente virtual"
+          >
+            <i class="icon-robot-confused"></i>
+          </button>
           <!-- Hero -->
           <landing-hero
             title="Lorem ipsum dolor sit amet."
@@ -138,7 +218,7 @@
             </p>
             <button slot="cta-input" id="cta-btn">Donate Now!</button>
           </landing-cta>
-          <app-modal trigger="cta-btn"> </app-modal>
+          <app-modal trigger="#ai-btn"> </app-modal>
         </app-route>
         <!-- About -->
         <app-route hash="about">
@@ -162,4 +242,31 @@
       </landing-footer>
     </landing-page>
   </body>
+  <script>
+    const aiBtn = document.querySelector('#ai-btn')
+
+    const killRobot = () => {
+      aiBtn.querySelector('i').className = 'icon-robot-dead'
+    }
+
+    const confuseRobot = () => {
+      aiBtn.querySelector('i').className = 'icon-robot-confused'
+    }
+
+    const amuseRobot = () => {
+      aiBtn.querySelector('i').className = 'icon-robot-happy'
+    }
+
+    aiBtn.addEventListener('mouseover', amuseRobot)
+    aiBtn.addEventListener('mouseup', amuseRobot)
+    aiBtn.addEventListener('mouseout', confuseRobot)
+    aiBtn.addEventListener('mousedown', killRobot)
+
+    aiBtn.addEventListener('animationend', () => {
+      aiBtn.classList.remove('moving')
+      setTimeout(() => {
+        aiBtn.classList.add('moving')
+      }, 5000)
+    })
+  </script>
 </html>
