@@ -1,209 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+    <script type="module" src="../lib/chat-modal/chat-modal.js"></script>
+    <script type="module" src="../lib/app-modal/app-modal.js"></script>
+    <script type="module" src="../lib/app-layout/app-layout.js"></script>
+    <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
 
-  <script type="module" src="../lib/chat-modal/chat-modal.js"></script>
-  <script type="module" src="../lib/app-modal/app-modal.js"></script>
-  <script type="module" src="../lib/app-layout/app-layout.js"></script>
-  <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+    <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+    <script type="module" src="../lib/http-request/http-request.js"></script>
+    <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
+    <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
 
+    <script type="module" src="../lib/event-stream/event-stream.js"></script>
 
-  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
-  <script type="module" src="../lib/http-request/http-request.js"></script>
-  <script type="module" src="../lib/ui-data/ui-data-repeat.js"></script>
-  <script type="module" src="../lib/ask-ai/ask-llm.js"></script>
+    <link rel="stylesheet" href="../lib/css/index.css" />
+    <link rel="stylesheet" href="../lib/css/themes/default-theme.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.css"
+      integrity="sha512-zlYhSecphd+kwRzeCOyj7/u3HZIQ3Q0NP7AN7ZEKhYTdi0AQOGGbc7eA3I/mUffqjdr8G1/9xoS478h+I0MQGg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <script type="module" src="../lib/event-stream/event-stream.js"></script>
+    <style>
+      app-modal * {
+        box-sizing: border-box;
+      }
 
-  <link rel="stylesheet" href="../lib/css/index.css" />
-  <link rel="stylesheet" href="../lib/css/themes/default-theme.css" />
+      /* Chat body */
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.css" integrity="sha512-zlYhSecphd+kwRzeCOyj7/u3HZIQ3Q0NP7AN7ZEKhYTdi0AQOGGbc7eA3I/mUffqjdr8G1/9xoS478h+I0MQGg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      section.chat__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
-  <style>
-    app-modal * {
-      box-sizing: border-box;
-    }
+        padding: 0.5rem;
+        border-radius: 0.4rem;
 
-    /* Chat body */
+        min-height: 240px;
+        max-height: 240px;
 
-    section.chat__body {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+        overflow-x: auto;
 
-      padding: 0.5rem;
-      border-radius: 0.4rem;
+        background-color: var(--background-color-200);
+      }
 
-      min-height: 240px;
-      max-height: 240px;
+      .chat__message-box {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
 
-      overflow-x: auto;
+        /* width: 80%; */
+        max-width: 90%;
 
-      background-color: var(--background-color-2);
-    }
+        padding: 0.5rem;
+        border-radius: 0.4rem;
 
-    .chat__message-box {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
+        font-size: 0.8rem;
 
-      /* width: 80%; */
-      max-width: 90%;
+        word-wrap: break-word;
 
-      padding: 0.5rem;
-      border-radius: 0.4rem;
+        background-color: var(--background-color-500);
+      }
 
-      font-size: 0.8rem;
+      .chat__message-box.sender {
+        align-self: flex-end;
+        border-radius: 0.4rem 0.4rem 0 0.4rem;
+        background-color: var(--color-background-400);
+      }
 
-      word-wrap: break-word;
+      .chat__message-box.receiver {
+        border-radius: 0.4rem 0.4rem 0.4rem 0;
+        background-color: var(--color-primary-500);
+      }
 
-      background-color: var(--background-color-6);
-    }
+      .message-box__title {
+        line-height: 1;
+        font-size: 0.8rem;
+        margin: 0;
 
-    .chat__message-box.sender {
-      align-self: flex-end;
-      border-radius: 0.2rem 0.2rem 0 0.2rem;
-    }
+        color: var(--text-color-emphasis-mid);
+      }
 
-    .chat__message-box.receiver {
-      border-radius: 0.2rem 0.2rem 0.2rem 0;
-      background-color: var(--main-color-2);
-    }
+      .sender .message-box__title {
+        text-align: end;
+      }
 
-    .message-box__title {
-      line-height: 1;
-      font-size: 0.8rem;
-      margin: 0;
+      .message-box__text {
+        color: var(--text-color-emphasis-low);
+      }
 
-      color: var(--text-color-emphasis-mid);
-    }
+      /* Input */
 
-    .sender .message-box__title {
-      text-align: end;
-    }
+      .footer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
 
-    .message-box__text {
-      color: var(--text-color-emphasis-low);
-    }
+        min-width: 100%;
+      }
 
-    /* Input */
+      .chat__input-prompt {
+        width: 80%;
 
-    .footer {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+        padding: 0.4rem;
+        border-radius: 0.4rem;
+        border: 1px solid var(--background-color-7);
 
-      min-width: 100%;
-    }
+        color: var(--text-color-emphasis-mid);
 
-    .chat__input-prompt {
-      width: 80%;
+        background-color: var(--background-color-4);
+      }
 
-      padding: 0.4rem;
-      border-radius: 0.4rem;
-      border: 1px solid var(--background-color-7);
+      .chat__input-prompt:focus {
+        outline: none;
+        filter: brightness(1.05);
+      }
 
-      color: var(--text-color-emphasis-mid);
+      .chat__send-btn {
+        display: grid;
+        place-items: center;
+        width: 20%;
+      }
+    </style>
+  </head>
 
-      background-color: var(--background-color-4);
-    }
-
-    .chat__input-prompt:focus {
-      outline: none;
-      filter: brightness(1.05);
-    }
-
-    .chat__send-btn {
-      display: grid;
-      place-items: center;
-      width: 20%;
-    }
-  </style>
-</head>
-
-<body>
-
-
-
-
-  <!-- <http-request id="post-to-llm" method="post" trigger="#ask-llm" on="prompt"
+  <body>
+    <!-- <http-request id="post-to-llm" method="post" trigger="#ask-llm" on="prompt"
     url="https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm" target="chat__body" append>
     <template>
       <p name="response"></p>
     </template>
   </http-request> -->
 
+    <!-- <p>Here some instructions on how to emit events and how to emit events</p> -->
+    <article id="instructions" style="display: none"></article>
 
-  <!-- <p>Here some instructions on how to emit events and how to emit events</p> -->
-  <article id="instructions" style="display: none;">
-  </article>
+    <event-source id="ask"></event-source>
 
-  <event-source id="ask"></event-source>
+    <!-- <app-modal trigger="#ask" on="data"></app-modal> -->
 
-  <!-- <app-modal trigger="#ask" on="data"></app-modal> -->
+    <app-modal id="ai-chat" trigger="#assistant-btn" on="click">
+      <!-- Title -->
+      <span slot="title">Bedrock Chat</span>
+      <!-- Body, where the messages would go -->
 
+      <ask-llm id="ask-llm" trigger="#ask" on="data">
+        <source src="#instructions" />
+        <section class="chat__body"></section>
+      </ask-llm>
 
-  <app-modal id="ai-chat" trigger="#assistant-btn" on="click">
-    <!-- Title -->
-    <span slot="title">Bedrock Chat</span>
-    <!-- Body, where the messages would go -->
+      <div class="footer" slot="footer">
+        <input
+          id="prompt"
+          class="chat__input-prompt"
+          type="text"
+          name="prompt"
+          id="prompt"
+        />
+        <button id="send-message-btn" class="chat__send-btn">Send</button>
+      </div>
+    </app-modal>
+    <button id="assistant-btn">Assistant</button>
 
-    <ask-llm id="ask-llm" trigger="#ask" on="data">
-      <source src="#instructions">
-      <section class="chat__body">
+    <app-modal trigger="#ai-chat" on="hide">
+      <h3 slot="notes">notes</h3>
+      <section>
+        <p></p>
       </section>
-    </ask-llm>
+    </app-modal>
+    <button id="notes-btn">notes</button>
 
+    <button id="move-card-btn">move card</button>
 
+    <ui-data-repeat trigger="#ask-llm" on="add-to-cart" append>
+      <template>
+        <p name="name"></p>
+      </template>
+    </ui-data-repeat>
 
-    <div class="footer" slot="footer">
-      <input id="prompt" class="chat__input-prompt" type="text" name="prompt" id="prompt" />
-      <button id="send-message-btn" class="chat__send-btn">Send</button>
-    </div>
+    <!-- <event-source id="ai-generated"></event-source> -->
+  </body>
 
-  </app-modal>
-  <button id="assistant-btn">Assistant</button>
+  <!-- Código de prueba -->
+  <script>
+    const chatBody = document.querySelector('.chat__body')
+    const input = document.querySelector('.chat__input-prompt')
+    const sendBtn = document.querySelector('.chat__send-btn')
 
-  <app-modal trigger="#ai-chat" on="hide">
-    <h3 slot="notes">notes</h3>
-    <section>
-      <p></p>
-    </section>
-  </app-modal>
-  <button id="notes-btn">notes</button>
+    const eventSource = document.querySelector('#ask')
 
-  <button id="move-card-btn">move card</button>
+    console.log('source', eventSource)
 
-  <ui-data-repeat trigger="#ask-llm" on="add-to-cart" append>
-    <template>
-      <p name="name"></p>
-    </template>
-  </ui-data-repeat>
-
-
-  <!-- <event-source id="ai-generated"></event-source> -->
-
-</body>
-
-
-
-<!-- Código de prueba -->
-<script>
-  const chatBody = document.querySelector(".chat__body");
-  const input = document.querySelector(".chat__input-prompt");
-  const sendBtn = document.querySelector(".chat__send-btn");
-
-  const eventSource = document.querySelector('#ask')
-
-  console.log('source', eventSource)
-
-
-  const appLayoutInstructions = `If you are requested to create a web application
+    const appLayoutInstructions = `If you are requested to create a web application
   use the following template, use EXACTLY the SAME tags from the example:
   
   <template target="body">
@@ -226,7 +220,7 @@
   
   `
 
-  const kanbanBoardInstructions = `
+    const kanbanBoardInstructions = `
 
 use the \`kanban-board\` tag to create a new kanban board.
 
@@ -288,7 +282,7 @@ You can emit the following events by seting the name attribute to one of the fol
 
   `
 
-  const renderHtmlInstructions = `
+    const renderHtmlInstructions = `
     Since you are running in a web environment, you ask the system to render HTML by writing your html inside a template tag, just add a \`data-attribute\` and assignt the css selector for the container where the content is going to be appended
 
     <example>
@@ -410,7 +404,7 @@ You can emit the following events by seting the name attribute to one of the fol
 
     </example>`
 
-  const instructions = `
+    const instructions = `
 
     Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
     Use the name attribute from the tag to give the event name, and use the data attributes for the values.
@@ -439,39 +433,40 @@ You can emit the following events by seting the name attribute to one of the fol
 
   `
 
-  const createMessageBox = (str, name) => {
-    const messageBox = document.createElement("div");
-    messageBox.className = "chat__message-box sender";
-    const content = `
+    const createMessageBox = (str, name) => {
+      const messageBox = document.createElement('div')
+      messageBox.className = 'chat__message-box sender'
+      const content = `
 				<h3 class="message-box__title">${name}</h3>
 				<span class="message-box__text">
 					${str}
-				</span>`;
-    messageBox.innerHTML = content;
-    return messageBox;
-  };
+				</span>`
+      messageBox.innerHTML = content
+      return messageBox
+    }
 
-  sendBtn.addEventListener("click", () => {
-    const text = input.value;
-    if (text === "") return
-    const messageBox = createMessageBox(text, "Human");
-    chatBody.appendChild(messageBox);
-    messageBox.scrollIntoView({ behavior: "smooth", block: "start" });
-    input.value = "";
+    sendBtn.addEventListener('click', () => {
+      const text = input.value
+      if (text === '') return
+      const messageBox = createMessageBox(text, 'Human')
+      chatBody.appendChild(messageBox)
+      messageBox.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      input.value = ''
 
+      // eventSource.dispatchEvent(new CustomEvent('data', { detail: { prompt: text }, bubbles: true }))
 
-    // eventSource.dispatchEvent(new CustomEvent('data', { detail: { prompt: text }, bubbles: true }))
+      const prompt = Array.from(chatBody.querySelectorAll('.chat__message-box'))
+        .map(box => {
+          const text = box.querySelector('.message-box__text').textContent
+          const sender = box.querySelector('.message-box__title').textContent
+          return `${sender}: ${text}`
+        })
+        .join('\n\n')
 
-    const prompt = Array.from(chatBody.querySelectorAll('.chat__message-box'))
-      .map(box => {
-        const text = box.querySelector('.message-box__text').textContent
-        const sender = box.querySelector('.message-box__title').textContent
-        return `${sender}: ${text}`
-      }).join('\n\n')
+      const api =
+        'https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm'
 
-    const api = 'https://cjyb64boo0.execute-api.us-east-2.amazonaws.com/dev/ask-llm'
-
-    const eventInstructions = `Human: Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
+      const eventInstructions = `Human: Your are running on a web environment, and you can emit events on the DOM by using a the 'emit-event' tag.
     Use the name attribute from the tag to give the event name, and use the data attributes for the values.
 
     <example>
@@ -491,55 +486,54 @@ You can emit the following events by seting the name attribute to one of the fol
 
 
     `
-    
-    // fetch(api, { method: 'post', body: JSON.stringify({ prompt: `Given this instructuions
 
-    //   <instructions>
-    //     ${eventInstructions}
-    //   </instructions>
+      // fetch(api, { method: 'post', body: JSON.stringify({ prompt: `Given this instructuions
 
-    //   and this prompt
+      //   <instructions>
+      //     ${eventInstructions}
+      //   </instructions>
 
-    //   <prompt>
-    //     ${prompt}
-    //   </prompt>
+      //   and this prompt
 
-    //   Make plan step by step on how you will better fulfill this request.
-    //   Think of what you are required to do and see if the tools and web components you are given will help.
-      
+      //   <prompt>
+      //     ${prompt}
+      //   </prompt>
 
-    //   ` }) })
-    //   .then(res => res.json())
-    //   .then(res => console.log("ANALISYS", res))
-      
-    
+      //   Make plan step by step on how you will better fulfill this request.
+      //   Think of what you are required to do and see if the tools and web components you are given will help.
 
-    fetch(api, { method: 'post', body: JSON.stringify({ prompt: eventInstructions + prompt }) })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
-        const response = createMessageBox(res.response, 'Assistant')
-        response.className = "chat__message-box receiver"
-        chatBody.appendChild(response);
-        response.scrollIntoView({ behavior: "smooth", block: "start" });
+      //   ` }) })
+      //   .then(res => res.json())
+      //   .then(res => console.log("ANALISYS", res))
 
-        const templates = Array.from(response.querySelectorAll('template'))
-
-        console.log('templates', templates)
-
-        templates.forEach(template => {
-          const targetSelector = template.dataset.target || template.getAttribute('target')
-          if (!targetSelector) return
-          const target = document.querySelector(targetSelector)
-          console.log('appending to target')
-          target.appendChild(template.content.cloneNode(true))
-        })
+      fetch(api, {
+        method: 'post',
+        body: JSON.stringify({ prompt: eventInstructions + prompt })
       })
-      .catch(console.error)
+        .then(res => res.json())
+        .then(res => {
+          console.log(res)
+          const response = createMessageBox(res.response, 'Assistant')
+          response.className = 'chat__message-box receiver'
+          chatBody.appendChild(response)
+          response.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
-  });
-</script>
+          const templates = Array.from(response.querySelectorAll('template'))
 
+          console.log('templates', templates)
+
+          templates.forEach(template => {
+            const targetSelector =
+              template.dataset.target || template.getAttribute('target')
+            if (!targetSelector) return
+            const target = document.querySelector(targetSelector)
+            console.log('appending to target')
+            target.appendChild(template.content.cloneNode(true))
+          })
+        })
+        .catch(console.error)
+    })
+  </script>
 </html>
 
 <!-- 
@@ -555,8 +549,6 @@ You can emit the following events by seting the name attribute to one of the fol
   H:
   -->
 
-
-
 <!-- Events, capturing and bubbling -->
 <!-- 
   emit a 'hide' event, and set the data attributes name to 'ping' and type to 'awesome' 
@@ -567,7 +559,6 @@ You can emit the following events by seting the name attribute to one of the fol
   create a sample web page using html and inline css, and append it to the body 
 
 -->
-
 
 <!-- app layout -->
 <!-- 
