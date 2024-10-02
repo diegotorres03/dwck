@@ -1,3 +1,8 @@
+* {
+  --column-title_color: gainsboro;
+  --column_list-color: var(--color-text-100);
+}
+
 .landing-footer-column *,
 .landing-footer-column {
   margin: 0;
@@ -11,25 +16,43 @@
 .landing-footer-column {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .landing-footer-column__title {
   font-size: 1.2rem;
   font-weight: 700;
 
-  color: var(--text-color-emphasis-high);
+  color: var(--column-title_color);
+}
+
+.landing-footer-column__title var {
+  font-style: normal;
 }
 
 .landing-footer-column__list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .8rem;
+
+  font-size: .9rem;
+  font-weight: 350;
 
   list-style: none;
 
-  font-size: 1rem;
-  font-weight: 500;
+  color: var(--column_list-color);
+}
 
-  color: var(--text-color-emphasis-mid);
+/*  */
+
+::slotted(p) {
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .landing-footer-column {
+    text-align: center;
+  }
+
 }

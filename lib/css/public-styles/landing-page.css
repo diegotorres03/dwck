@@ -1,0 +1,124 @@
+/* HEADER */
+landing-header [slot="logo"] {
+    max-height: 28px;
+}
+
+landing-header li {
+    list-style: none !important;
+}
+
+landing-header li a {
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 400;
+
+    color: var(--color-text-100);
+}
+
+landing-header li a.active-route {
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 600;
+
+    color: var(--color-primary-100);
+}
+
+/* HERO */
+
+landing-hero img {
+    width: 100%;
+    height: auto;
+}
+
+/* FEATURES */
+
+landing-feature-card svg path {
+    fill: var(--color-primary-800);
+
+}
+
+/* TESTIMONIALS */
+
+/* CTA */
+
+button[slot="cta-input"]:first-of-type {
+    padding: 1rem 1.8rem;
+    border-radius: 0.6rem;
+    border: none;
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+
+    background-color: var(--color-background-i-100);
+    color: ghostwhite;
+
+    transition: all 0.4s ease;
+}
+
+landing-cta:hover button[slot="cta-input"]:first-of-type {
+    transform: scale(1.05);
+    filter: brightness(1) drop-shadow(0px 0px 1.6rem var(--color-primary-200));
+}
+
+landing-cta button[slot="cta-input"]:first-of-type:active {
+    transform: scale(1);
+
+    transition: all 0.02s ease;
+}
+
+/* FOOTER */
+
+landing-footer-column p {
+    margin: 0;
+
+    transition: all .4s ease;
+}
+
+landing-footer-column a {
+    text-decoration: none;
+    color: var(--color-text-100);
+    margin: 0;
+
+    transition: all .4s ease;
+}
+
+landing-footer-column a:hover,
+landing-footer-column p:hover {
+    color: var(--color-primary-100);
+}
+
+
+
+
+/* MediaQueries */
+
+@media only screen and (max-width: 768px) {
+
+    landing-header li {
+        width: 100%;
+        border-radius: .3rem;
+    }
+
+    landing-header li:hover {
+        background-color: var(--color-background-i-300);
+    }
+
+    landing-header li a {
+        display: block;
+
+        padding: .6rem .8rem;
+        color: var(--color-text-100);
+    }
+
+    landing-header li a.active {
+        text-decoration: none;
+        font-size: .8rem;
+        font-weight: 600;
+
+        color: var(--color-primary-100);
+    }
+
+
+
+}
