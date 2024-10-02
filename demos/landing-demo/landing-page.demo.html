@@ -93,6 +93,10 @@
     </style>
   </head>
   <body>
+    <!-- AI BUTTON -->
+    <button class="moving" id="ai-btn" title="Habla con un asistente virtual">
+      <i class="icon-robot-confused"></i>
+    </button>
     <!-- Landing Container -->
     <landing-page>
       <!-- Header -->
@@ -111,13 +115,6 @@
       <app-router>
         <!-- Home -->
         <app-route>
-          <button
-            class="moving"
-            id="ai-btn"
-            title="Habla con un asistente virtual"
-          >
-            <i class="icon-robot-confused"></i>
-          </button>
           <!-- Hero -->
           <landing-hero
             title="Lorem ipsum dolor sit amet."
@@ -223,7 +220,18 @@
         <!-- About -->
         <app-route hash="about">
           <!-- <dwck-welcome></dwck-welcome> -->
-          <h1>ABOUT US</h1>
+          <!-- Hero -->
+          <landing-hero
+            title="About Us"
+            background="https://www.fffuel.co/images/dddepth/dddepth-347.jpg"
+          >
+            <img slot="hero-image" src="./assets/Analytics.png" alt="" />
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Explicabo ad optio dicta, aspernatur nam voluptate quod cupiditate
+              magnam qui nihil, expedita provident cumque veniam distinctio.
+            </p>
+          </landing-hero>
         </app-route>
       </app-router>
       <landing-footer slot="footer">
