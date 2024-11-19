@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "aws s3 cp ./lib s3://devarchystackprod-dwckwebappwebappartifact7b80d33d-ahzw7nyynxt7/lib --recursive ;aws s3api put-bucket-cors --bucket devarchystackprod-dwckwebappwebappartifact7b80d33d-ahzw7nyynxt7 --cors-configuration file://cors-config.json; aws cloudfront create-invalidation --distribution-id E35TVI0ZW0KV3A --path /* ",
     "build": "esbuild amplify.js --bundle --outfile=amplify.bundle.js --format=esm",
     "build:dev": "webpack --mode development --node-env development",
     "serve": "webpack serve --mode development --node-env development",

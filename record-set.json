@@ -1,0 +1,160 @@
+{
+    "ResourceRecordSets": [
+        {
+            "Name": "mega-cloud.io.",
+            "Type": "A",
+            "AliasTarget": {
+                "HostedZoneId": "Z3AQBSTGFYJSTF",
+                "DNSName": "s3-website-us-east-1.amazonaws.com.",
+                "EvaluateTargetHealth": true
+            }
+        },
+        {
+            "Name": "mega-cloud.io.",
+            "Type": "MX",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "10 inbound-smtp.us-east-1.amazonaws.com."
+                }
+            ]
+        },
+        {
+            "Name": "mega-cloud.io.",
+            "Type": "NS",
+            "TTL": 172800,
+            "ResourceRecords": [
+                {
+                    "Value": "ns-1498.awsdns-59.org."
+                },
+                {
+                    "Value": "ns-150.awsdns-18.com."
+                },
+                {
+                    "Value": "ns-630.awsdns-14.net."
+                },
+                {
+                    "Value": "ns-1723.awsdns-23.co.uk."
+                }
+            ]
+        },
+        {
+            "Name": "mega-cloud.io.",
+            "Type": "SOA",
+            "TTL": 900,
+            "ResourceRecords": [
+                {
+                    "Value": "ns-942.awsdns-53.net. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"
+                }
+            ]
+        },
+        {
+            "Name": "mega-cloud.io.",
+            "Type": "TXT",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "\"v=spf1 include:amazonses.com ~all\""
+                }
+            ]
+        },
+        {
+            "Name": "_amazonses.mega-cloud.io.",
+            "Type": "TXT",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "\"w/ztMOGIOXDAbYsC4/tDjoUMYl8ht7naStxUJdFUNT4=\""
+                }
+            ]
+        },
+        {
+            "Name": "_dmarc.mega-cloud.io.",
+            "Type": "TXT",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "\"v=DMARC1;p=quarantine;pct=100;fo=1\""
+                }
+            ]
+        },
+        {
+            "Name": "5ex7nresjms5hqe4yitldhmgjr2o5mow._domainkey.mega-cloud.io.",
+            "Type": "CNAME",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "5ex7nresjms5hqe4yitldhmgjr2o5mow.dkim.amazonses.com."
+                }
+            ]
+        },
+        {
+            "Name": "6dr7hk5posjcjchtmlpdcvczokke64bi._domainkey.mega-cloud.io.",
+            "Type": "CNAME",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "6dr7hk5posjcjchtmlpdcvczokke64bi.dkim.amazonses.com."
+                }
+            ]
+        },
+        {
+            "Name": "7ae6t3hqgbm45phijs33qekoyu4pvz3h._domainkey.mega-cloud.io.",
+            "Type": "CNAME",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "7ae6t3hqgbm45phijs33qekoyu4pvz3h.dkim.amazonses.com."
+                }
+            ]
+        },
+        {
+            "Name": "autodiscover.mega-cloud.io.",
+            "Type": "CNAME",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "autodiscover.mail.us-east-1.awsapps.com."
+                }
+            ]
+        },
+        {
+            "Name": "home.mega-cloud.io.",
+            "Type": "NS",
+            "TTL": 172800,
+            "ResourceRecords": [
+                {
+                    "Value": "ns-1851.awsdns-39.co.uk."
+                },
+                {
+                    "Value": "ns-415.awsdns-51.com."
+                },
+                {
+                    "Value": "ns-1318.awsdns-36.org."
+                },
+                {
+                    "Value": "ns-671.awsdns-19.net."
+                }
+            ]
+        },
+        {
+            "Name": "oldns.mega-cloud.io.",
+            "Type": "TXT",
+            "TTL": 300,
+            "ResourceRecords": [
+                {
+                    "Value": "\"ns-942.awsdns-53.net.\""
+                },
+                {
+                    "Value": "\"ns-1758.awsdns-27.co.uk.\""
+                },
+                {
+                    "Value": "\"ns-1172.awsdns-18.org.\""
+                },
+                {
+                    "Value": "\"ns-199.awsdns-24.com.\""
+                }
+            ]
+        }
+    ]
+}
