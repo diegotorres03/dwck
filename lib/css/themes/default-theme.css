@@ -21,6 +21,7 @@
   --color-background-300: hsl(210, 10%, 80%);
   --color-background-200: hsl(210, 10%, 88%);
   --color-background-100: hsl(210, 10%, 96%);
+  --color-background-50: hsl(210, 10%, 98%);
 
   /* Colores de fondo invertidos */
   --color-background-i-100: hsl(210, 10%, 12%);
@@ -60,7 +61,6 @@
   --color-primary-700: hsl(var(--theme-hue), 48%, 44%);
   --color-primary-800: hsl(var(--theme-hue), 52%, 48%);
   --color-primary-900: hsl(var(--theme-hue), 56%, 52%);
-
 
   /* Colores de fondo */
   --color-background-100: hsl(210, 10%, 12%);

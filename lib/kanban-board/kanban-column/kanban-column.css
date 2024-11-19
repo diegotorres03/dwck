@@ -1,64 +1,101 @@
 /* .Todo lo que entre en la columna  */
-::slotted(*) {
-    border: 1px solid var(--background-color-6);
-    background-color: hsl(var(--theme-tone), 0%, 97.4%);
-    padding: .8rem !important;
-    border-radius: .3rem;
 
-    font-size: .98rem;
+/* ::slotted(*) {
+  margin: 0;
+  padding: 0.8rem;
+  border-radius: 0.3rem;
 
-    cursor: grab;
+  font-size: 0.88rem;
+
+  border: 1px solid var(--color-border-100);
+  background-color: hsl(210, 10%, 98%);
+  color: var(--color-text-200);
+
+  cursor: grab;
 }
 
+::slotted(*):active {
+  cursor: grabbing;
+}
+
+::slotted(*.ex-moved) {
+  border: 1px solid var(--color-primary-300);
+} */
+
 /* Normalizing */
+
 .kanban-column * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* Etiqueta personalizada que contiene la columna */
-:host {
-    /* ? valor riesgoso */
-    --column-width: calc((100% / 3) - 0.66rem);
 
-    display: block;
-    width: var(--column-width);
-    min-width: var(--column-width);
+:host {
+  /* width: fit-content;
+  display: block; */
 }
 
 /* Contenedor principal */
 .kanban-column {
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    height: 100%;
-    width: 100%;
+  min-height: 100%;
+  max-height: 100px;
+  min-width: 250px;
 
-    border-radius: .4rem;
-    border: 0.2px solid var(--background-color-6);
+  border-radius: 0.4rem;
+  border: 1px solid;
 
-    background-color: var(--background-color-8);
+  border-color: var(--color-border-100);
+  background-color: var(--color-background-50);
+
+  scroll-snap-align: center;
 }
 
 /* Titulo de la columna */
 .kanban-column__title {
-    font-weight: 600;
-    color: var(--text-color-emphasis-high);
+  padding: 0.72rem 0.8rem;
+  border-bottom: 1px solid;
 
-    margin: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
 
-    padding: .8rem 1rem;
-    border-bottom: 0.2px solid var(--background-color-6);
+  color: var(--color-text-300);
+  border-color: var(--color-border-100);
 }
 
 /* Contenedor donde irán las kanban-cards */
 .kanban-column__container {
-    display: flex;
-    flex-direction: column;
-    gap: .4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 
-    padding: 1rem;
+  padding: 1rem;
+
+  overflow-y: auto;
+}
+
+.kanban-column.overflowed .kanban-column__container {
+  padding-right: 0;
+}
+
+.kanban-column__container::-webkit-scrollbar {
+  background: var(--color-background-50);
+  border-radius: 4px;
+  scrollbar-width: 2px;
+}
+
+.kanban-column__container::-webkit-scrollbar-thumb {
+  background: var(--color-background-200);
+  border: 0.4rem solid var(--color-background-50);
+  border-radius: 0.8rem;
+}
+
+var {
+  font-style: normal;
 }
