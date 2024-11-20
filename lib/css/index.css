@@ -257,7 +257,7 @@ label.checkbox:before {
   outline: 0.05rem solid var(--color-background-400);
 }
 
-input[type='checkbox']:checked + label:before {
+input[type='checkbox']:checked + label::before {
   content: '✓';
 
   color: var(--color-background-200);
