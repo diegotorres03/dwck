@@ -4,9 +4,29 @@
   <h3 class="kanban-board__title" id="title">
     <var key="title">title</var>
   </h3>
+
   <!-- COLUMN CONTAINER -->
   <div class="kanban-board__container">
+    <div class="container__left-box">
+      <button class="left-box__btn">
+        <svg viewBox="0 0 24 24" width="512" height="512">
+          <path
+            d="M13.293,18.586,7.707,13a1,1,0,0,1,0-1.414L13.293,6A1,1,0,0,1,15,6.707V17.879A1,1,0,0,1,13.293,18.586Z"
+          />
+        </svg>
+      </button>
+    </div>
     <!-- SLOT -->
     <slot></slot>
+
+    <div class="container__right-box">
+      <button class="right-box__btn">
+        <svg viewBox="0 0 24 24" width="512" height="512">
+          <path
+            d="M9,17.879V6.707A1,1,0,0,1,10.707,6l5.586,5.586a1,1,0,0,1,0,1.414l-5.586,5.586A1,1,0,0,1,9,17.879Z"
+          />
+        </svg>
+      </button>
+    </div>
   </div>
 </article>

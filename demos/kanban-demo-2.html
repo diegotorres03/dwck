@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="../lib/css/index.css" />
     <!-- Components -->
     <script type="module" src="../lib/kanban-board/kanban-board.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
     <style>
       body {
         display: grid;
@@ -36,8 +40,9 @@
   </head>
   <body>
     <kanban-board title="Rework">
-      <kanban-column title="Todo" id="todo">
-        <p>Lorem ipsum dolor sit.</p>
+      <kanban-column title="Backlog"></kanban-column>
+      <kanban-column title="Todo">
+        <p>Lorem ipsum dolor sit. <i class="fi fi-sr-caret-right"></i></p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.voluptate
           saepe ad eum! Dolorum.
@@ -46,24 +51,11 @@
           Lorem ipsum dolor sit amet enim quam explicabo quia a animi voluptate
           saepe ad eum! Dolorum.
         </p>
-        <p>Lorem ipsimi voluptate saepe ad eum! Dolorum.</p>
-        <p>Lorem ipsum dolor Quas libero</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <p>Lorem ipsum dolor sit amead eum! Dolorum.</p>
-        <p>
-          Lorem ipsum dolor sit amceat, sed, enim quam explicabo quia a animi
-          voluptate saepe ad eum! Dolorum.
-        </p>
-        <p>pisicing elit. Quas libero</p>
-        <p>
-          Lorem ipsum dolor sit amet ex placeat, sed, enim quam explicabo quia a
-          animi voluptate saepe ad eum! Dolorum.
-        </p>
       </kanban-column>
-      <kanban-column title="Ondo" id="doing"></kanban-column>
-      <kanban-column title="Done" id="done"></kanban-column>
-      <kanban-column title="Waiting" id="waiting"></kanban-column>
-      <kanban-column title="dksadj" id="2"></kanban-column>
+      <kanban-column title="Doing"></kanban-column>
+      <kanban-column title="Done"></kanban-column>
+      <kanban-column title="Testing"></kanban-column>
+      <kanban-column title="Waiting"></kanban-column>
     </kanban-board>
   </body>
 </html>
