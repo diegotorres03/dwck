@@ -35,10 +35,9 @@
   <!-- Event Stream -->
   <script type="module" src="../lib/event-stream/event-stream.js"></script>
 
-  <!-- Styles  -->
-  <link rel="stylesheet" href="../lib/style-tools.css" />
-  <!-- <link rel="stylesheet" href="../lib/themes/light-theme.css" /> -->
-  <link rel="stylesheet" href="../lib/themes/dark-theme.css" />
+  <!-- Style -->
+  <link rel="stylesheet" href="../lib/css/themes/default-theme.css" />
+  <link rel="stylesheet" href="../lib/css/index.css" />
 
   <!-- Dragula -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" />
@@ -181,25 +180,19 @@
   <script>
     document.querySelector('#task-log')
       .addEventListener('updated', event => {
-        console.log('trace: script', event)
         const table = document.querySelector(`#task-table-body`)
         const rows = [...table.querySelectorAll('tr')]
 
-        console.log('reduce: rows', rows)
         const timeMap = {}
 
         const res = rows.reduce((all, row) => {
-          console.log('reduce: row', all, row)
           return all
         }, {})
 
-        console.log('reduce: res', res)
 
         // rows.forEach(row => {
-        //   // console.log('trace: row', row, timeMap)
 
         //   if (!row.dataset) return console.warn('paila')
-        //   console.log('trace: row', row, row.dataset)
         // const { __id, column } = row.dataset
         //   // console.llg()
         //   if (!timeMap[__id]) timeMap[__id] = { [column]: 0 }
@@ -207,8 +200,6 @@
         // })
 
         rows.sort((prev, next) => Number(prev.dataset.timestamp) - Number(next.dataset.timestamp))
-        console.log('trace: rows', rows)
-        rows.forEach(row => console.log('trace: sorted rows', row.dataset.column, new Date(Number(row.dataset.timestamp)).toLocaleString()))
 
         // const timeMap = rows.reduce((result, row) => {
         //   console.log('trace: row', row, result)
@@ -221,7 +212,6 @@
         //   return result
         // }, {})
 
-        console.log('trace: timeMap', timeMap)
       })
   </script>
   <!-- <data-chart id="from-table" from="#sample-table" x="Year" y="Sales" type="bar"></data-chart> -->
